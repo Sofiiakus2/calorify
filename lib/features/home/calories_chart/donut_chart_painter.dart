@@ -79,7 +79,7 @@ class DonutChartPainter extends CustomPainter {
     canvas.drawArc(leftOvalRect, -pi / 2 + usedAngle, leftAngle, false, fillPaint);
 
 
-    fillPaint.color = felicata;
+    fillPaint.color = green;
     canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, borderPaint);
     canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, fillPaint);
 

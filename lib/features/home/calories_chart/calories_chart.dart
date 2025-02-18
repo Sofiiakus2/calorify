@@ -5,7 +5,9 @@ import 'donut_chart_painter.dart';
 
 class CalorieChart extends StatelessWidget {
   final double totalCalories = 1950;
-  final double remainingCalories = 3700;
+  final double remainingCalories = 1500;
+
+  const CalorieChart({super.key});
 
   @override
   Widget build(BuildContext context) {

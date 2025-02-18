@@ -36,8 +36,18 @@ final lightTheme = ThemeData(
 );
 
 final textTheme = TextTheme(
+  labelSmall: GoogleFonts.montserrat(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      color: Colors.black
+  ),
   labelMedium: GoogleFonts.montserrat(
       fontSize: 20,
+      fontWeight: FontWeight.w700,
+      color: Colors.black
+  ),
+  labelLarge: GoogleFonts.raleway(
+      fontSize: 30,
       fontWeight: FontWeight.w700,
       color: Colors.black
   ),
