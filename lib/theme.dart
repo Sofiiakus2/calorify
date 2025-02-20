@@ -8,6 +8,10 @@ const lightGreen = Color(0xFFe1fea7);
 const green = Color(0xFFc3fd56);
 const felicata = Color(0xFFefbc7c);
 //const felicata = Color(0xFFF56D53);
+const lightPurple = Color(0xFFeceefa);
+const lightSalad = Color(0xFFf6fadb);
+const lightBlue = Color(0xFFe9fdfa);
+const lightPink = Color(0xFFf5effb);
 
 var appMainGrey = Colors.grey.withOpacity(0.2);
 
@@ -47,13 +51,18 @@ final textTheme = TextTheme(
       color: Colors.black
   ),
   labelLarge: GoogleFonts.raleway(
-      fontSize: 30,
-      fontWeight: FontWeight.w700,
+      fontSize: 28,
+      fontWeight: FontWeight.w800,
       color: Colors.black
   ),
   bodySmall: GoogleFonts.montserrat(
       fontSize: 14,
       fontWeight: FontWeight.w500,
+      color: Colors.black
+  ),
+  bodyMedium: GoogleFonts.montserrat(
+      fontSize: 18,
+      fontWeight: FontWeight.w700,
       color: Colors.black
   ),
   titleSmall: GoogleFonts.montserrat(

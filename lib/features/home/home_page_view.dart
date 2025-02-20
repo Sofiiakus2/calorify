@@ -1,6 +1,10 @@
+import 'package:calorify/features/home/analitik_tab/food/grid_food.dart';
+import 'package:calorify/features/home/analitik_tab/sport/grid_sport.dart';
+import 'package:calorify/features/home/analitik_tab/water/water_tracker.dart';
 import 'package:calorify/features/home/home_app_bar/home_app_bar_view.dart';
 import 'package:flutter/material.dart';
 
+import 'analitik_tab/analitik_tab_bar.dart';
 import 'calories_chart/calories_chart.dart';
 
 class HomePageView extends StatefulWidget {
@@ -10,9 +14,25 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageViewState();
 }
 
-class _HomePageViewState extends State<HomePageView> {
-  int _selectedIndex = 0;
-  final List<String> categories = ["Їжа", "Активності", "Вода"];
+class _HomePageViewState extends State<HomePageView> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  final List<String> categories = ["Їжа", "Спорт", "Вода"];
+
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: categories.length, vsync: this);
+    _tabController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +40,7 @@ class _HomePageViewState extends State<HomePageView> {
       body: Column(
         children: [
           HomeAppBarView(),
+          SizedBox(height: 10,),
           SizedBox(
               width: double.infinity,
               height: 200,
@@ -56,41 +77,21 @@ class _HomePageViewState extends State<HomePageView> {
               )
           ),
           SizedBox(height: 35,),
-          SizedBox(
-            height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              itemBuilder: (context, index) {
-                return _buildCategoryItem(index, context);
-              },
+          AnalitikTabBar(tabController: _tabController, categories: categories),
+          SizedBox(height: 10,),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+               GridFood(),
+               GridSport(),
+               WaterTracker()
+              ],
             ),
           ),
         ],
       ),
     );
   }
-
-  Widget _buildCategoryItem(int index, BuildContext context) {
-    final bool isSelected = index == _selectedIndex;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Text(
-          categories[index],
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            foreground: Paint()
-              ..style = isSelected ? PaintingStyle.fill : PaintingStyle.stroke
-              ..strokeWidth = 2
-              ..color = Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
 }
+

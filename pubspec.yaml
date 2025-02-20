@@ -32,4 +32,6 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/food/
+    - assets/icons/sport/
 
