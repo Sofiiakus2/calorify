@@ -16,13 +16,12 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final List<String> categories = ["Їжа", "Спорт", "Вода"];
 
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: categories.length, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(() {
       setState(() {});
     });
@@ -77,7 +76,7 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
               )
           ),
           SizedBox(height: 35,),
-          AnalitikTabBar(tabController: _tabController, categories: categories),
+          AnalitikTabBar(tabController: _tabController),
           SizedBox(height: 10,),
           Expanded(
             child: TabBarView(

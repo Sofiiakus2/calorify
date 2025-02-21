@@ -1,3 +1,4 @@
+import 'package:calorify/features/food_page/food_page.dart';
 import 'package:calorify/features/home/home_page_view.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _CustomBottomNavigationViewState
 
   final List<Widget> _pages = [
     HomePageView(),
-    MenuPage(),
+    FoodPage(),
     NotificationsPage(),
   ];
 
@@ -86,14 +87,6 @@ class _CustomBottomNavigationViewState
   }
 }
 
-
-
-class MenuPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Menu Page'));
-  }
-}
 
 class NotificationsPage extends StatelessWidget {
   @override

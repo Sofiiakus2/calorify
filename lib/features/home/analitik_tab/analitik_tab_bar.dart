@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 
-class AnalitikTabBar extends StatelessWidget {
+class AnalitikTabBar extends StatefulWidget {
   const AnalitikTabBar({
     super.key,
     required TabController tabController,
-    required this.categories,
   }) : _tabController = tabController;
 
   final TabController _tabController;
-  final List<String> categories;
+
+  @override
+  State<AnalitikTabBar> createState() => _AnalitikTabBarState();
+}
+
+class _AnalitikTabBarState extends State<AnalitikTabBar> {
+  final List<String> categories = ["Їжа", "Спорт", "Вода"];
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      controller: _tabController,
+      controller: widget._tabController,
       isScrollable: false,
       dividerColor: Colors.transparent,
       indicatorColor: Colors.transparent,
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       tabs: categories.map((category) {
-        final bool isSelected = categories.indexOf(category) == _tabController.index;
+        final bool isSelected = categories.indexOf(category) == widget._tabController.index;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Text(
