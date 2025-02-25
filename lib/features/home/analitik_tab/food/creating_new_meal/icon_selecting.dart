@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class IconSelecting extends StatefulWidget {
-  const IconSelecting({super.key, required this.onIconChoose});
+  const IconSelecting({super.key, required this.onIconChoose, required this.iconPathPrefix});
 
   final Function(String) onIconChoose;
+  final String iconPathPrefix;
 
   @override
   State<IconSelecting> createState() => _IconSelectingState();
@@ -29,7 +30,7 @@ class _IconSelectingState extends State<IconSelecting> {
     );
 
     final icons = manifestMap.keys
-        .where((String key) => key.startsWith('assets/icons/food/'))
+        .where((String key) => key.startsWith('assets/icons/${widget.iconPathPrefix}/'))
         .toList();
 
     setState(() {

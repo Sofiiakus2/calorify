@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:calorify/models/eating_model.dart';
-import 'package:meta/meta.dart';
 
 class MealState {
   final List<EatingModel> meals;

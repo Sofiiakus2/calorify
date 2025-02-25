@@ -39,7 +39,7 @@ class _GridFoodState extends State<GridFood> {
                     color: meal.colorBlock,
                     context: context,
                   );
-                } else {
+                } else if(state.meals.length < 6 ) {
                   return GestureDetector(
                     onTap: () {
                       showDialog(

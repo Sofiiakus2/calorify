@@ -35,16 +35,17 @@ Widget buildActivityCard({
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Ходьба',
+                    name,
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  Text('100 ккал',
+                  Text('$calories ккал',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
             ],
           ),
+          Icon(Icons.mode_edit_outline_outlined, color: Colors.black,)
 
         ],
       ),

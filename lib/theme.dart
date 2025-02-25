@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +15,19 @@ const lightPurple = Color(0xFFeceefa);
 const lightSalad = Color(0xFFf6fadb);
 const lightBlue = Color(0xFFe9fdfa);
 const lightPink = Color(0xFFf5effb);
+
+const List<Color> lightColors = [
+  lightPurple,
+  lightSalad,
+  lightGreen,
+  lightBlue,
+  lightPink,
+];
+
+Color getRandomLightColor() {
+  final random = Random();
+  return lightColors[random.nextInt(lightColors.length)];
+}
 
 var appMainGrey = Colors.grey.withOpacity(0.2);
 

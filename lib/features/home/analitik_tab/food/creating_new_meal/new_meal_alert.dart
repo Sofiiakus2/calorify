@@ -51,6 +51,7 @@ class _NewMealAlertState extends State<NewMealAlert> {
             ),
             SizedBox(height: 20,),
             IconSelecting(
+              iconPathPrefix: 'food',
               onIconChoose: (value){
                 setState(() {
                   iconName = value;
@@ -77,11 +78,8 @@ class _NewMealAlertState extends State<NewMealAlert> {
             ),
           ),
           onPressed: () {
-            if(_controller.text.isEmpty){
-              setState(() {
-                isError = true;
-              });
-            }
+            isError = _controller.text.isEmpty;
+
             EatingModel newMeal = EatingModel(
                 meal: _controller.text,
                 calories: 0,
