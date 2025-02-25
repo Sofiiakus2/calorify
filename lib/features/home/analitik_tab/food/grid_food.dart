@@ -1,4 +1,4 @@
-import 'package:calorify/theme.dart';
+import 'package:calorify/features/home/analitik_tab/food/creating_new_meal/new_meal_alert.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../models/eating_model.dart';
@@ -38,14 +38,26 @@ class _GridFoodState extends State<GridFood> {
           } else {
             return GestureDetector(
               onTap: () {
-                setState(() {
-                  meals.add(EatingModel(
-                    meal: 'Новий прийом',
-                    calories: 0,
-                    iconName: 'salad',
-                    colorBlock: Colors.grey.shade200,
-                  ));
-                });
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return NewMealAlert(
+                      onMealAdded: (meal){
+                        setState(() {
+                          meals.add(meal);
+                        });
+                      },
+                    );
+                  },
+                );
+                // setState(() {
+                //   meals.add(EatingModel(
+                //     meal: 'Новий прийом',
+                //     calories: 0,
+                //     iconName: 'salad',
+                //     colorBlock: Colors.grey.shade200,
+                //   ));
+                // });
               },
               child: Container(
                 decoration: BoxDecoration(

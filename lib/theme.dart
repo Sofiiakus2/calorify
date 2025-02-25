@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 const primaryColor = Colors.grey;
 const secondaryColor = Color(0xFFdfe9fd);
+Color alertBackgroundColor = Colors.grey.shade200;
 const lightGreen = Color(0xFFe1fea7);
 const green = Color(0xFFc3fd56);
 const felicata = Color(0xFFefbc7c);

@@ -7,12 +7,14 @@ class EatingModel{
   int calories;
   String iconName;
   Color colorBlock;
+  bool isTodayOnly;
 
   EatingModel({
     required this.meal,
     required this.calories,
     required this.iconName,
     required this.colorBlock,
+    required this.isTodayOnly,
   });
 }
 
@@ -21,25 +23,29 @@ List<EatingModel> meals = [
       meal: 'Сніданок',
       calories: 243,
       iconName: 'pancakes',
-      colorBlock: lightPurple
+      colorBlock: lightPurple,
+      isTodayOnly: false,
   ),
   EatingModel(
       meal: 'Обід',
       calories: 335,
       iconName: 'salad',
-      colorBlock: lightSalad
+      colorBlock: lightSalad,
+    isTodayOnly: false,
   ),
   EatingModel(
       meal: 'Вечеря',
       calories: 0,
       iconName: 'soup',
-      colorBlock: lightBlue
+      colorBlock: lightBlue,
+    isTodayOnly: false,
   ),
   EatingModel(
       meal: 'Перекус',
       calories: 0,
       iconName: 'pretzel',
-      colorBlock: lightPink
+      colorBlock: lightPink,
+    isTodayOnly: false,
   ),
 
 ];

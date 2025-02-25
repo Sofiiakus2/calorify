@@ -1,4 +1,5 @@
 import 'package:calorify/features/food_page/food_tab/list_food_view.dart';
+import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 import 'food_tab/food_tab.dart';
@@ -12,6 +13,8 @@ class FoodPage extends StatefulWidget {
 
 class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin{
   late TabController _tabController;
+  final TextEditingController _controller = TextEditingController();
+
 
   @override
   void initState() {
@@ -25,6 +28,7 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
   @override
   void dispose() {
     _tabController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -46,23 +50,12 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
               mainAxisSize: MainAxisSize.min,
               children: [
                 Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Продукт, страва або бренд',
-                      prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                      ),
-                    ),
-                  ),
+                  child: CustomTextField(
+                    hintText: 'Продукт, страва або бренд',
+                    controller: _controller,
+                    icon: const Icon(Icons.search, color: Colors.grey),
+                    isError: false,
+                  )
                 ),
                 const SizedBox(width: 8),
                 Container(
