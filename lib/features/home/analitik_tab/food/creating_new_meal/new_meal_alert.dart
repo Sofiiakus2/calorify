@@ -1,4 +1,4 @@
-import 'package:calorify/features/home/analitik_tab/food/creating_new_meal/custom_toggle.dart';
+import 'package:calorify/features/shared_widgets/custom_toggle.dart';
 import 'package:calorify/features/home/analitik_tab/food/creating_new_meal/icon_selecting.dart';
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:calorify/models/eating_model.dart';

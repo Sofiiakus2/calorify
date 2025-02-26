@@ -2,6 +2,7 @@ import 'package:calorify/features/bottom_navigation/custom_bottom_navigation_vie
 import 'package:calorify/features/home/home_page_view.dart';
 import 'package:calorify/state_management/meal/meal_state.dart';
 import 'package:calorify/state_management/sport/sport_state.dart';
+import 'package:calorify/state_management/water/water_state.dart';
 import 'package:calorify/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<SportCubit>(
             create: (context) => SportCubit()
+        ),
+        BlocProvider<WaterCubit>(
+            create: (context) => WaterCubit()
         ),
       ],
       child: MaterialApp(
