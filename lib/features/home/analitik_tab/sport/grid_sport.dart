@@ -25,10 +25,7 @@ class _GridSportState extends State<GridSport> {
               if (index < state.activity.length) {
                 final activity = state.activity[index];
                 return buildActivityCard(
-                  name: activity.name,
-                  calories: activity.calories,
-                  icon: activity.iconName,
-                  color: activity.colorBlock,
+                  sport: state.activity[index],
                   context: context,
                 );
               }

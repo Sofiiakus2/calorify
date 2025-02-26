@@ -14,4 +14,9 @@ class SportCubit extends Cubit<SportState> {
     final updatedSport = List<SportModel>.from(state.activity)..add(act);
     emit(SportState(activity: updatedSport));
   }
+
+  void removeSport(int id) {
+    final updatedList = state.activity.where((sport) => sport.id != id).toList();
+    emit(SportState(activity: updatedList));
+  }
 }

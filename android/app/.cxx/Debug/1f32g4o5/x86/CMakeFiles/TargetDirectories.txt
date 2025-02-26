@@ -1,0 +1,2 @@
+C:/Users/SK/Projects/calorify/android/app/.cxx/Debug/1f32g4o5/x86/CMakeFiles/edit_cache.dir
+C:/Users/SK/Projects/calorify/android/app/.cxx/Debug/1f32g4o5/x86/CMakeFiles/rebuild_cache.dir

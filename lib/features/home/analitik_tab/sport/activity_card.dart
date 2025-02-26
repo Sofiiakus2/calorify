@@ -1,16 +1,18 @@
+import 'package:calorify/models/sport_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../state_management/sport/sport_state.dart';
+import 'creating_new_sport/new_sport_alert.dart';
 
 Widget buildActivityCard({
-  required String name,
-  required int calories,
-  required String icon,
-  required Color color,
+  required SportModel sport,
   required BuildContext context
 }) {
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(30)),
-        color: color
+        color: sport.colorBlock
     ),
     margin: EdgeInsets.only(bottom: 10, left: 15, right: 15),
     child: Padding(
@@ -28,25 +30,43 @@ Widget buildActivityCard({
                     borderRadius: BorderRadius.all(Radius.circular(30))
                 ),
                 child: Center(
-                  child: Image.asset('assets/icons/sport/$icon.png'),
+                  child: Image.asset('assets/icons/sport/${sport.iconName}.png'),
                 ),
               ),              SizedBox(width: 8.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    name,
+                    sport.name,
                     style: TextStyle(fontSize: 18.0),
                   ),
-                  Text('$calories ккал',
+                  Text('${sport.calories} ккал',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
             ],
           ),
-          Icon(Icons.mode_edit_outline_outlined, color: Colors.black,)
-
+          IconButton(
+              onPressed: (){
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return NewSportAlert(
+                      editSport: sport,
+                      onSportEdit: (act ) {
+                        context.read<SportCubit>().removeSport(act.id);
+                        context.read<SportCubit>().addSport(act);
+                      },
+                      onSportDelete: (act){
+                        context.read<SportCubit>().removeSport(act.id);
+                      },
+                    );
+                  },
+                );
+              },
+              icon: Icon(Icons.mode_edit_outline_outlined, color: Colors.black,)
+          )
         ],
       ),
     ),
