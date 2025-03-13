@@ -19,6 +19,7 @@ dependencies:
   fl_chart: ^0.70.2
   flutter_bloc: ^9.0.0
   table_calendar: ^3.2.0
+  openfoodfacts: ^3.20.0
 
 dev_dependencies:
   flutter_test:

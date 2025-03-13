@@ -1,3 +1,4 @@
+import 'package:calorify/api/api_service.dart';
 import 'package:calorify/features/food_page/food_tab/list_food_view.dart';
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,7 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                     controller: _controller,
                     icon: const Icon(Icons.search, color: Colors.grey),
                     isError: false,
+
                   )
                 ),
                 const SizedBox(width: 8),
@@ -65,7 +67,9 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.settings_overscan, color: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                     // OpenFoodFactsApiClass().searchProductsByName('milka');
+                    },
                   ),
                 ),
               ],
