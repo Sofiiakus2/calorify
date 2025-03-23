@@ -1,5 +1,9 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../state_management/meal/food/food_block.dart';
+import '../../state_management/meal/food/food_event.dart';
 import '../../theme.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -15,6 +19,30 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  Timer? _debounce;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_onTextChanged);
+  }
+
+  void _onTextChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      if (widget.controller.text.isNotEmpty) {
+        context.read<FoodSearchBloc>().add(SearchFood(widget.controller.text));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onTextChanged);
+    _debounce?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,18 +62,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24.0),
-          borderSide:  BorderSide(color: widget.isError
-              ? Colors.red
-              : Colors.grey,
-              width: 1.0),        ),
+          borderSide: BorderSide(
+            color: widget.isError ? Colors.red : Colors.grey,
+            width: 1.0,
+          ),
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24.0),
-          borderSide: BorderSide(
-              color:  Colors.black,
-              width: 1.0),
+          borderSide: const BorderSide(
+            color: Colors.black,
+            width: 1.0,
+          ),
         ),
       ),
-
     );
   }
 }

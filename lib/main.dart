@@ -1,11 +1,13 @@
 import 'package:calorify/features/bottom_navigation/custom_bottom_navigation_view.dart';
-import 'package:calorify/features/home/home_page_view.dart';
 import 'package:calorify/state_management/meal/meal_state.dart';
 import 'package:calorify/state_management/sport/sport_state.dart';
 import 'package:calorify/state_management/water/water_state.dart';
+import 'package:calorify/state_management/meal/food/food_block.dart';
 import 'package:calorify/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'api/api_service.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<WaterCubit>(
             create: (context) => WaterCubit()
+        ),
+        BlocProvider<FoodSearchBloc>(
+          create: (context) => FoodSearchBloc(OpenFoodFactsApiClass()),
         ),
       ],
       child: MaterialApp(

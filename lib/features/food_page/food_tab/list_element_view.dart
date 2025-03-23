@@ -1,7 +1,10 @@
+import 'package:calorify/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ListElementView extends StatelessWidget {
-  const ListElementView({super.key});
+  final ProductModel product;
+
+  const ListElementView({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +20,22 @@ class ListElementView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Avocado',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              SizedBox(height: 5,),
-              Text('100 грам, 180 ккал',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.name,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: 5,),
+                Text('100 грам, ${product.energyKcal_100g.toInt()} ккал',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
           ),
           Icon(Icons.add, size: 22, color: Colors.black,)
         ],
