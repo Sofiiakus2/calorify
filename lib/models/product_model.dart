@@ -1,4 +1,4 @@
-class ProductModel{
+class ProductModel {
   String name;
   String barcode;
   String? brand;
@@ -17,20 +17,56 @@ class ProductModel{
   double? carbohydrates_saved;
 
   ProductModel({
-   required this.name,
-   required this.barcode,
-   this.brand,
-   required this.energyKcal_100g,
-   this.energyKj_100g,
-   this.sugar_100g,
-   required this.protein_100g,
-   required this. fat_100g,
-   required this.carbohydrates_100g ,
-   this.energyKcal_saved,
-   this.energyKj_saved,
-   this.sugar_saved,
-   this.protein_saved,
-   this.fat_saved,
-   this.carbohydrates_saved,
-});
+    required this.name,
+    required this.barcode,
+    this.brand,
+    required this.energyKcal_100g,
+    this.energyKj_100g,
+    this.sugar_100g,
+    required this.protein_100g,
+    required this.fat_100g,
+    required this.carbohydrates_100g,
+    this.energyKcal_saved,
+    this.energyKj_saved,
+    this.sugar_saved,
+    this.protein_saved,
+    this.fat_saved,
+    this.carbohydrates_saved,
+  });
+
+  ProductModel copyWith({
+    String? name,
+    String? barcode,
+    String? brand,
+    double? energyKcal_100g,
+    double? energyKj_100g,
+    double? sugar_100g,
+    double? protein_100g,
+    double? fat_100g,
+    double? carbohydrates_100g,
+    double? energyKcal_saved,
+    double? energyKj_saved,
+    double? sugar_saved,
+    double? protein_saved,
+    double? fat_saved,
+    double? carbohydrates_saved,
+  }) {
+    return ProductModel(
+      name: name ?? this.name,
+      barcode: barcode ?? this.barcode,
+      brand: brand ?? this.brand,
+      energyKcal_100g: energyKcal_100g ?? this.energyKcal_100g,
+      energyKj_100g: energyKj_100g ?? this.energyKj_100g,
+      sugar_100g: sugar_100g ?? this.sugar_100g,
+      protein_100g: protein_100g ?? this.protein_100g,
+      fat_100g: fat_100g ?? this.fat_100g,
+      carbohydrates_100g: carbohydrates_100g ?? this.carbohydrates_100g,
+      energyKcal_saved: energyKcal_saved ?? this.energyKcal_saved,
+      energyKj_saved: energyKj_saved ?? this.energyKj_saved,
+      sugar_saved: sugar_saved ?? this.sugar_saved,
+      protein_saved: protein_saved ?? this.protein_saved,
+      fat_saved: fat_saved ?? this.fat_saved,
+      carbohydrates_saved: carbohydrates_saved ?? this.carbohydrates_saved,
+    );
+  }
 }
