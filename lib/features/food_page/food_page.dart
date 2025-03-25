@@ -1,9 +1,8 @@
-import 'package:calorify/api/api_service.dart';
-import 'package:calorify/features/food_page/food_tab/list_food_view.dart';
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 import 'food_tab/food_tab.dart';
+import 'list/list_food_view.dart';
 
 class FoodPage extends StatefulWidget {
   const FoodPage({super.key});

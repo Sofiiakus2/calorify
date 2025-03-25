@@ -1,7 +1,5 @@
 import 'package:calorify/features/home/analitik_tab/sport/creating_new_sport/new_sport_alert.dart';
-import 'package:calorify/models/sport_model.dart';
 import 'package:calorify/state_management/sport/sport_state.dart';
-import 'package:calorify/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

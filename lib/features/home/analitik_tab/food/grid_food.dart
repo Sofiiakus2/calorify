@@ -3,7 +3,6 @@ import 'package:calorify/state_management/meal/meal_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../models/eating_model.dart';
 import 'food_meal_card.dart';
 
 class GridFood extends StatefulWidget {

@@ -1,7 +1,9 @@
-import 'package:calorify/features/food_page/food_tab/calories_settings.dart';
-import 'package:calorify/models/product_model.dart';
+import 'package:calorify/data/local/hive_history_service.dart';
 import 'package:calorify/theme.dart';
 import 'package:flutter/material.dart';
+
+import '../../../data/models/product_model.dart';
+import 'calories_settings.dart';
 
 class ListElementView extends StatelessWidget {
   final ProductModel product;
@@ -42,7 +44,11 @@ class ListElementView extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.add, size: 22, color: Colors.black,)
+          IconButton(
+              onPressed: (){
+                HistoryService().saveProductToHistory(product);
+              },
+              icon: Icon(Icons.add, size: 22, color: Colors.black,))
         ],
       ),
     );

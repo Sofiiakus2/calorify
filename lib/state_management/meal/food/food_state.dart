@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:calorify/models/product_model.dart';
+
+import '../../../data/models/product_model.dart';
 
 abstract class FoodSearchState extends Equatable {
   @override

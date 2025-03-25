@@ -6,10 +6,19 @@ import 'package:calorify/state_management/meal/food/food_block.dart';
 import 'package:calorify/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import 'api/api_service.dart';
+import 'data/models/adapters/product_model_adapter.dart';
+import 'data/models/product_model.dart';
 
-void main() {
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ProductModelAdapter());
+  await Hive.openBox<ProductModel>('historyBox');
   runApp(const MyApp());
 }
 

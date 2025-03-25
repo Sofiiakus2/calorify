@@ -1,7 +1,7 @@
-import 'package:calorify/models/sport_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../data/models/sport_model.dart';
 import '../../../../state_management/sport/sport_state.dart';
 import 'creating_new_sport/new_sport_alert.dart';
 

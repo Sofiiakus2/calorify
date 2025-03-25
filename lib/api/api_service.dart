@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:calorify/models/product_model.dart';
 import 'package:openfoodfacts/openfoodfacts.dart';
+
+import '../data/models/product_model.dart';
 
 class OpenFoodFactsApiClass {
   OpenFoodFactsApiClass() {

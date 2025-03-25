@@ -1,12 +1,13 @@
-import 'package:calorify/features/food_page/food_tab/weight_text_field.dart';
-import 'package:calorify/models/product_model.dart';
+import 'package:calorify/features/food_page/list/weight_text_field.dart';
 import 'package:calorify/state_management/meal/calories/calories_event.dart';
 import 'package:calorify/state_management/meal/calories/calories_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../state_management/meal/calories/calories_bloc.dart';
-import 'info_container.dart';
+import '../../../../state_management/meal/calories/calories_bloc.dart';
+import '../../../data/models/product_model.dart';
+import '../food_tab/info_container.dart';
+
 
 class CaloriesSettings extends StatelessWidget {
   final ProductModel product;

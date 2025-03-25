@@ -5,7 +5,7 @@ import 'package:calorify/features/home/analitik_tab/sport/creating_new_sport/too
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../models/sport_model.dart';
+import '../../../../../data/models/sport_model.dart';
 import '../../../../../theme.dart';
 
 class NewSportAlert extends StatefulWidget {

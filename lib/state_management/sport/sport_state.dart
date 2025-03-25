@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:calorify/models/sport_model.dart';
+
+import '../../data/models/sport_model.dart';
 
 class SportState {
   final List<SportModel> activity;

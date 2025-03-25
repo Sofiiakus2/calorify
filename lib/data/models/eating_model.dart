@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../theme.dart';
+import '../../theme.dart';
+
 
 class EatingModel{
   String meal;

@@ -14,7 +14,7 @@ class FoodTab extends StatefulWidget {
 }
 
 class _FoodTabState extends State<FoodTab> {
-  final List<String> categories = ["Збережені", "Історія"];
+  final List<String> categories = ["Історія", "Збережені",];
 
   @override
   Widget build(BuildContext context) {

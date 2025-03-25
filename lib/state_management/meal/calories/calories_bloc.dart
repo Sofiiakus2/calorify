@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 
-import '../../../models/product_model.dart';
+import '../../../data/models/product_model.dart';
 import 'calories_event.dart';
 import 'calories_state.dart';
 
