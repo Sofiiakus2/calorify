@@ -13,11 +13,12 @@ class FoodSearchLoading extends FoodSearchState {}
 
 class FoodSearchSuccess extends FoodSearchState {
   final List<ProductModel> products;
+  final int? selectedIndex;
 
-  FoodSearchSuccess(this.products);
+  FoodSearchSuccess(this.products, {this.selectedIndex});
 
   @override
-  List<Object?> get props => [products];
+  List<Object?> get props => [products, selectedIndex];
 }
 
 class FoodSearchFailure extends FoodSearchState {

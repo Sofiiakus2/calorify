@@ -1,6 +1,12 @@
+import 'package:calorify/data/models/product_model.dart';
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../api/api_service.dart';
+import '../../state_management/meal/food/food_block.dart';
+import '../../state_management/meal/food/food_event.dart';
+import 'barcode/barcode_scanning_page.dart';
 import 'food_tab/food_tab.dart';
 import 'list/list_food_view.dart';
 
@@ -66,8 +72,21 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.settings_overscan, color: Colors.white),
-                    onPressed: () {
-                     // OpenFoodFactsApiClass().searchProductsByName('milka');
+                    onPressed: () async{
+                      final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BarcodeScanningPage()),
+                      );
+                      if (result != null && result != '-1') {
+                        try {
+                          ProductModel product = await OpenFoodFactsApiClass().getProductByBarcode(result).first; // або .last
+                          context.read<FoodSearchBloc>().add(AddProductFromBarcode(product));
+
+                        } catch (error) {
+                          print('Error getting product: $error');
+                          // ... обробка помилок ...
+                        }
+                      }
                     },
                   ),
                 ),

@@ -19,7 +19,7 @@ class CaloriesBloc extends Bloc<CaloriesEvent, CaloriesState>{
   Future<void> _caloriesChanged(CaloriesChangedEvent e, Emitter emit) async {
     double weight = e.weight;
     double originalWeight = 100;
-print(originalWeight);
+
     double calories = (product.energyKcal_100g / originalWeight) * weight;
     double fats = (product.fat_100g / originalWeight) * weight;
     double carbohydrates = (product.carbohydrates_100g / originalWeight) * weight;

@@ -6,9 +6,26 @@ class HistoryService{
 
   Future<void> saveProductToHistory (ProductModel product) async{
     var historyBox = Hive.box<ProductModel>(_historyBoxName);
-    historyBox.add(product);
-    if(historyBox.length > 20){
-      historyBox.deleteAt(0);
+
+    int? duplicateIndex;
+    for (int i = 0; i < historyBox.length; i++) {
+      if (historyBox.getAt(i)!.barcode == product.barcode) {
+        duplicateIndex = i;
+        break;
+      }
+    }
+
+    if (duplicateIndex != null) {
+      var duplicateProduct = historyBox.getAt(duplicateIndex)!;
+      historyBox.deleteAt(duplicateIndex);
+
+      historyBox.add(duplicateProduct);
+    } else {
+      historyBox.add(product);
+
+      if (historyBox.length > 20) {
+        historyBox.deleteAt(0);
+      }
     }
   }
 

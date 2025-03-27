@@ -22,33 +22,37 @@ class ListElementView extends StatelessWidget {
       ),
       padding: EdgeInsets.all(15),
       margin: EdgeInsets.only(bottom: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
         children: [
-          Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.name,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.name,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 5,),
+                    Text('100 грам, ${product.energyKcal_100g.toInt()} ккал',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
-                SizedBox(height: 5,),
-                Text('100 грам, ${product.energyKcal_100g.toInt()} ккал',
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-                if(isSelected)
-                CaloriesSettings(product: product,),
-              ],
-            ),
+              ),
+              IconButton(
+                  onPressed: (){
+                    HistoryService().saveProductToHistory(product);
+                  },
+                  icon: Icon(Icons.add, size: 22, color: Colors.black,)),
+            ],
           ),
-          IconButton(
-              onPressed: (){
-                HistoryService().saveProductToHistory(product);
-              },
-              icon: Icon(Icons.add, size: 22, color: Colors.black,))
+          if(isSelected)
+            CaloriesSettings(product: product,),
         ],
       ),
     );

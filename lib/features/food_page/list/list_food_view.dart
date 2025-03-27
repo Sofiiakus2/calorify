@@ -23,7 +23,9 @@ class _ListFoodViewState extends State<ListFoodView> {
   Widget build(BuildContext context) {
     return BlocBuilder<FoodSearchBloc, FoodSearchState>(
       builder: (context, state) {
+        int? selectedIndex;
         if( state is FoodSearchInitial){
+          selectedIndex = null;
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             itemCount: history.length,
@@ -45,6 +47,7 @@ class _ListFoodViewState extends State<ListFoodView> {
         else if (state is FoodSearchLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is FoodSearchSuccess) {
+          selectedIndex = state.selectedIndex ?? _selectedIndex;
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             itemCount: state.products.length,
@@ -57,7 +60,7 @@ class _ListFoodViewState extends State<ListFoodView> {
                 },
                 child: ListElementView(
                   product: state.products[index],
-                  isSelected: _selectedIndex == index,
+                  isSelected: selectedIndex == index,
                 ),
               );
             },
