@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "168463230003",
+    "project_id": "calorify-83bd7",
+    "storage_bucket": "calorify-83bd7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168463230003:android:759256c5ad4f4411fcaf46",
+        "android_client_info": {
+          "package_name": "com.example.calorify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEKofUWyzjQqXv1BSNKu35P4BIjfiA6ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,16 +12,16 @@ class CalorieCounter{
 
     double activityMultiplier;
     switch (user.activity) {
-      case "Сидячий": // Sedentary
+      case "Сидячий":
         activityMultiplier = 1.2;
         break;
-      case "Малоактивний": // Lightly active
+      case "Малоактивний":
         activityMultiplier = 1.375;
         break;
-      case "Активний": // Moderately active
+      case "Активний":
         activityMultiplier = 1.55;
         break;
-      case "Дуже активний": // Very active
+      case "Дуже активний":
         activityMultiplier = 1.725;
         break;
       default:
