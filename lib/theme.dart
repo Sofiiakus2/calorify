@@ -86,5 +86,10 @@ final textTheme = TextTheme(
       fontWeight: FontWeight.w800,
       color: Colors.black
   ),
+  titleLarge: GoogleFonts.raleway(
+      fontSize: 34,
+      fontWeight: FontWeight.w800,
+      color: Colors.black
+  ),
 
 );

@@ -1,4 +1,5 @@
 import 'package:calorify/features/bottom_navigation/custom_bottom_navigation_view.dart';
+import 'package:calorify/features/splash/splash_screen.dart';
 import 'package:calorify/state_management/meal/meal_state.dart';
 import 'package:calorify/state_management/sport/sport_state.dart';
 import 'package:calorify/state_management/water/water_state.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
-        home: CustomBottomNavigationView(),
+        home: SplashScreen(),//CustomBottomNavigationView(),
       ),
     );
   }
