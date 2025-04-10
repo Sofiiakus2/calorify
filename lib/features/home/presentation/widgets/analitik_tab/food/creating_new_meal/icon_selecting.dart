@@ -26,7 +26,7 @@ class _IconSelectingState extends State<IconSelecting> {
   Future<void> loadIcons() async {
     final manifestContent = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = Map<String, dynamic>.from(
-      json.decode(manifestContent),
+      json.decode(manifestContent)as Map<String, dynamic>,
     );
 
     final icons = manifestMap.keys
@@ -51,15 +51,17 @@ class _IconSelectingState extends State<IconSelecting> {
         ),
         //padding: const EdgeInsets.all(8.0),
         itemCount: iconPaths.length,
+        // ignore: avoid_unused_parameters
         itemBuilder: (context, index) {
           final iconPath = iconPaths[index];
+
           return GestureDetector(
             onTap: () {
               setState(() {
                 selectedIcon = iconPath;
               });
 
-              String iconName = selectedIcon!.split('/').last.split('.').first;
+              final String iconName = selectedIcon!.split('/').last.split('.').first;
 
               widget.onIconChoose(iconName);
             },

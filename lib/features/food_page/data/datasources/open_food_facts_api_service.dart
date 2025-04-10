@@ -1,15 +1,18 @@
 import 'dart:async';
 import 'package:openfoodfacts/openfoodfacts.dart';
 
-import '../../../../data/models/product_model.dart';
+import 'package:calorify/data/models/product_model.dart';
 
-class OpenFoodFactsApiClass {
-  OpenFoodFactsApiClass() {
+///Class for api connection
+class OpenFoodFactsApiService {
+  ///
+  OpenFoodFactsApiService() {
     OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'calorify');
   }
 
+  ///converting product to existing model
   ProductModel fromProductToModel(Product product) {
-    var nutriments = product.nutriments;
+    final nutriments = product.nutriments;
 
     return ProductModel(
       name: product.productName ?? 'Невідомий продукт',
@@ -31,6 +34,7 @@ class OpenFoodFactsApiClass {
     );
   }
 
+  ///
   Stream<ProductModel> getProductByBarcode(String barcode) async* {
     final ProductQueryConfiguration configuration = ProductQueryConfiguration(
       barcode,
@@ -48,9 +52,14 @@ class OpenFoodFactsApiClass {
     }
   }
 
+
+  ///
   Stream<List<ProductModel>> searchProductsByName(String name) async* {
     final SearchResult result = await OpenFoodAPIClient.searchProducts(
-      User(userId: 'your_unique_id', comment: 'Flutter app using OpenFoodFacts API', password: ''),
+      const User(
+          userId: 'your_unique_id',
+          comment: 'Flutter app using OpenFoodFacts API',
+          password: '',),
       ProductSearchQueryConfiguration(
         parametersList: [SearchTerms(terms: [name])],
         language: OpenFoodFactsLanguage.ENGLISH,

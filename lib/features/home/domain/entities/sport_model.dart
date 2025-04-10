@@ -1,6 +1,5 @@
+import 'package:calorify/core/theme.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/theme.dart';
 
 class SportModel{
   int id;

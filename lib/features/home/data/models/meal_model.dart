@@ -1,13 +1,13 @@
-import 'dart:ui';
 
+import 'package:calorify/core/theme.dart';
+import 'package:calorify/features/home/domain/entities/meal.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme.dart';
-import '../../domain/entities/meal.dart';
-
+/// A model class that represents a meal, extending from the `Meal` entity
 class MealModel extends Meal{
   final Color colorBlock;
 
+  /// Constructor
   MealModel({
     required super.meal,
     required super.calories,
@@ -16,6 +16,7 @@ class MealModel extends Meal{
     required super.isTodayOnly,
 });
 
+  ///Converter from Entity to Model
   factory MealModel.fromEntity(Meal entity) {
     return MealModel(
       meal: entity.meal,

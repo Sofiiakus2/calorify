@@ -46,7 +46,7 @@ class ListElementView extends StatelessWidget {
               ),
               IconButton(
                   onPressed: (){
-                    HistoryService().saveProductToHistory(product);
+                    HiveHistoryService().saveProductToHistory(product);
                   },
                   icon: Icon(Icons.add, size: 22, color: Colors.black,)),
             ],

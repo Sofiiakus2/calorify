@@ -1,9 +1,11 @@
 import 'package:calorify/data/models/product_model.dart';
 import 'package:hive/hive.dart';
 
-class HistoryService{
+///Cache
+class HiveHistoryService{
   static const String _historyBoxName = 'historyBox';
 
+  ///saving product to history
   Future<void> saveProductToHistory (ProductModel product) async{
     var historyBox = Hive.box<ProductModel>(_historyBoxName);
 

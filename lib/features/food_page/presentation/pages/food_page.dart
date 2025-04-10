@@ -1,16 +1,17 @@
 import 'package:calorify/data/models/product_model.dart';
+import 'package:calorify/features/food_page/data/datasources/open_food_facts_api_service.dart';
+import 'package:calorify/features/food_page/presentation/pages/barcode_scanning_page.dart';
+import 'package:calorify/features/food_page/presentation/widgets/food_tab.dart';
+import 'package:calorify/features/food_page/presentation/widgets/list/list_food_view.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/food/food_block.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/food/food_event.dart';
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/datasources/api_service.dart';
-import '../../../home/presentation/bloc/meal/food/food_block.dart';
-import '../../../home/presentation/bloc/meal/food/food_event.dart';
-import '../widgets/list/list_food_view.dart';
-import 'barcode_scanning_page.dart';
-import '../widgets/food_tab.dart';
-
+///page with selecting food
 class FoodPage extends StatefulWidget {
+  ///
   const FoodPage({super.key});
 
   @override
@@ -32,14 +33,8 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
   }
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -72,22 +67,25 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                   ),
                   child: IconButton(
                     icon: const Icon(Icons.settings_overscan, color: Colors.white),
-                    onPressed: () async{
-                      final result = await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BarcodeScanningPage()),
-                      );
-                      if (result != null && result != '-1') {
-                        try {
-                          ProductModel product = await OpenFoodFactsApiClass().getProductByBarcode(result).first; // або .last
-                          context.read<FoodSearchBloc>().add(AddProductFromBarcode(product));
+                      onPressed: () async {
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BarcodeScanningPage()),
+                        );
 
-                        } catch (error) {
-                          print('Error getting product: $error');
-                          // ... обробка помилок ...
+                        // Перевірка, чи result не є null і чи він є рядком
+                        if (result != null && result is String && result != '-1') {
+                          try {
+                            // Використовуємо result як String
+                            ProductModel product = await OpenFoodFactsApiService().getProductByBarcode(result).first; // або .last
+                            context.read<FoodSearchBloc>().add(AddProductFromBarcode(product));
+
+                          } catch (error) {
+                            print('Error getting product: $error');
+                            // ... обробка помилок ...
+                          }
                         }
-                      }
-                    },
+                      },
                   ),
                 ),
               ],
@@ -107,5 +105,12 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _controller.dispose();
+    super.dispose();
   }
 }

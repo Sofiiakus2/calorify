@@ -8,7 +8,7 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'core/injection_container.dart';
 import 'features/bottom_navigation/presentation/pages/custom_bottom_navigation_view.dart';
-import 'features/food_page/data/datasources/api_service.dart';
+import 'features/food_page/data/datasources/open_food_facts_api_service.dart';
 import 'data/models/adapters/product_model_adapter.dart';
 import 'data/models/product_model.dart';
 import 'features/home/domain/usecases/eating/get_meals.dart';
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             create: (context) => WaterCubit()
         ),
         BlocProvider<FoodSearchBloc>(
-          create: (context) => FoodSearchBloc(OpenFoodFactsApiClass()),
+          create: (context) => FoodSearchBloc(OpenFoodFactsApiService()),
         ),
       ],
       child: MaterialApp(

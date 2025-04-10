@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../food_page/data/datasources/api_service.dart';
+import '../../../../../food_page/data/datasources/open_food_facts_api_service.dart';
 import '../../../../../../data/models/product_model.dart';
 import 'food_event.dart';
 import 'food_state.dart';
 
 
 class FoodSearchBloc extends Bloc<FoodSearchEvent, FoodSearchState> {
-  final OpenFoodFactsApiClass api;
+  final OpenFoodFactsApiService api;
   List<ProductModel> currentProducts = [];
 
   FoodSearchBloc(this.api) : super(FoodSearchInitial()) {

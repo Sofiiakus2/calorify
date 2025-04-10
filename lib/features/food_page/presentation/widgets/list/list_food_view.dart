@@ -17,7 +17,7 @@ class ListFoodView extends StatefulWidget {
 
 class _ListFoodViewState extends State<ListFoodView> {
   int? _selectedIndex;
-  List<ProductModel> history = HistoryService().getHistory();
+  List<ProductModel> history = HiveHistoryService().getHistory();
 
 
   @override

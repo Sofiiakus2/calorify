@@ -1,12 +1,13 @@
+import 'package:calorify/features/home/data/models/meal_model.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/meal_state.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/creating_new_meal/new_meal_alert.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/food_meal_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../data/models/meal_model.dart';
-import '../../../bloc/meal/meal_state.dart';
-import 'creating_new_meal/new_meal_alert.dart';
-import 'food_meal_card.dart';
-
+///Grid with shows meals
 class GridFood extends StatefulWidget {
+  ///
   const GridFood({super.key});
 
   @override
@@ -56,7 +57,7 @@ class _GridFoodState extends State<GridFood> {
                         },
                       );
                     },
-                    child: Container(
+                    child: DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.grey.shade200,
@@ -65,9 +66,12 @@ class _GridFoodState extends State<GridFood> {
                     ),
                   );
                 }
+
+                return null;
               },
             );
-          }),
+          },
+      ),
     );
   }
 }

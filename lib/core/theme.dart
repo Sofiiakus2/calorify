@@ -15,7 +15,10 @@ const lightPurple = Color(0xFFeceefa);
 const lightSalad = Color(0xFFf6fadb);
 const lightBlue = Color(0xFFe9fdfa);
 const lightPink = Color(0xFFf5effb);
+var appMainGrey = Colors.grey.withOpacity(0.2);
+const backgroundColor = Colors.white;
 
+///List of colors to generate random
 const List<Color> lightColors = [
   lightPurple,
   lightSalad,
@@ -24,17 +27,15 @@ const List<Color> lightColors = [
   lightPink,
 ];
 
+
+/// Generates random color for meal block
 Color getRandomLightColor() {
   final random = Random();
+
   return lightColors[random.nextInt(lightColors.length)];
 }
 
-var appMainGrey = Colors.grey.withOpacity(0.2);
-
-const backgroundColor = Colors.white;
-
-final themeData = ThemeData();
-
+///Light Theme Settings
 final lightTheme = ThemeData(
   useMaterial3: true,
   primaryColor: primaryColor,
@@ -44,7 +45,7 @@ final lightTheme = ThemeData(
     thickness: 1,
     space: 10,
   ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Colors.white
   ),
   scaffoldBackgroundColor: backgroundColor,
@@ -55,6 +56,7 @@ final lightTheme = ThemeData(
 
 );
 
+///Settings for text theme
 final textTheme = TextTheme(
   labelSmall: GoogleFonts.montserrat(
       fontSize: 14,

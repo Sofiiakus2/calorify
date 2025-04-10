@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
-
-import '../../../../core/theme.dart';
-
-
+///Meal Entity
 class Meal{
   String meal;
   int calories;
   String iconName;
   bool isTodayOnly;
 
+  ///Constructor
   Meal({
     required this.meal,
     required this.calories,
@@ -16,35 +13,3 @@ class Meal{
     required this.isTodayOnly,
   });
 }
-
-// List<Meal> meals = [
-//   Meal(
-//       meal: 'Сніданок',
-//       calories: 243,
-//       iconName: 'pancakes',
-//       colorBlock: lightPurple,
-//       isTodayOnly: false,
-//   ),
-//   Meal(
-//       meal: 'Обід',
-//       calories: 335,
-//       iconName: 'salad',
-//       colorBlock: lightSalad,
-//     isTodayOnly: false,
-//   ),
-//   Meal(
-//       meal: 'Вечеря',
-//       calories: 0,
-//       iconName: 'soup',
-//       colorBlock: lightBlue,
-//     isTodayOnly: false,
-//   ),
-//   Meal(
-//       meal: 'Перекус',
-//       calories: 0,
-//       iconName: 'pretzel',
-//       colorBlock: lightPink,
-//     isTodayOnly: false,
-//   ),
-//
-// ];
