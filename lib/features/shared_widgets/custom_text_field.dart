@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../state_management/meal/food/food_block.dart';
-import '../../state_management/meal/food/food_event.dart';
-import '../../theme.dart';
+import '../home/presentation/bloc/meal/food/food_block.dart';
+import '../home/presentation/bloc/meal/food/food_event.dart';
+
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({super.key, required this.hintText, required this.controller, required this.icon, required this.isError});
