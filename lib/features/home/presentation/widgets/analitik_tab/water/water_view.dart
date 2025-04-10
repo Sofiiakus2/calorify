@@ -1,10 +1,11 @@
+import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/water/water_state.dart';
-
-class WaterDropsScreen extends StatelessWidget {
-  const WaterDropsScreen({Key? key}) : super(key: key);
+///water screen
+class WaterView extends StatelessWidget {
+  ///
+  const WaterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class WaterDropsScreen extends StatelessWidget {
           },
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 0.0),
+          padding: EdgeInsets.zero,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

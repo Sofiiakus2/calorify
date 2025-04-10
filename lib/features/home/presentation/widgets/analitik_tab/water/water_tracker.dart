@@ -1,16 +1,14 @@
 
+import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/time_dropdown.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/water_view.dart';
+import 'package:calorify/features/shared_widgets/custom_toggle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../shared_widgets/custom_toggle.dart';
-import '../../../bloc/water/water_state.dart';
-
-
-
-
+///water tracker
 class WaterTracker extends StatefulWidget {
+  ///
   const WaterTracker({super.key});
 
   @override
@@ -32,13 +30,14 @@ class _WaterTrackerState extends State<WaterTracker> {
           ),
           BlocBuilder<WaterCubit, WaterState>(
             builder: (context, state) {
-              return Text('Ви випили ${state.filledCount} стакани води з ${state.glassesCount}' ,
+              return Text(
+                'Ви випили ${state.filledCount} стакани води з ${state.glassesCount}' ,
                 style: Theme.of(context).textTheme.bodySmall,);
             },
           ),
-          SizedBox(height: 15,),
-          WaterDropsScreen(),
-          SizedBox(height: 15,),
+          const SizedBox(height: 15,),
+          const WaterView(),
+          const SizedBox(height: 15,),
           Text('Сповіщати',
             style: Theme.of(context).textTheme.labelMedium,
           ),
@@ -60,7 +59,7 @@ class _WaterTrackerState extends State<WaterTracker> {
 
           ),
           if(isRemindToDrink)
-          TimeDropdown()
+          const TimeDropdown(),
         ],
       ),
     );

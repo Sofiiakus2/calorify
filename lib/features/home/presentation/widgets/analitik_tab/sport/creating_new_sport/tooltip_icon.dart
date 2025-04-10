@@ -1,6 +1,7 @@
 import 'package:calorify/core/theme.dart';
 import 'package:flutter/material.dart';
 
+///tooltip with message about correct desalination kcal
 class TooltipIcon extends StatefulWidget {
   @override
   _TooltipIconState createState() => _TooltipIconState();

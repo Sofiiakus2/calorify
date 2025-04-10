@@ -1,8 +1,10 @@
 import 'package:calorify/core/theme.dart';
 import 'package:flutter/material.dart';
 
+///Time selector dropdown
 class TimeDropdown extends StatefulWidget {
-  const TimeDropdown({Key? key}) : super(key: key);
+  ///
+  const TimeDropdown({super.key});
 
   @override
   _TimeDropdownState createState() => _TimeDropdownState();
@@ -15,6 +17,7 @@ class _TimeDropdownState extends State<TimeDropdown> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       width: screenWidth,
       padding: const EdgeInsets.symmetric(horizontal: 16.0),

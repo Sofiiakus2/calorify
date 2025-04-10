@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+///Tabbar with user analytic
 class AnalitikTabBar extends StatefulWidget {
+  ///
   const AnalitikTabBar({
-    super.key,
-    required TabController tabController,
+    required TabController tabController, super.key,
   }) : _tabController = tabController;
 
   final TabController _tabController;
@@ -19,14 +20,15 @@ class _AnalitikTabBarState extends State<AnalitikTabBar> {
   Widget build(BuildContext context) {
     return TabBar(
       controller: widget._tabController,
-      isScrollable: false,
       dividerColor: Colors.transparent,
       indicatorColor: Colors.transparent,
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       tabs: categories.map((category) {
-        final bool isSelected = categories.indexOf(category) == widget._tabController.index;
+        final bool isSelected =
+            categories.indexOf(category) == widget._tabController.index;
+
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
+          padding: EdgeInsets.zero,
           child: Text(
             category,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(

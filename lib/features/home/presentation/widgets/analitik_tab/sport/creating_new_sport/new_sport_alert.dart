@@ -10,7 +10,15 @@ import 'package:flutter/material.dart';
 ///Alert for adding new sport to list
 class NewSportAlert extends StatefulWidget {
 
-  const NewSportAlert({super.key, this.onSportAdded, this.editSport, this.onSportEdit, this.onSportDelete});
+  ///
+  const NewSportAlert({
+    super.key,
+    this.onSportAdded,
+    this.editSport,
+    this.onSportEdit,
+    this.onSportDelete,
+  });
+
   final Function(SportModel)? onSportAdded;
   final SportModel? editSport;
   final Function(SportModel)? onSportEdit;
@@ -146,11 +154,11 @@ class _NewSportAlertState extends State<NewSportAlert> {
               onTap: (){
                 Navigator.of(context).pop();
               },
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 backgroundColor: green,
                 child: Icon(Icons.close, color: Colors.black,),
               ),
-            )
+            ),
         ),
       ],
     );
