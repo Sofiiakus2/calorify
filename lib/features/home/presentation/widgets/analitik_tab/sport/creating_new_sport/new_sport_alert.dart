@@ -1,16 +1,15 @@
 import 'dart:math';
 
+import 'package:calorify/core/theme.dart';
+import 'package:calorify/features/home/data/models/sport_model.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/creating_new_meal/icon_selecting.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/sport/creating_new_sport/tooltip_icon.dart';
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-
-import '../../../../../../../core/theme.dart';
-import '../../../../../domain/entities/sport_model.dart';
-import '../../food/creating_new_meal/icon_selecting.dart';
-
-
+///Alert for adding new sport to list
 class NewSportAlert extends StatefulWidget {
+
   const NewSportAlert({super.key, this.onSportAdded, this.editSport, this.onSportEdit, this.onSportDelete});
   final Function(SportModel)? onSportAdded;
   final SportModel? editSport;
@@ -118,7 +117,7 @@ class _NewSportAlertState extends State<NewSportAlert> {
                   widget.editSport!.name = _controllerName.text;
                   widget.editSport!.calories = int.parse(_controllerCalories.text);
                   widget.editSport!.iconName = iconName!;
-                  widget.editSport!.colorBlock = getRandomLightColor();
+                 // widget.editSport!.colorBlock = getRandomLightColor();
                   widget.onSportEdit!(widget.editSport!);
                   Navigator.of(context).pop();
                 }

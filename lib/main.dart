@@ -1,22 +1,22 @@
-import 'package:calorify/features/home/domain/usecases/eating/add_meals.dart';
-import 'package:calorify/features/splash/presentation/pages/splash_screen.dart';
+import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/theme.dart';
+import 'package:calorify/data/models/adapters/product_model_adapter.dart';
+import 'package:calorify/data/models/product_model.dart';
+import 'package:calorify/features/bottom_navigation/presentation/pages/custom_bottom_navigation_view.dart';
+import 'package:calorify/features/food_page/data/datasources/open_food_facts_api_service.dart';
+import 'package:calorify/features/home/domain/usecases/meal/add_meals.dart';
+import 'package:calorify/features/home/domain/usecases/meal/get_meals.dart';
+import 'package:calorify/features/home/domain/usecases/sport/add_sport.dart';
+import 'package:calorify/features/home/domain/usecases/sport/delete_sport.dart';
+import 'package:calorify/features/home/domain/usecases/sport/get_sport.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/food/food_block.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/meal_state.dart';
+import 'package:calorify/features/home/presentation/bloc/sport/sport_state.dart';
+import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-
-import 'core/injection_container.dart';
-import 'features/bottom_navigation/presentation/pages/custom_bottom_navigation_view.dart';
-import 'features/food_page/data/datasources/open_food_facts_api_service.dart';
-import 'data/models/adapters/product_model_adapter.dart';
-import 'data/models/product_model.dart';
-import 'features/home/domain/usecases/eating/get_meals.dart';
-import 'features/home/presentation/bloc/meal/food/food_block.dart';
-import 'features/home/presentation/bloc/meal/meal_state.dart';
-import 'features/home/presentation/bloc/sport/sport_state.dart';
-import 'features/home/presentation/bloc/water/water_state.dart';
-import 'features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
 
 
 void main() async{
@@ -40,10 +40,14 @@ class MyApp extends StatelessWidget {
               getMeals: sl<GetMeals>(),
               addMeal: sl<AddMeals>(),
             )..loadMeals(),
-          child: GridFood(),
+          child: const GridFood(),
         ),
         BlocProvider<SportCubit>(
-            create: (context) => SportCubit()
+            create: (context) => SportCubit(
+              getSport: sl<GetSport>(),
+              addSport: sl<AddSport>(),
+              deleteSport: sl<DeleteSport>(),
+            )..loadSport(),
         ),
         BlocProvider<WaterCubit>(
             create: (context) => WaterCubit()

@@ -1,11 +1,13 @@
+import 'package:calorify/features/home/data/models/sport_model.dart';
+import 'package:calorify/features/home/presentation/bloc/sport/sport_state.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/sport/activity_card.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/sport/creating_new_sport/new_sport_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/sport/sport_state.dart';
-import 'activity_card.dart';
-import 'creating_new_sport/new_sport_alert.dart';
-
+///Grid for showing ssport
 class GridSport extends StatefulWidget {
+  ///
   const GridSport({super.key});
 
   @override
@@ -18,24 +20,28 @@ class _GridSportState extends State<GridSport> {
     return BlocBuilder<SportCubit, SportState>(
       builder: (context, state) {
         return ListView.builder(
-          itemCount: state.activity.length + 1,
+          itemCount: state.sport.length + 1,
             itemBuilder: (context, index) {
-              if (index < state.activity.length) {
-                final activity = state.activity[index];
-                return buildActivityCard(
-                  sport: state.activity[index],
-                  context: context,
+              if (index < state.sport.length) {
+                final sport = state.sport[index];
+                final sportModel = SportModel.fromEntity(sport);
+
+
+                return ActivityCard(
+                  sport: sportModel,
                 );
               }
               else {
                 return GestureDetector(
                   onTap: () {
+                    final cubit = context.read<SportCubit>();
+
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return NewSportAlert(
-                          onSportAdded: (act ) {
-                            context.read<SportCubit>().addSport(act);
+                          onSportAdded: (activity ) {
+                            cubit.add(activity);
                           },
 
                         );
@@ -44,12 +50,12 @@ class _GridSportState extends State<GridSport> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        color: Colors.grey.shade200
+                        borderRadius: const BorderRadius.all(Radius.circular(30)),
+                        color: Colors.grey.shade200,
                     ),
-                    margin: EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                    margin: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                    child: const Padding(
+                      padding: EdgeInsets.all(16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -75,9 +81,9 @@ class _GridSportState extends State<GridSport> {
                   ),
                 );
               }
-            }
+            },
         );
-      }
+      },
     );
   }
 }

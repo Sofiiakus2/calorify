@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:calorify/features/home/domain/entities/meal.dart';
-import 'package:calorify/features/home/domain/usecases/eating/add_meals.dart';
-import 'package:calorify/features/home/domain/usecases/eating/get_meals.dart';
+import 'package:calorify/features/home/domain/usecases/meal/add_meals.dart';
+import 'package:calorify/features/home/domain/usecases/meal/get_meals.dart';
 
 ///State for meals
 class MealState {
