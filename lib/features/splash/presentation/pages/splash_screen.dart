@@ -1,7 +1,9 @@
 import 'package:calorify/features/splash/presentation/pages/goal_page.dart';
 import 'package:flutter/material.dart';
 
+///splash screen which shows only once, before registration
 class SplashScreen extends StatelessWidget {
+  ///
   const SplashScreen({super.key});
 
   @override
@@ -9,7 +11,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -30,13 +32,13 @@ class SplashScreen extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              padding: EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
             ),
             child: Text(
               'Розпочати',
               style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w800),
             ),
-          )
+          ),
             ],
           ),
         ),

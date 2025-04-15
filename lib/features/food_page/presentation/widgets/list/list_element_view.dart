@@ -2,7 +2,7 @@ import 'package:calorify/core/entities/my_product.dart';
 import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/theme.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_history.dart';
-import 'package:calorify/features/food_page/presentation/widgets/list/calories_settings.dart';
+import 'package:calorify/features/food_page/presentation/widgets/list/calories_editor.dart';
 import 'package:flutter/material.dart';
 
 ///element of the list view
@@ -58,7 +58,7 @@ class ListElementView extends StatelessWidget {
             ],
           ),
           if(isSelected)
-            CaloriesSettings(product: product,),
+            CaloriesEditor(product: product,),
         ],
       ),
     );

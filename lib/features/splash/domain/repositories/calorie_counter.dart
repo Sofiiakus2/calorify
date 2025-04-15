@@ -1,8 +1,8 @@
-import 'package:calorify/data/models/user_model.dart';
+import 'package:calorify/core/entities/my_user.dart';
 
 class CalorieCounter{
 
-  void calculateCalories(UserModel user){
+  void calculateCalories(MyUser user){
     double bmr;
     if (user.gender?.toLowerCase() == "чоловік") {
       bmr = 10 * user.weightKg! + 6.25 * user.heightCm! - 5 * user.age! + 5;

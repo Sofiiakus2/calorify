@@ -1,4 +1,5 @@
-class UserModel{
+///User entity
+class MyUser{
   String? id;
   String? name;
   String? email;
@@ -9,7 +10,8 @@ class UserModel{
   String? activity;
   String? goal;
 
-  UserModel({
+  ///Constructor
+  MyUser({
     this.id,
     this.name,
     this.email,
@@ -18,10 +20,11 @@ class UserModel{
     this.heightCm,
     this.gender,
     this.activity,
-    this.goal
+    this.goal,
 });
 
-  UserModel copyWith({
+  ///copy with method
+  MyUser copyWith({
     String? id,
     String? name,
     String? email,
@@ -32,7 +35,7 @@ class UserModel{
     String? activity,
     String? goal,
   }) {
-    return UserModel(
+    return MyUser(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -44,5 +47,4 @@ class UserModel{
       goal: goal ?? this.goal,
     );
   }
-
 }

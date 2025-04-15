@@ -1,4 +1,3 @@
-import 'package:calorify/features/food_page/data/model/product_model.dart';
 import 'package:equatable/equatable.dart';
 
 

@@ -16,6 +16,7 @@ import 'package:calorify/features/home/presentation/bloc/meal/meal_state.dart';
 import 'package:calorify/features/home/presentation/bloc/sport/sport_state.dart';
 import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
+import 'package:calorify/features/splash/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';

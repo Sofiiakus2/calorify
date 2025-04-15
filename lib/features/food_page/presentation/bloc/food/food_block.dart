@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:calorify/core/entities/my_product.dart';
-import 'package:calorify/core/injection_container.dart';
-import 'package:calorify/features/food_page/domain/repositories/product_repository.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_product_by_barcode.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_by_name.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';

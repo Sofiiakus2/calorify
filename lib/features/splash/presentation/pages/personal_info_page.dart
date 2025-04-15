@@ -1,11 +1,12 @@
-import 'package:calorify/data/models/user_model.dart';
+import 'package:calorify/core/entities/my_user.dart';
 import 'package:calorify/features/splash/domain/repositories/calorie_counter.dart';
+import 'package:calorify/features/splash/presentation/widgets/custom_input_field.dart';
+import 'package:calorify/features/splash/presentation/widgets/dropdown_field.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_input_field.dart';
-import '../widgets/dropdown_field.dart';
-
+///screen with personal info. Uses for count calories
 class PersonalInfoPage extends StatefulWidget {
+  ///
   const PersonalInfoPage({super.key, required this.goal});
 
   final String goal;
@@ -15,47 +16,35 @@ class PersonalInfoPage extends StatefulWidget {
 }
 
 class _PersonalInfoPageState extends State<PersonalInfoPage> {
-  late final TextEditingController ageController;
-  late final TextEditingController weightController;
-  late final TextEditingController heightController;
+  final TextEditingController ageController = TextEditingController(text: '20');
+  final TextEditingController weightController = TextEditingController(text: '60');
+  final TextEditingController heightController = TextEditingController(text: '160');
 
   String? selectedGender;
   String? selectedActivity;
 
-  @override
-  void initState() {
-    super.initState();
-    ageController = TextEditingController(text: '20');
-    weightController = TextEditingController(text: '60');
-    heightController = TextEditingController(text: '160');
-  }
-
-  @override
-  void dispose() {
-    ageController.dispose();
-    weightController.dispose();
-    heightController.dispose();
-    super.dispose();
-  }
 
   void _validateAndSubmit() {
-    if (ageController.text.isNotEmpty &&
-        weightController.text.isNotEmpty &&
-        heightController.text.isNotEmpty &&
-        selectedGender != null &&
-        selectedActivity != null) {
-      UserModel user = UserModel(
-        goal: widget.goal,
-        age: int.tryParse(ageController.text) ?? 0,
-        weightKg: int.tryParse(weightController.text) ?? 0,
-        heightCm: int.tryParse(heightController.text) ?? 0,
-        gender: selectedGender,
-        activity: selectedActivity,
-      );
-
-      CalorieCounter().calculateCalories(user);
+    if (ageController.text.isEmpty ||
+        weightController.text.isEmpty ||
+        heightController.text.isEmpty ||
+        selectedGender == null ||
+        selectedActivity == null) {
+      return;
     }
+
+    final MyUser user = MyUser(
+      goal: widget.goal,
+      age: int.tryParse(ageController.text) ?? 0,
+      weightKg: int.tryParse(weightController.text) ?? 0,
+      heightCm: int.tryParse(heightController.text) ?? 0,
+      gender: selectedGender,
+      activity: selectedActivity,
+    );
+
+    CalorieCounter().calculateCalories(user);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +54,6 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text('Ваші дані', style: Theme
                   .of(context)
@@ -74,7 +62,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
               InputField(label: "Вік", controller: ageController),
               DropdownField(
                 label: "Стать",
-                items: ["Жінка", "Чоловік"],
+                items: const ["Жінка", "Чоловік"],
                 selectedValue: selectedGender,
                 onChanged: (value) => setState(() => selectedGender = value),
               ),
@@ -82,7 +70,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
               InputField(label: "Зріст/см", controller: heightController),
               DropdownField(
                 label: "Активність",
-                items: ["Сидячий", "Малоактивний", "Активний", "Дуже активний"],
+                items: const ["Сидячий", "Малоактивний", "Активний", "Дуже активний"],
                 selectedValue: selectedActivity,
                 onChanged: (value) => setState(() => selectedActivity = value),
               ),
@@ -111,11 +99,19 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                         .labelMedium
                         ?.copyWith(
                         color: Colors.white, fontWeight: FontWeight.w800)),
-              )
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    ageController.dispose();
+    weightController.dispose();
+    heightController.dispose();
+    super.dispose();
   }
 }

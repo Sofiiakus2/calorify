@@ -1,18 +1,18 @@
 import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/features/food_page/presentation/bloc/calories/calories_bloc.dart';
+import 'package:calorify/features/food_page/presentation/bloc/calories/calories_event.dart';
+import 'package:calorify/features/food_page/presentation/bloc/calories/calories_state.dart';
 import 'package:calorify/features/food_page/presentation/widgets/info_container.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/weight_text_field.dart';
-import 'package:calorify/features/home/presentation/bloc/meal/calories/calories_bloc.dart';
-import 'package:calorify/features/home/presentation/bloc/meal/calories/calories_event.dart';
-import 'package:calorify/features/home/presentation/bloc/meal/calories/calories_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///widget to set calories
-class CaloriesSettings extends StatelessWidget {
+class CaloriesEditor extends StatelessWidget {
   final MyProduct product;
 
   ///
-  const CaloriesSettings({super.key, required this.product});
+  const CaloriesEditor({required this.product, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +34,21 @@ class _CaloriesSettingsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CaloriesBloc, CaloriesState>(
         builder: (context, state){
-          double calories = product.energyKcal_saved!;
-          double fats = product.fat_saved!;
-          double carbohydrates = product.carbohydrates_saved!;
-          double proteins = product.protein_saved!;
+          double calories = 0;
+          double fats = 0;
+          double carbohydrates = 0;
+          double proteins = 0;
 
           if (state is UpdateCaloriesState) {
             calories = state.calories;
             fats = state.fats;
             carbohydrates = state.carbohydrates;
             proteins = state.proteins;
+          } else {
+            calories = product.energyKcal_saved ?? 0;
+            fats = product.fat_saved ?? 0;
+            carbohydrates = product.carbohydrates_saved ?? 0;
+            proteins = product.protein_saved ?? 0;
           }
 
           return  Column(
@@ -75,7 +80,7 @@ class _CaloriesSettingsContent extends StatelessWidget {
               ),
             ],
           );
-        }
+        },
     );
   }
 }
