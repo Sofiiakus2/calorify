@@ -1,18 +1,17 @@
+import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/features/food_page/presentation/widgets/info_container.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/weight_text_field.dart';
-
+import 'package:calorify/features/home/presentation/bloc/meal/calories/calories_bloc.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/calories/calories_event.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/calories/calories_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../data/models/product_model.dart';
-
-import '../../../../home/presentation/bloc/meal/calories/calories_bloc.dart';
-import '../../../../home/presentation/bloc/meal/calories/calories_event.dart';
-import '../../../../home/presentation/bloc/meal/calories/calories_state.dart';
-import '../info_container.dart';
-
-
+///widget to set calories
 class CaloriesSettings extends StatelessWidget {
-  final ProductModel product;
+  final MyProduct product;
+
+  ///
   const CaloriesSettings({super.key, required this.product});
 
   @override
@@ -27,7 +26,7 @@ class CaloriesSettings extends StatelessWidget {
 }
 
 class _CaloriesSettingsContent extends StatelessWidget {
-  final ProductModel product;
+  final MyProduct product;
 
   const _CaloriesSettingsContent({required this.product});
 
@@ -46,21 +45,22 @@ class _CaloriesSettingsContent extends StatelessWidget {
             carbohydrates = state.carbohydrates;
             proteins = state.proteins;
           }
+
           return  Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Змінити вагу продукту',
                 style: Theme.of(context).textTheme.titleSmall,
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               WeightTextField(
                 onChangedWeight: (value) {
                   context.read<CaloriesBloc>().add(CaloriesChangedEvent(value));
                 },
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 children: [
                   InfoContainer(name: 'Калорії', count: double.parse(calories.toStringAsFixed(2))),

@@ -1,14 +1,15 @@
+import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/core/injection_container.dart';
+import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_state.dart';
+import 'package:calorify/features/food_page/presentation/widgets/list/list_element_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../data/models/product_model.dart';
-
-import '../../../../home/presentation/bloc/meal/food/food_block.dart';
-import '../../../../home/presentation/bloc/meal/food/food_state.dart';
-import '../../../data/local/hive_history_service.dart';
-import 'list_element_view.dart';
-
+///list of food
 class ListFoodView extends StatefulWidget {
+  ///
   const ListFoodView({super.key});
 
   @override
@@ -17,38 +18,41 @@ class ListFoodView extends StatefulWidget {
 
 class _ListFoodViewState extends State<ListFoodView> {
   int? _selectedIndex;
-  List<ProductModel> history = HiveHistoryService().getHistory();
-
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FoodSearchBloc, FoodSearchState>(
+    return BlocBuilder<FoodBlock, FoodSearchState>(
       builder: (context, state) {
         int? selectedIndex;
-        if( state is FoodSearchInitial){
-          selectedIndex = null;
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            itemCount: history.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                child: ListElementView(
-                  product: history[index],
-                  isSelected: _selectedIndex == index,
-                ),
-              );
-            },
-          );
-        }
-        else if (state is FoodSearchLoading) {
+        //if( state is FoodSearchInitial){
+
+
+          // selectedIndex = null;
+          //
+          // return ListView.builder(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          //   itemCount: _history.length,
+          //   itemBuilder: (context, index) {
+          //     return GestureDetector(
+          //       onTap: () {
+          //         setState(() {
+          //           _selectedIndex = index;
+          //         });
+          //       },
+          //       child: ListElementView(
+          //         product: _history[index],
+          //         isSelected: _selectedIndex == index,
+          //       ),
+          //     );
+          //   },
+          // );
+       // }
+       // else
+          if (state is FoodSearchLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is FoodSearchSuccess) {
           selectedIndex = state.selectedIndex ?? _selectedIndex;
+
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             itemCount: state.products.length,
@@ -67,6 +71,7 @@ class _ListFoodViewState extends State<ListFoodView> {
             },
           );
         }
+
         return const Center(child: Text('Введіть назву продукту для пошуку'));
       },
     );

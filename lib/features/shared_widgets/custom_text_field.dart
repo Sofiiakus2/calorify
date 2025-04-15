@@ -1,13 +1,18 @@
 import 'dart:async';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../home/presentation/bloc/meal/food/food_block.dart';
-import '../home/presentation/bloc/meal/food/food_event.dart';
-
-
+///custom text fiels
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({super.key, required this.hintText, required this.controller, required this.icon, required this.isError});
+  ///Constructor
+  const CustomTextField({
+    super.key,
+    required this.hintText,
+    required this.controller,
+    required this.icon,
+    required this.isError});
 
   final String hintText;
   final TextEditingController controller;
@@ -27,25 +32,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
     widget.controller.addListener(_onTextChanged);
   }
 
-  void _onTextChanged() {
+  void _onTextChanged() async{
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      if (widget.controller.text.isNotEmpty) {
-        context.read<FoodSearchBloc>().add(SearchFood(widget.controller.text));
+      final query = widget.controller.text.trim();
+      print(query);
+      if (query.isNotEmpty) {
+        context.read<FoodBlock>().add(SearchFood(query));
       }
     });
   }
 
   @override
-  void dispose() {
-    widget.controller.removeListener(_onTextChanged);
-    _debounce?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+
     return TextField(
       controller: widget.controller,
       cursorColor: Colors.grey,
@@ -76,5 +77,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_onTextChanged);
+    _debounce?.cancel();
+    super.dispose();
   }
 }

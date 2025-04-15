@@ -1,32 +1,45 @@
+import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/features/food_page/data/model/product_model.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../../../data/models/product_model.dart';
 
-
+///States
 abstract class FoodSearchState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
+///Initial
 class FoodSearchInitial extends FoodSearchState {}
 
+///Loading
 class FoodSearchLoading extends FoodSearchState {}
 
+///Success
 class FoodSearchSuccess extends FoodSearchState {
-  final List<ProductModel> products;
+  final List<MyProduct> products;
   final int? selectedIndex;
 
+  @override
+  List<Object?> get props {
+    return [products, selectedIndex];
+  }
+
+  ///Constructor
   FoodSearchSuccess(this.products, {this.selectedIndex});
 
-  @override
-  List<Object?> get props => [products, selectedIndex];
 }
 
+
+///Failed
 class FoodSearchFailure extends FoodSearchState {
   final String error;
 
-  FoodSearchFailure(this.error);
-
   @override
   List<Object?> get props => [error];
+
+  ///Constructor
+  FoodSearchFailure(this.error);
+
+
 }

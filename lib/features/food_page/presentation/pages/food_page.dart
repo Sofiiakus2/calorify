@@ -1,10 +1,8 @@
-import 'package:calorify/data/models/product_model.dart';
-import 'package:calorify/features/food_page/data/datasources/open_food_facts_api_service.dart';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_event.dart';
 import 'package:calorify/features/food_page/presentation/pages/barcode_scanning_page.dart';
 import 'package:calorify/features/food_page/presentation/widgets/food_tab.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/list_food_view.dart';
-import 'package:calorify/features/home/presentation/bloc/meal/food/food_block.dart';
-import 'package:calorify/features/home/presentation/bloc/meal/food/food_event.dart';
 import 'package:calorify/features/shared_widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,10 +55,10 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                     icon: const Icon(Icons.search, color: Colors.grey),
                     isError: false,
 
-                  )
+                  ),
                 ),
                 const SizedBox(width: 8),
-                Container(
+                DecoratedBox(
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(16.0),
@@ -72,13 +70,11 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                           context,
                           MaterialPageRoute(builder: (context) => BarcodeScanningPage()),
                         );
+                        final block = context.read<FoodBlock>();
 
-                        // Перевірка, чи result не є null і чи він є рядком
-                        if (result != null && result is String && result != '-1') {
+                        if (result != null && result is String) {
                           try {
-                            // Використовуємо result як String
-                            ProductModel product = await OpenFoodFactsApiService().getProductByBarcode(result).first; // або .last
-                            context.read<FoodSearchBloc>().add(AddProductFromBarcode(product));
+                            block.add(AddProductFromBarcode(result));
 
                           } catch (error) {
                             print('Error getting product: $error');
@@ -95,10 +91,9 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 ListFoodView(),
                 Text('data'),
-
               ],
             ),
           ),

@@ -1,4 +1,15 @@
 
+import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source.dart';
+import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source_impl.dart';
+import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source_impl.dart';
+import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source.dart';
+import 'package:calorify/features/food_page/data/repositories/product_repository_impl.dart';
+import 'package:calorify/features/food_page/domain/repositories/product_repository.dart';
+import 'package:calorify/features/food_page/domain/usecases/product/get_product_by_barcode.dart';
+import 'package:calorify/features/food_page/domain/usecases/product/get_products_by_name.dart';
+import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';
+import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_history.dart';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/home/data/repository/meal_repository_impl.dart';
 import 'package:calorify/features/home/data/repository/sport_repository_impl.dart';
 import 'package:calorify/features/home/domain/repositories/meal_repository.dart';
@@ -17,7 +28,13 @@ final sl = GetIt.instance;
 Future<void> init() async{
   sl.registerLazySingleton<MealRepository>(MealRepositoryImpl.new);
   sl.registerLazySingleton<SportRepository>(SportRepositoryImpl.new);
+  sl.registerLazySingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl.new);
+  sl.registerLazySingleton<ProductRemoteDataSource>(ProductRemoteDataSourceImpl.new);
 
+  sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(
+    remoteDataSource: sl<ProductRemoteDataSource>(),
+    localDataSource: sl<ProductLocalDataSource>(),
+  ),);
 
   sl.registerLazySingleton(() => GetMeals(sl()));
   sl.registerLazySingleton(() =>AddMeals(sl()));
@@ -25,5 +42,17 @@ Future<void> init() async{
   sl.registerLazySingleton(() => GetSport(sl()));
   sl.registerLazySingleton(() => AddSport(sl()));
   sl.registerLazySingleton(() => DeleteSport(sl()));
+
+  sl.registerLazySingleton(() => GetProductsFromHistory(sl<ProductRepository>()));
+  sl.registerLazySingleton(() => GetProductsByName(sl<ProductRepository>()));
+  sl.registerLazySingleton(() => GetProductByBarcode(sl<ProductRepository>()));
+  sl.registerLazySingleton(() => SaveProductToHistory(sl<ProductRepository>()));
+
+  sl.registerFactory(() => FoodBlock(
+    getProductsByName: sl(),
+    getProductByBarcode: sl(),
+    saveProductToHistory: sl(),
+    getProductsFromHistory: sl(),
+  ),);
 
 }

@@ -1,4 +1,5 @@
-class ProductModel {
+///Product Entity
+class MyProduct{
   String name;
   String barcode;
   String? brand;
@@ -16,7 +17,8 @@ class ProductModel {
   double? fat_saved;
   double? carbohydrates_saved;
 
-  ProductModel({
+  ///Constructor
+  MyProduct({
     required this.name,
     required this.barcode,
     this.brand,
@@ -34,7 +36,8 @@ class ProductModel {
     this.carbohydrates_saved,
   });
 
-  ProductModel copyWith({
+  ///Copy with method
+  MyProduct copyWith({
     String? name,
     String? barcode,
     String? brand,
@@ -44,14 +47,8 @@ class ProductModel {
     double? protein_100g,
     double? fat_100g,
     double? carbohydrates_100g,
-    double? energyKcal_saved,
-    double? energyKj_saved,
-    double? sugar_saved,
-    double? protein_saved,
-    double? fat_saved,
-    double? carbohydrates_saved,
   }) {
-    return ProductModel(
+    return MyProduct(
       name: name ?? this.name,
       barcode: barcode ?? this.barcode,
       brand: brand ?? this.brand,
@@ -61,12 +58,6 @@ class ProductModel {
       protein_100g: protein_100g ?? this.protein_100g,
       fat_100g: fat_100g ?? this.fat_100g,
       carbohydrates_100g: carbohydrates_100g ?? this.carbohydrates_100g,
-      energyKcal_saved: energyKcal_saved ?? this.energyKcal_saved,
-      energyKj_saved: energyKj_saved ?? this.energyKj_saved,
-      sugar_saved: sugar_saved ?? this.sugar_saved,
-      protein_saved: protein_saved ?? this.protein_saved,
-      fat_saved: fat_saved ?? this.fat_saved,
-      carbohydrates_saved: carbohydrates_saved ?? this.carbohydrates_saved,
     );
   }
 }

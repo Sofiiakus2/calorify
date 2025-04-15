@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:calorify/core/entities/my_product.dart';
 
-import '../../../../../../data/models/product_model.dart';
 import 'calories_event.dart';
 import 'calories_state.dart';
 
 class CaloriesBloc extends Bloc<CaloriesEvent, CaloriesState>{
-  final ProductModel product;
+  final MyProduct product;
 
   CaloriesBloc(this.product): super(CaloriesInitial()){
     on<CaloriesEvent>(_caloriesEventHandler);

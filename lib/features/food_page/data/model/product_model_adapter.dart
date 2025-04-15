@@ -1,6 +1,6 @@
+import 'package:calorify/features/food_page/data/model/product_model.dart';
 import 'package:hive/hive.dart';
 
-import '../product_model.dart';
 
 class ProductModelAdapter extends TypeAdapter<ProductModel>{
   @override
