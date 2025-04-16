@@ -1,4 +1,5 @@
 import 'package:calorify/features/splash/presentation/pages/goal_page.dart';
+import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
 ///splash screen which shows only once, before registration
@@ -21,24 +22,15 @@ class SplashScreen extends StatelessWidget {
               Image.asset('assets/images/avocado.png',
                 width: 300,
               ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => GoalPage()),
-              );            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+              CustomElevatedButton(
+                  text: 'Розпочати',
+                  onPressed: (){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const GoalPage()),
+                    );
+                  },
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-            ),
-            child: Text(
-              'Розпочати',
-              style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w800),
-            ),
-          ),
             ],
           ),
         ),

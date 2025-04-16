@@ -2,7 +2,7 @@
 import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/time_dropdown.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/water_view.dart';
-import 'package:calorify/features/shared_widgets/custom_toggle.dart';
+import 'package:calorify/shared/presentation/widgets/custom_toggle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

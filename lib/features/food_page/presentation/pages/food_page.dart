@@ -3,7 +3,7 @@ import 'package:calorify/features/food_page/presentation/bloc/food/food_event.da
 import 'package:calorify/features/food_page/presentation/pages/barcode_scanning_page.dart';
 import 'package:calorify/features/food_page/presentation/widgets/food_tab.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/list_food_view.dart';
-import 'package:calorify/features/shared_widgets/custom_text_field.dart';
+import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,7 +54,6 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                     controller: _controller,
                     icon: const Icon(Icons.search, color: Colors.grey),
                     isError: false,
-
                   ),
                 ),
                 const SizedBox(width: 8),

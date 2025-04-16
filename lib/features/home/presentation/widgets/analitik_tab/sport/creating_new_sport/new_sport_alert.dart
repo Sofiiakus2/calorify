@@ -4,7 +4,8 @@ import 'package:calorify/core/theme.dart';
 import 'package:calorify/features/home/data/models/sport_model.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/creating_new_meal/icon_selecting.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/sport/creating_new_sport/tooltip_icon.dart';
-import 'package:calorify/features/shared_widgets/custom_text_field.dart';
+import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
+import 'package:calorify/shared/presentation/widgets/shared_text_field.dart';
 import 'package:flutter/material.dart';
 
 ///Alert for adding new sport to list
@@ -58,7 +59,7 @@ class _NewSportAlertState extends State<NewSportAlert> {
             height: 350,
             child: Column(
               children: [
-                CustomTextField(
+                SharedTextField(
                   hintText: 'Назва',
                   controller: _controllerName,
                   icon: null,
@@ -68,7 +69,7 @@ class _NewSportAlertState extends State<NewSportAlert> {
                 Row(
                   children: [
                     Expanded(
-                      child: CustomTextField(
+                      child: SharedTextField(
                         hintText: 'Кількість ккал',
                         controller: _controllerCalories,
                         icon: null,

@@ -1,5 +1,6 @@
-import 'package:calorify/features/shared_widgets/custom_toggle.dart';
-import 'package:calorify/features/shared_widgets/custom_text_field.dart';
+import 'package:calorify/shared/presentation/widgets/custom_toggle.dart';
+import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
+import 'package:calorify/shared/presentation/widgets/shared_text_field.dart';
 import 'package:flutter/material.dart';
 
 
@@ -32,13 +33,13 @@ class _NewMealAlertState extends State<NewMealAlert> {
         height: 320,
         child: Column(
           children: [
-            CustomTextField(
+            SharedTextField(
                 hintText: 'Назва',
                 controller: _controller,
                 icon: null,
                 isError: isError,
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -106,3 +107,4 @@ class _NewMealAlertState extends State<NewMealAlert> {
     );
   }
 }
+

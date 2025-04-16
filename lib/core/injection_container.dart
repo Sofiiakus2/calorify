@@ -1,4 +1,10 @@
 
+import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source.dart';
+import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source_impl.dart';
+import 'package:calorify/features/auth/data/repositories/user_repository_impl.dart';
+import 'package:calorify/features/auth/domain/repositories/user_repository.dart';
+import 'package:calorify/features/auth/domain/usecases/enter_user.dart';
+import 'package:calorify/features/auth/domain/usecases/register_user.dart';
 import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source.dart';
 import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source_impl.dart';
 import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source_impl.dart';
@@ -30,6 +36,10 @@ Future<void> init() async{
   sl.registerLazySingleton<SportRepository>(SportRepositoryImpl.new);
   sl.registerLazySingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl.new);
   sl.registerLazySingleton<ProductRemoteDataSource>(ProductRemoteDataSourceImpl.new);
+  sl.registerLazySingleton<AuthRemoteDataSource>(AuthRemoteDataSourceImpl.new);
+
+  sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(
+      authRemoteDataSource: sl<AuthRemoteDataSource>(),),);
 
   sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(
     remoteDataSource: sl<ProductRemoteDataSource>(),
@@ -47,6 +57,10 @@ Future<void> init() async{
   sl.registerLazySingleton(() => GetProductsByName(sl<ProductRepository>()));
   sl.registerLazySingleton(() => GetProductByBarcode(sl<ProductRepository>()));
   sl.registerLazySingleton(() => SaveProductToHistory(sl<ProductRepository>()));
+
+  sl.registerLazySingleton(() => RegisterUser(sl<UserRepository>()));
+  sl.registerLazySingleton(() => EnterUser(sl<UserRepository>()));
+
 
   sl.registerFactory(() => FoodBlock(
     getProductsByName: sl(),

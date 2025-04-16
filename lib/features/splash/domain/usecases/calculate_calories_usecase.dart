@@ -1,8 +1,9 @@
 import 'package:calorify/core/entities/my_user.dart';
 
-class CalorieCounter{
-
-  void calculateCalories(MyUser user){
+///calculating user daily norm
+class CalculateCaloriesUseCase {
+  ///
+  double execute(MyUser user) {
     double bmr;
     if (user.gender?.toLowerCase() == "чоловік") {
       bmr = 10 * user.weightKg! + 6.25 * user.heightCm! - 5 * user.age! + 5;
@@ -28,9 +29,6 @@ class CalorieCounter{
         activityMultiplier = 1.2;
     }
 
-    double dailyCalories = bmr * activityMultiplier;
-
-    print(dailyCalories);
-}
-
+    return bmr * activityMultiplier;
+  }
 }

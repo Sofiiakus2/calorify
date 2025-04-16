@@ -9,6 +9,8 @@ class MyUser{
   String? gender;
   String? activity;
   String? goal;
+  int? calories;
+  String? password;
 
   ///Constructor
   MyUser({
@@ -21,6 +23,8 @@ class MyUser{
     this.gender,
     this.activity,
     this.goal,
+    this.calories,
+    this.password,
 });
 
   ///copy with method
@@ -34,6 +38,7 @@ class MyUser{
     String? gender,
     String? activity,
     String? goal,
+    int? calories,
   }) {
     return MyUser(
       id: id ?? this.id,
@@ -45,6 +50,8 @@ class MyUser{
       gender: gender ?? this.gender,
       activity: activity ?? this.activity,
       goal: goal ?? this.goal,
+      calories: calories ?? this.calories,
+
     );
   }
 }

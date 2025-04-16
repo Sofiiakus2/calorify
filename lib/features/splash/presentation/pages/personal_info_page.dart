@@ -1,15 +1,18 @@
-import 'package:calorify/core/entities/my_user.dart';
-import 'package:calorify/features/splash/domain/repositories/calorie_counter.dart';
+import 'package:calorify/core/provider/user_provide.dart';
+import 'package:calorify/features/auth/presentation/pages/enter.dart';
+import 'package:calorify/features/auth/presentation/pages/register.dart';
+import 'package:calorify/features/splash/domain/usecases/calculate_calories_usecase.dart';
 import 'package:calorify/features/splash/presentation/widgets/custom_input_field.dart';
 import 'package:calorify/features/splash/presentation/widgets/dropdown_field.dart';
+import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///screen with personal info. Uses for count calories
 class PersonalInfoPage extends StatefulWidget {
   ///
-  const PersonalInfoPage({super.key, required this.goal});
+  const PersonalInfoPage({super.key,});
 
-  final String goal;
 
   @override
   State<PersonalInfoPage> createState() => _PersonalInfoPageState();
@@ -33,16 +36,23 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
       return;
     }
 
-    final MyUser user = MyUser(
-      goal: widget.goal,
-      age: int.tryParse(ageController.text) ?? 0,
-      weightKg: int.tryParse(weightController.text) ?? 0,
-      heightCm: int.tryParse(heightController.text) ?? 0,
-      gender: selectedGender,
-      activity: selectedActivity,
+    context.read<UserProvider>().setPersonalData(
+      age: int.parse(ageController.text),
+      weightKg: int.parse(weightController.text),
+      heightCm: int.parse(heightController.text),
+      gender: selectedGender.toString(),
+      activity: selectedActivity.toString(),
     );
 
-    CalorieCounter().calculateCalories(user);
+    final user = context.read<UserProvider>().user;
+
+    context.read<UserProvider>().setCalories(
+        CalculateCaloriesUseCase().execute(user).toInt(),);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const Register()),
+        (Route<dynamic> route) => false,
+    );
   }
 
 
@@ -83,22 +93,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
                     ?.copyWith(color: Colors.grey.shade300),
                 textAlign: TextAlign.center,
               ),
-              ElevatedButton(
-                onPressed: _validateAndSubmit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 100, vertical: 20),
-                ),
-                child: Text('Підрахувати',
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .labelMedium
-                        ?.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.w800)),
+              CustomElevatedButton(
+                  text: 'Підрахувати',
+                  onPressed: _validateAndSubmit,
               ),
             ],
           ),

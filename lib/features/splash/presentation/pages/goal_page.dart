@@ -1,7 +1,10 @@
+import 'package:calorify/core/provider/user_provide.dart';
 import 'package:calorify/core/theme.dart';
 import 'package:calorify/features/splash/domain/entities/weight_goals.dart';
 import 'package:calorify/features/splash/presentation/pages/personal_info_page.dart';
+import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///goal page which shows before registration
 class GoalPage extends StatefulWidget {
@@ -76,31 +79,20 @@ class _GoalPageState extends State<GoalPage> {
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.grey.shade300),
                 textAlign: TextAlign.center,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_selectedGoalIndex == -1) return;
+              CustomElevatedButton(
+                  text: 'Розпочати',
+                  onPressed: () {
+                    if (_selectedGoalIndex == -1) return;
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PersonalInfoPage(
-                        goal: weightGoals[_selectedGoalIndex].title,
+                    context.read<UserProvider>().setGoal(weightGoals[_selectedGoalIndex].title);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PersonalInfoPage(),
                       ),
-                    ),
-                  );
+                    );
 
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                ),
-                child: Text(
-                  'Розпочати',
-                  style: Theme.of(context).textTheme.labelMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w800),
-                ),
+                  },
               ),
             ],
           ),
