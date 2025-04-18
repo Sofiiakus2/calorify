@@ -1,18 +1,17 @@
+import 'package:calorify/core/theme.dart';
+import 'package:calorify/features/home/domain/entities/meal.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/creating_new_meal/icon_selecting.dart';
 import 'package:calorify/shared/presentation/widgets/custom_toggle.dart';
-import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
 import 'package:calorify/shared/presentation/widgets/shared_text_field.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../../../../../../core/theme.dart';
-import '../../../../../domain/entities/meal.dart';
-import 'icon_selecting.dart';
-
-
-
+///alert for creating new meal
 class NewMealAlert extends StatefulWidget {
-  const NewMealAlert({super.key, required this.onMealAdded});
   final Function(Meal) onMealAdded;
+
+  ///
+  const NewMealAlert({required this.onMealAdded, super.key});
 
   @override
   State<NewMealAlert> createState() => _NewMealAlertState();
@@ -28,7 +27,8 @@ class _NewMealAlertState extends State<NewMealAlert> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: alertBackgroundColor,
-      title: Text('Створити новий прийом їжі', style: Theme.of(context).textTheme.bodyMedium,),
+      title: Text('Створити новий прийом їжі',
+        style: Theme.of(context).textTheme.bodyMedium,),
       content: SizedBox(
         height: 320,
         child: Column(
@@ -43,17 +43,18 @@ class _NewMealAlertState extends State<NewMealAlert> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Додати лише на сьогодні', style: Theme.of(context).textTheme.bodySmall,),
+                Text('Додати лише на сьогодні',
+                  style: Theme.of(context).textTheme.bodySmall,),
                 CustomToggle(
                   onActiveChange: (value){
                     setState(() {
                       isTodayOnly = value;
                     });
                   },
-                )
+                ),
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
             IconSelecting(
               iconPathPrefix: 'food',
               onIconChoose: (value){
@@ -70,12 +71,13 @@ class _NewMealAlertState extends State<NewMealAlert> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Відмінити', style: Theme.of(context).textTheme.titleSmall,),
+          child: Text('Відмінити',
+            style: Theme.of(context).textTheme.titleSmall,),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: appMainGrey,
-            side: const BorderSide(color: Colors.black, width: 1), 
+            side: const BorderSide(color: Colors.black, width: 1),
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -89,14 +91,14 @@ class _NewMealAlertState extends State<NewMealAlert> {
               return;
             }
 
-            Meal newMeal = Meal(
+            final Meal newMeal = Meal(
                 meal: _controller.text,
                 calories: 0,
                 iconName: iconName!,
-               // colorBlock: lightGreen,
-                isTodayOnly: isTodayOnly
+                isTodayOnly: isTodayOnly,
+                products: [],
             );
-            print('Added new meal: ${newMeal.meal}, icon: ${newMeal.iconName}');
+           // print('Added new meal: ${newMeal.meal}, icon: ${newMeal.iconName}');
 
             widget.onMealAdded(newMeal);
             Navigator.of(context).pop();

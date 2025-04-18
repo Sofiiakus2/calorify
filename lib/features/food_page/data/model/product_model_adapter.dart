@@ -11,19 +11,19 @@ class ProductModelAdapter extends TypeAdapter<ProductModel>{
     return ProductModel(
       name: reader.readString(),
       barcode: reader.readString(),
-      brand: reader.readString(),
+  //    brand: reader.readString(),
       energyKcal_100g: reader.readDouble(),
-      energyKj_100g: reader.readDouble(),
-      sugar_100g: reader.readDouble(),
+  //    energyKj_100g: reader.readDouble(),
+  //    sugar_100g: reader.readDouble(),
       protein_100g: reader.readDouble(),
       fat_100g: reader.readDouble(),
       carbohydrates_100g: reader.readDouble(),
-      energyKcal_saved: reader.readDouble(),
-      energyKj_saved: reader.readDouble(),
-      sugar_saved: reader.readDouble(),
-      protein_saved: reader.readDouble(),
-      fat_saved: reader.readDouble(),
-      carbohydrates_saved: reader.readDouble(),
+  //    energyKcal_saved: reader.readDouble(),
+  //    energyKj_saved: reader.readDouble(),
+  //    sugar_saved: reader.readDouble(),
+  //    protein_saved: reader.readDouble(),
+  //    fat_saved: reader.readDouble(),
+  //    carbohydrates_saved: reader.readDouble(),
     );
   }
 

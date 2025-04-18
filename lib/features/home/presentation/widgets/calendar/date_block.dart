@@ -1,9 +1,10 @@
+import 'package:calorify/core/theme.dart';
+import 'package:calorify/features/home/presentation/widgets/calendar/calendar_overlay.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme.dart';
-import 'calendar_overlay.dart';
-
+///date block
 class DateBlock extends StatelessWidget {
+  ///
   const DateBlock({super.key});
 
   @override
@@ -25,18 +26,17 @@ class DateBlock extends StatelessWidget {
         width: 50,
         decoration: BoxDecoration(
             color: appMainGrey,
-            borderRadius: BorderRadius.all(Radius.circular(12))
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '13',
+              DateTime.now().day.toString(),
               style: Theme.of(context).textTheme.titleSmall,
             ),
             Text(
-              'Лют',
+              'КВІ',
               style: Theme.of(context).textTheme.titleSmall,
             ),
           ],

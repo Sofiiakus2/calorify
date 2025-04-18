@@ -1,6 +1,4 @@
-import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/provider/user_provide.dart';
-import 'package:calorify/features/auth/domain/usecases/get_user_by_id.dart';
 import 'package:calorify/features/bottom_navigation/presentation/pages/custom_bottom_navigation_view.dart';
 import 'package:calorify/features/splash/presentation/pages/goal_page.dart';
 import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';

@@ -1,5 +1,6 @@
 
 import 'package:calorify/core/theme.dart';
+import 'package:calorify/features/home/data/models/product_for_meal_model.dart';
 import 'package:calorify/features/home/domain/entities/meal.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class MealModel extends Meal{
     required super.iconName,
     required this.colorBlock,
     required super.isTodayOnly,
+    required super.products,
 });
 
   ///Converter from Entity to Model
@@ -24,7 +26,32 @@ class MealModel extends Meal{
       iconName: entity.iconName,
       colorBlock: _getColor(entity.iconName),
       isTodayOnly: entity.isTodayOnly,
+      products: entity.products.toList(),
     );
+  }
+
+  factory MealModel.fromMap(Map<String, dynamic> map) {
+    return MealModel(
+      meal: map['meal'] as String ?? '',
+      calories: map['calories'] as int ?? 0,
+      iconName: map['iconName'] as String ?? 'avocado',
+      colorBlock: _getColor(map['iconName'] as String),
+      isTodayOnly: map['isTodayOnly'] as bool,
+      products: (map['products'] as List<dynamic>)
+          .map((e) => ProductForMealModel.fromMap(e as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+
+  Map<String, dynamic> toMap() {
+    return {
+      'meal': meal,
+      'calories': calories,
+      'iconName': iconName,
+      'isTodayOnly': isTodayOnly,
+      'products': products.map((e) => (e as ProductForMealModel).toMap()).toList(),
+    };
   }
 
   static Color _getColor(String icon) {

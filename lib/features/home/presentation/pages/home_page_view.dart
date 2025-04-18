@@ -1,16 +1,16 @@
 
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/analitik_tab_bar.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/sport/grid_sport.dart';
+import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/water_tracker.dart';
+import 'package:calorify/features/home/presentation/widgets/calories_chart/calories_chart.dart';
+import 'package:calorify/features/home/presentation/widgets/home_app_bar_view.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/analitik_tab/analitik_tab_bar.dart';
-import '../widgets/analitik_tab/food/grid_food.dart';
-import '../widgets/analitik_tab/sport/grid_sport.dart';
-import '../widgets/analitik_tab/water/water_tracker.dart';
-import '../widgets/calories_chart/calories_chart.dart';
-import '../widgets/home_app_bar_view.dart';
 
-
-
+///Home Page
 class HomePageView extends StatefulWidget {
+  ///
   const HomePageView({super.key});
 
   @override
@@ -31,24 +31,18 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
   }
 
   @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          HomeAppBarView(),
-          SizedBox(height: 10,),
+          const HomeAppBarView(),
+          const SizedBox(height: 10,),
           SizedBox(
               width: double.infinity,
               height: 200,
               child: Stack(
                 children: [
-                  Center(child: CalorieChart()),
+                  const Center(child: CalorieChart()),
                   Positioned(
                       left: 40,
                       top: 10,
@@ -94,6 +88,12 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }
 
