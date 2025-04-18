@@ -7,5 +7,9 @@ abstract class UserRepository{
   Future<void> registerUser(MyUser user);
 
   ///method for enter
-  Future<bool> enterUser(MyUser user);
+  Future<String> enterUser(MyUser user);
+
+  ///method get user by id
+  Future<MyUser> getUserById(String id);
+
 }

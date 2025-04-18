@@ -14,13 +14,18 @@ class UserRepositoryImpl implements UserRepository{
 });
 
   @override
-  Future<bool> enterUser(MyUser user) {
+  Future<String> enterUser(MyUser user) {
     return authRemoteDataSource.enterUser(user);
   }
 
   @override
   Future<void> registerUser(MyUser user) {
     return authRemoteDataSource.registerUser(user);
+  }
+
+  @override
+  Future<MyUser> getUserById(String id) {
+    return authRemoteDataSource.getUserById(id);
   }
 
 }

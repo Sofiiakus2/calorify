@@ -1,8 +1,10 @@
 import 'package:calorify/core/entities/my_user.dart';
+import 'package:calorify/core/injection_container.dart';
+import 'package:calorify/features/auth/domain/usecases/get_user_by_id.dart';
 import 'package:flutter/cupertino.dart';
 
 class UserProvider extends ChangeNotifier{
-  final MyUser _user = MyUser();
+  MyUser _user = MyUser();
 
   MyUser get user => _user;
 
@@ -45,4 +47,25 @@ class UserProvider extends ChangeNotifier{
     _user.password = password;
   }
 
+  ///setter for enter data
+  void setEnterData({
+    required String email,
+    required String password,
+  }){
+    _user.email = email;
+    _user.password = password;
+  }
+
+  ///clear user
+  void clearUser() {
+    _user = MyUser();
+    notifyListeners();
+  }
+
+  ///Load user
+  Future<void> loadUser(String uid) async {
+    final getUserById = sl<GetUserById>();
+    _user = await getUserById.call(uid);
+    notifyListeners();
+  }
 }

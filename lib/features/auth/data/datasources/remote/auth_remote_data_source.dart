@@ -7,5 +7,8 @@ abstract class AuthRemoteDataSource{
   Future<bool> registerUser(MyUser user);
 
   ///method for entering
-  Future<bool> enterUser(MyUser user);
+  Future<String> enterUser(MyUser user);
+
+  ///get user by id
+  Future<MyUser> getUserById(String id);
 }

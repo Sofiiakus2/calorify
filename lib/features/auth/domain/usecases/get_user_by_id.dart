@@ -1,15 +1,15 @@
+
 import 'package:calorify/core/entities/my_user.dart';
 import 'package:calorify/features/auth/domain/repositories/user_repository.dart';
 
-///use case for registration
-class EnterUser{
+///use case getting user by id
+class GetUserById {
   final UserRepository repository;
 
   ///Constructor
-  EnterUser(this.repository);
+  GetUserById(this.repository);
 
-  ///Executes the logic for register.
-  Future<String> call(MyUser user){
-    return repository.enterUser(user);
+  Future<MyUser> call(String uid) {
+    return repository.getUserById(uid);
   }
 }

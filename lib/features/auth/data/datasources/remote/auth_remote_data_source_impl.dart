@@ -11,7 +11,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
 
 
   @override
-  Future<bool> enterUser(MyUser user) async{
+  Future<String> enterUser(MyUser user) async{
     try{
       final UserCredential userCredential =
           await auth.signInWithEmailAndPassword(
@@ -19,11 +19,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
         password: user.password!,
       );
 
-      return userCredential.user != null;
+      return userCredential.user!.uid;
     }on FirebaseAuthException catch (e) {
-      return false;
+      return '';
     } catch (e) {
-      return false;
+      return '';
     }
   }
 
@@ -46,6 +46,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
     }catch(e){
       return false;
     }
+  }
+
+  @override
+  Future<MyUser> getUserById(String id) async{
+    final doc = await firestore.collection('users').doc(id).get();
+    final userModel = UserModel.fromMap(doc.data()!);
+
+    return userModel;
   }
 
 }

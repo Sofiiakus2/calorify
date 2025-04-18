@@ -1,5 +1,6 @@
 import 'package:calorify/core/provider/user_provide.dart';
 import 'package:calorify/core/theme.dart';
+import 'package:calorify/features/auth/presentation/pages/enter.dart';
 import 'package:calorify/features/splash/domain/entities/weight_goals.dart';
 import 'package:calorify/features/splash/presentation/pages/personal_info_page.dart';
 import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';
@@ -26,6 +27,21 @@ class _GoalPageState extends State<GoalPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              SizedBox(
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: TextButton(
+                    onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=> const Enter()),);
+                    },
+                    child: Text('Перейти до входу',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Colors.grey.shade300),
+                  ),),
+                )
+              ),
               Text('Ваша ціль',
                 style: Theme.of(context).textTheme.titleLarge,
               ),

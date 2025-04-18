@@ -4,6 +4,7 @@ import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_
 import 'package:calorify/features/auth/data/repositories/user_repository_impl.dart';
 import 'package:calorify/features/auth/domain/repositories/user_repository.dart';
 import 'package:calorify/features/auth/domain/usecases/enter_user.dart';
+import 'package:calorify/features/auth/domain/usecases/get_user_by_id.dart';
 import 'package:calorify/features/auth/domain/usecases/register_user.dart';
 import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source.dart';
 import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source_impl.dart';
@@ -60,7 +61,7 @@ Future<void> init() async{
 
   sl.registerLazySingleton(() => RegisterUser(sl<UserRepository>()));
   sl.registerLazySingleton(() => EnterUser(sl<UserRepository>()));
-
+  sl.registerLazySingleton(() => GetUserById(sl<UserRepository>()));
 
   sl.registerFactory(() => FoodBlock(
     getProductsByName: sl(),
@@ -68,5 +69,6 @@ Future<void> init() async{
     saveProductToHistory: sl(),
     getProductsFromHistory: sl(),
   ),);
+
 
 }
