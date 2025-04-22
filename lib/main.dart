@@ -3,6 +3,7 @@ import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/provider/user_provide.dart';
 import 'package:calorify/core/theme.dart';
 import 'package:calorify/features/food_page/data/model/product_model_adapter.dart';
+import 'package:calorify/features/food_page/presentation/bloc/calories/calories_bloc.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_event.dart';
 import 'package:calorify/features/home/domain/usecases/meal/add_meals.dart';
@@ -77,6 +78,9 @@ class Calorify extends StatelessWidget {
         ),
         BlocProvider<FoodBlock>(
           create: (context) => sl<FoodBlock>()..add(LoadHistory()),
+        ),
+        BlocProvider<CaloriesBloc>(
+          create: (context) => sl<CaloriesBloc>(),
         ),
       ],
       child: MaterialApp(

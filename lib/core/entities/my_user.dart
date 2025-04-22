@@ -10,6 +10,7 @@ class MyUser{
   String? activity;
   String? goal;
   int? calories;
+  int? userCalories;
   String? password;
 
   ///Constructor
@@ -24,6 +25,7 @@ class MyUser{
     this.activity,
     this.goal,
     this.calories,
+    this.userCalories,
     this.password,
 });
 
@@ -38,6 +40,7 @@ class MyUser{
     String? gender,
     String? activity,
     String? goal,
+    int? usedCalories,
     int? calories,
   }) {
     return MyUser(
@@ -51,7 +54,7 @@ class MyUser{
       activity: activity ?? this.activity,
       goal: goal ?? this.goal,
       calories: calories ?? this.calories,
-
+      userCalories: usedCalories ?? this.userCalories,
     );
   }
 }

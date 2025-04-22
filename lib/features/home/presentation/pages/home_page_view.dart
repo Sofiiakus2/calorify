@@ -1,4 +1,5 @@
 
+import 'package:calorify/core/provider/user_provide.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/analitik_tab_bar.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/sport/grid_sport.dart';
@@ -6,6 +7,7 @@ import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/w
 import 'package:calorify/features/home/presentation/widgets/calories_chart/calories_chart.dart';
 import 'package:calorify/features/home/presentation/widgets/home_app_bar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 ///Home Page
@@ -42,7 +44,7 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
               height: 200,
               child: Stack(
                 children: [
-                  const Center(child: CalorieChart()),
+                  const Center(child: CaloriesChart()),
                   Positioned(
                       left: 40,
                       top: 10,
@@ -50,11 +52,11 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('План',
-                              style: Theme.of(context).textTheme.labelSmall),
-                          Text('1900 ккал',
-                              style: Theme.of(context).textTheme.labelMedium),
+                              style: Theme.of(context).textTheme.labelSmall,),
+                          Text('${context.read<UserProvider>().user.calories} ккал',
+                              style: Theme.of(context).textTheme.labelMedium,),
                         ],
-                      )
+                      ),
                   ),
                   Positioned(
                       right: 40,
@@ -67,21 +69,21 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
                           Text('500 ккал',
                               style: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 16)),
                         ],
-                      )
+                      ),
                   ),
                 ],
-              )
+              ),
           ),
-          SizedBox(height: 35,),
+          const SizedBox(height: 35,),
           AnalitikTabBar(tabController: _tabController),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                GridFood(),
                GridSport(),
-               WaterTracker()
+               WaterTracker(),
               ],
             ),
           ),

@@ -7,6 +7,7 @@ Widget buildMealCard({
   required Color color,
   required BuildContext context
 }) {
+
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(30)),

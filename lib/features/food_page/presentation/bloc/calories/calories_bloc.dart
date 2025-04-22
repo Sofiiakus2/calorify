@@ -10,8 +10,8 @@ class CaloriesBloc extends Bloc<CaloriesEvent, CaloriesState>{
 
   ///constructor
   CaloriesBloc(this.product): super(const CaloriesInitial()){
-    add(const CaloriesChangedEvent(100));
     on<CaloriesChangedEvent>(_caloriesChanged);
+    add(const CaloriesChangedEvent(100));
   }
 
   Future<void> _caloriesChanged(CaloriesChangedEvent e, Emitter emit) async {

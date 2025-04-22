@@ -16,6 +16,7 @@ import 'package:calorify/features/food_page/domain/usecases/product/get_product_
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_by_name.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_history.dart';
+import 'package:calorify/features/food_page/presentation/bloc/calories/calories_bloc.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/home/data/repository/meal_repository_impl.dart';
 import 'package:calorify/features/home/data/repository/sport_repository_impl.dart';
@@ -69,6 +70,7 @@ Future<void> init() async{
     saveProductToHistory: sl(),
     getProductsFromHistory: sl(),
   ),);
+
 
 
 }
