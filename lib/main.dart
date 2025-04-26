@@ -1,5 +1,7 @@
 import 'package:calorify/core/entities/my_product.dart';
 import 'package:calorify/core/injection_container.dart';
+import 'package:calorify/core/provider/bottom_nav_provider.dart';
+import 'package:calorify/core/provider/selected_meal_provider.dart';
 import 'package:calorify/core/provider/user_provide.dart';
 import 'package:calorify/core/theme.dart';
 import 'package:calorify/features/food_page/data/model/product_model_adapter.dart';
@@ -43,6 +45,8 @@ void main() async{
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => SelectedMealProvider()),
+        ChangeNotifierProvider(create: (_) => BottomNavProvider()),
       ],
       child: const Calorify(),
     ),

@@ -40,12 +40,11 @@ class _GridFoodState extends State<GridFood> {
                         final meal = state.meals[index];
                         final mealModel = MealModel.fromEntity(meal);
 
-                        return buildMealCard(
-                          meal: mealModel.meal,
+                        return MealCard(
+                          mealModel: mealModel,
                           calories: mealModel.calories,
                           icon: mealModel.iconName,
                           color: mealModel.colorBlock,
-                          context: context,
                         );
                       } else if(state.meals.length < 6 ) {
                         return GestureDetector(

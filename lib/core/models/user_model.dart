@@ -1,7 +1,10 @@
 import 'package:calorify/core/entities/my_user.dart';
+import 'package:calorify/features/home/data/models/daily_meal.dart';
 
 ///user model
 class UserModel extends MyUser{
+  List<DailyMeal>? meals;
+
   ///Constructor
   UserModel({
     super.id,
@@ -14,8 +17,10 @@ class UserModel extends MyUser{
     super.activity,
     super.goal,
     super.calories,
+    this.meals,
 });
 
+  ///from entity to model
   factory UserModel.fromMyUser(MyUser user) {
     return UserModel(
       id: user.id,
@@ -31,6 +36,7 @@ class UserModel extends MyUser{
     );
   }
 
+  ///from map to model
   factory UserModel.fromMap(Map<String, dynamic> map){
     return UserModel(
       id: map['id'] as String?,
@@ -43,9 +49,14 @@ class UserModel extends MyUser{
       activity: map['activity'] as String?,
       goal: map['goal'] as String?,
       calories: map['calories'] as int?,
+      meals: (map['dailyMeal'] as List<dynamic>?)
+          ?.map((e) => DailyMeal.fromMap(e as Map<String, dynamic>))
+          .toList() ?? [],
+
     );
   }
 
+  ///from model to map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -58,6 +69,7 @@ class UserModel extends MyUser{
       'activity': activity,
       'goal': goal,
       'calories': calories,
+      'meals': meals?.map((m) => m.toMap()).toList(),
     };
   }
 

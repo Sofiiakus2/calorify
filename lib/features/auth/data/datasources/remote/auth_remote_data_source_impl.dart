@@ -1,6 +1,6 @@
 import 'package:calorify/core/entities/my_user.dart';
 import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source.dart';
-import 'package:calorify/features/auth/domain/model/user_model.dart';
+import 'package:calorify/core/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

@@ -1,7 +1,9 @@
+import 'package:calorify/core/provider/bottom_nav_provider.dart';
 import 'package:calorify/features/food_page/presentation/pages/food_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../../home/presentation/pages/home_page_view.dart';
+import 'package:calorify/features/home/presentation/pages/home_page_view.dart';
+import 'package:provider/provider.dart';
 
 class CustomBottomNavigationView extends StatefulWidget {
   const CustomBottomNavigationView({super.key});
@@ -28,8 +30,20 @@ class _CustomBottomNavigationViewState
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final provider = Provider.of<BottomNavProvider>(context);
+    if (provider.currentIndex != _selectedIndex) {
+      setState(() {
+        _selectedIndex = provider.currentIndex;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: SizedBox(
