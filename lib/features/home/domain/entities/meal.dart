@@ -1,8 +1,8 @@
 import 'package:calorify/features/home/data/models/product_for_meal_model.dart';
-
+enum MealType { breakfast, lunch, dinner, snack, custom }
 ///Meal Entity
 class Meal{
-  String meal;
+  MealType meal;
   int calories;
   String iconName;
   bool isTodayOnly;
@@ -18,7 +18,7 @@ class Meal{
   });
 
   Meal copyWith({
-    String? meal,
+    MealType? meal,
     int? calories,
     String? iconName,
     bool? isTodayOnly,

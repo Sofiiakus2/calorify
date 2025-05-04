@@ -1,9 +1,10 @@
 import 'package:calorify/core/entities/my_user.dart';
 import 'package:calorify/features/home/data/models/daily_meal.dart';
+import 'package:calorify/features/home/data/models/meal_model.dart';
 
 ///user model
 class UserModel extends MyUser{
-  List<DailyMeal>? meals;
+  List<MealModel>? meals;
 
   ///Constructor
   UserModel({
@@ -50,7 +51,7 @@ class UserModel extends MyUser{
       goal: map['goal'] as String?,
       calories: map['calories'] as int?,
       meals: (map['dailyMeal'] as List<dynamic>?)
-          ?.map((e) => DailyMeal.fromMap(e as Map<String, dynamic>))
+          ?.map((e) => MealModel.fromMap(e as Map<String, dynamic>))
           .toList() ?? [],
 
     );

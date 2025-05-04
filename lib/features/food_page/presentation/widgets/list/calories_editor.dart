@@ -44,6 +44,11 @@ class _CaloriesSettingsContent extends StatelessWidget {
             fats = state.fats;
             carbohydrates = state.carbohydrates;
             proteins = state.proteins;
+
+            product.energyKcal_saved = calories;
+            product.fat_saved = fats;
+            product.carbohydrates_saved = carbohydrates;
+            product.protein_saved = proteins;
           } else {
             calories = product.energyKcal_saved ?? 0;
             fats = product.fat_saved ?? 0;

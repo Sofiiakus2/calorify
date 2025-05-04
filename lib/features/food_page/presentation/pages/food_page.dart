@@ -1,15 +1,16 @@
+import 'package:calorify/core/provider/selected_meal_provider.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_event.dart';
 import 'package:calorify/features/food_page/presentation/pages/barcode_scanning_page.dart';
+import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
 import 'package:calorify/features/food_page/presentation/widgets/food_tab.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/list_food_view.dart';
-import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///page with selecting food
 class FoodPage extends StatefulWidget {
-  ///
+  ///constructor
   const FoodPage({super.key});
 
   @override
@@ -19,15 +20,17 @@ class FoodPage extends StatefulWidget {
 class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin{
   late TabController _tabController;
   final TextEditingController _controller = TextEditingController();
-
+  String title = "Знайти продукт";
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() {
-      setState(() {});
-    });
+    _tabController.addListener(_handleTabChange);
+  }
+
+  void _handleTabChange() {
+    setState(() {});
   }
 
   @override
@@ -36,7 +39,7 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Знайти продукт',
+        title: Text(title,
           style: Theme.of(context).textTheme.labelMedium,
         ),
         centerTitle: true,
@@ -63,11 +66,14 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.settings_overscan, color: Colors.white),
+                    icon: const Icon(
+                        Icons.settings_overscan,
+                        color: Colors.white,
+                    ),
                       onPressed: () async {
                         final result = await Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BarcodeScanningPage()),
+                          MaterialPageRoute(builder: (context) => const BarcodeScanningPage()),
                         );
                         final block = context.read<FoodBlock>();
 
@@ -77,7 +83,6 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
 
                           } catch (error) {
                             print('Error getting product: $error');
-                            // ... обробка помилок ...
                           }
                         }
                       },
@@ -99,6 +104,18 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
         ],
       ),
     );
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final selectedMeal = context.read<SelectedMealProvider>().selectedMeal;
+    if (selectedMeal != null) {
+      setState(() {
+        title = selectedMeal.meal.name;
+      });
+    }
   }
 
   @override

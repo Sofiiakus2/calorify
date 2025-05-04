@@ -59,13 +59,15 @@ class MealCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  mealModel.meal,
+                  mealModel.meal.name.toString(),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 IconButton(
                   onPressed: () {
                     context.read<SelectedMealProvider>().selectMeal(mealModel);
-                    context.read<BottomNavProvider>().changeTab(1);
+                    if (context.read<BottomNavProvider>().currentIndex != 1) {
+                      context.read<BottomNavProvider>().changeTab(1);
+                    }
                   },
                   icon: const Icon(Icons.add, color: Colors.black),
                 ),

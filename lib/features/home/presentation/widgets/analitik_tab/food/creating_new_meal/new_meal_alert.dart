@@ -92,7 +92,7 @@ class _NewMealAlertState extends State<NewMealAlert> {
             }
 
             final Meal newMeal = Meal(
-                meal: _controller.text,
+                meal: MealType.custom,
                 calories: 0,
                 iconName: iconName!,
                 isTodayOnly: isTodayOnly,

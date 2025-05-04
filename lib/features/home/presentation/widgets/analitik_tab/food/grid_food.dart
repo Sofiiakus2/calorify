@@ -1,3 +1,4 @@
+import 'package:calorify/core/provider/selected_meal_provider.dart';
 import 'package:calorify/features/home/data/models/meal_model.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_state.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/creating_new_meal/new_meal_alert.dart';
@@ -8,14 +9,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///Grid with shows meals
 class GridFood extends StatefulWidget {
+  final bool isDialog;
   ///
-  const GridFood({super.key});
+  const GridFood({required this.isDialog, super.key});
 
   @override
   State<GridFood> createState() => _GridFoodState();
 }
 
 class _GridFoodState extends State<GridFood> {
+  SelectedMealProvider? _provider;
+
+  void _onSelectedMealChanged() {
+    final selectedMeal = context.read<SelectedMealProvider>().selectedMeal;
+    if (selectedMeal != null && widget.isDialog == true) {
+      Navigator.of(context).pop();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,5 +90,18 @@ class _GridFoodState extends State<GridFood> {
         ],
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _provider ??= context.read<SelectedMealProvider>();
+    _provider!.addListener(_onSelectedMealChanged);
+  }
+
+  @override
+  void dispose() {
+    _provider?.removeListener(_onSelectedMealChanged);
+    super.dispose();
   }
 }

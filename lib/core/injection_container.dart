@@ -1,4 +1,6 @@
 
+import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/core/provider/user_provide.dart';
 import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source_impl.dart';
 import 'package:calorify/features/auth/data/repositories/user_repository_impl.dart';
@@ -15,6 +17,8 @@ import 'package:calorify/features/food_page/domain/repositories/product_reposito
 import 'package:calorify/features/food_page/domain/usecases/product/get_product_by_barcode.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_by_name.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';
+import 'package:calorify/features/food_page/domain/usecases/product/recount_left_calories.dart';
+import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_db.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_history.dart';
 import 'package:calorify/features/food_page/presentation/bloc/calories/calories_bloc.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
@@ -40,6 +44,8 @@ Future<void> init() async{
   sl.registerLazySingleton<ProductRemoteDataSource>(ProductRemoteDataSourceImpl.new);
   sl.registerLazySingleton<AuthRemoteDataSource>(AuthRemoteDataSourceImpl.new);
 
+  sl.registerLazySingleton<UserProvider>(UserProvider.new);
+
   sl.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(
       authRemoteDataSource: sl<AuthRemoteDataSource>(),),);
 
@@ -59,6 +65,9 @@ Future<void> init() async{
   sl.registerLazySingleton(() => GetProductsByName(sl<ProductRepository>()));
   sl.registerLazySingleton(() => GetProductByBarcode(sl<ProductRepository>()));
   sl.registerLazySingleton(() => SaveProductToHistory(sl<ProductRepository>()));
+  sl.registerLazySingleton(() => SaveProductToDb(sl<ProductRepository>()));
+  sl.registerLazySingleton(() => RecountLeftCalories(sl<ProductRepository>()));
+
 
   sl.registerLazySingleton(() => RegisterUser(sl<UserRepository>()));
   sl.registerLazySingleton(() => EnterUser(sl<UserRepository>()));
@@ -71,6 +80,7 @@ Future<void> init() async{
     getProductsFromHistory: sl(),
   ),);
 
+  sl.registerFactoryParam<CaloriesBloc, MyProduct, void>((product, _) => CaloriesBloc(product));
 
 
 }

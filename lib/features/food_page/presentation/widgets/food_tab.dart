@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-
+///food tab
 class FoodTab extends StatefulWidget {
+  ///constructor
   const FoodTab({
-    super.key,
     required TabController tabController,
+    super.key,
   }) : _tabController = tabController;
 
   final TabController _tabController;
@@ -20,12 +21,13 @@ class _FoodTabState extends State<FoodTab> {
   Widget build(BuildContext context) {
     return TabBar(
       controller: widget._tabController,
-      isScrollable: false,
       dividerColor: Colors.transparent,
       indicatorColor: Colors.transparent,
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       tabs: categories.map((category) {
-        final bool isSelected = categories.indexOf(category) == widget._tabController.index;
+        final bool isSelected = categories.indexOf(category)
+            == widget._tabController.index;
+
         return Text(
           category,
           style: Theme.of(context).textTheme.labelLarge?.copyWith(

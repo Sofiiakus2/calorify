@@ -1,19 +1,25 @@
+import 'package:calorify/core/theme.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/theme.dart';
-
+///
 class InfoContainer extends StatelessWidget {
   final String name;
   final double count;
-  const InfoContainer({super.key, required this.name, required this.count});
+
+  ///constructor
+  const InfoContainer({
+    required this.name,
+    required this.count,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+        decoration: const BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.all(
               Radius.circular(20)

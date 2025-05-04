@@ -10,7 +10,7 @@ class DailyResult extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: appMainGrey,
+        color: Colors.grey.shade200,
         borderRadius: const BorderRadius.all(Radius.circular(30)),
       ),
       padding: const EdgeInsets.all(5),

@@ -68,7 +68,6 @@ class Calorify extends StatelessWidget {
               getMeals: sl<GetMeals>(),
               addMeal: sl<AddMeals>(),
             )..loadMeals(),
-          child: const GridFood(),
         ),
         BlocProvider<SportCubit>(
             create: (context) => SportCubit(

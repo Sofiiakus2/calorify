@@ -9,7 +9,7 @@ class CaloriesBloc extends Bloc<CaloriesEvent, CaloriesState>{
   final MyProduct product;
 
   ///constructor
-  CaloriesBloc(this.product): super(const CaloriesInitial()){
+  CaloriesBloc(this.product): super(CaloriesInitial.fromProduct(product)){
     on<CaloriesChangedEvent>(_caloriesChanged);
     add(const CaloriesChangedEvent(100));
   }

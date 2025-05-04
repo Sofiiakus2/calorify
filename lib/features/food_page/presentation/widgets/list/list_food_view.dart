@@ -1,6 +1,3 @@
-import 'package:calorify/core/entities/my_product.dart';
-import 'package:calorify/core/injection_container.dart';
-import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_state.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/list_element_view.dart';
@@ -24,30 +21,6 @@ class _ListFoodViewState extends State<ListFoodView> {
     return BlocBuilder<FoodBlock, FoodSearchState>(
       builder: (context, state) {
         int? selectedIndex;
-        //if( state is FoodSearchInitial){
-
-
-          // selectedIndex = null;
-          //
-          // return ListView.builder(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          //   itemCount: _history.length,
-          //   itemBuilder: (context, index) {
-          //     return GestureDetector(
-          //       onTap: () {
-          //         setState(() {
-          //           _selectedIndex = index;
-          //         });
-          //       },
-          //       child: ListElementView(
-          //         product: _history[index],
-          //         isSelected: _selectedIndex == index,
-          //       ),
-          //     );
-          //   },
-          // );
-       // }
-       // else
           if (state is FoodSearchLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is FoodSearchSuccess) {

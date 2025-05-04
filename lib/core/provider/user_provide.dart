@@ -36,6 +36,11 @@ class UserProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  void setLeftCalories(double calories){
+    _user.leftCalories = calories;
+    notifyListeners();
+  }
+
   ///setter for register data
   void setRegisterData({
     required String name,

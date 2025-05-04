@@ -66,7 +66,7 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
                         children: [
                           Text('Лишилося',
                               style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 12)),
-                          Text('500 ккал',
+                          Text('${context.read<UserProvider>().user.leftCalories} ккал',
                               style: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 16)),
                         ],
                       ),
@@ -81,7 +81,9 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
             child: TabBarView(
               controller: _tabController,
               children: const [
-               GridFood(),
+               GridFood(
+                   isDialog: false,
+               ),
                GridSport(),
                WaterTracker(),
               ],

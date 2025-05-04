@@ -23,7 +23,7 @@ class CaloriesChart extends StatelessWidget {
       alignment: Alignment.center,
       child: CustomPaint(
         size: const Size(200, 200),
-        painter: DonutChartPainter(totalCalories, remainingCalories),
+        painter: DonutChartPainter(totalCalories, remainingCalories.toInt()),
       ),
     );
   }
@@ -32,8 +32,8 @@ class CaloriesChart extends StatelessWidget {
     return context.read<UserProvider>().user.calories ?? 0;
   }
 
-  int _getRemainingCalories(BuildContext context) {
-    return context.read<UserProvider>().user.userCalories ?? 0;
+  double _getRemainingCalories(BuildContext context) {
+    return context.read<UserProvider>().user.leftCalories ?? 0;
   }
 
 }
