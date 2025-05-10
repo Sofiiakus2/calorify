@@ -94,6 +94,7 @@ class _NewMealAlertState extends State<NewMealAlert> {
             final Meal newMeal = Meal(
                 meal: MealType.custom,
                 calories: 0,
+                proteins: 0, fats: 0, carbs: 0,
                 iconName: iconName!,
                 isTodayOnly: isTodayOnly,
                 products: [],

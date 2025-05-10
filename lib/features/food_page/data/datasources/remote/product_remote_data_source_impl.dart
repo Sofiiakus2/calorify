@@ -1,10 +1,10 @@
-import 'dart:ffi';
 
 import 'package:calorify/core/entities/my_product.dart';
 import 'package:calorify/core/mappers/product_mapper.dart';
 import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source.dart';
 import 'package:calorify/features/home/data/models/meal_model.dart';
 import 'package:calorify/features/home/data/models/product_for_meal_model.dart';
+import 'package:calorify/features/home/domain/entities/meal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
@@ -50,46 +50,58 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       throw Exception('Продукти з ім\'ям "$name" не знайдено.');
     }
   }
+
   @override
   Future<void> saveProductToDb(MyProduct product, MealModel meal) async {
     final currentUser = auth.currentUser;
     if (currentUser == null) return;
 
-    final dateKey = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final dateKey = DateFormat('yyyy-MM-dd').format(meal.date);
 
     final userDoc = firestore.collection('users').doc(currentUser.uid);
     final dayDoc = userDoc.collection('days').doc(dateKey);
-    final mealPath = 'meals/${MealModel.getMealTypePath(meal.meal)}';
-    final itemsCollection = dayDoc.collection('$mealPath/items');
 
-    // Додаємо продукт
-    final productMap = ProductForMealModel.fromEntity(product).toMap();
-    await itemsCollection.add(productMap);
+    await dayDoc.set({'exists': true}, SetOptions(merge: true));
 
-    // Оновлюємо summary для цього meal
-    final mealSummaryRef = dayDoc.collection('meals').doc(MealModel.getMealTypePath(meal.meal));
-    await mealSummaryRef.set({
-      'calories': FieldValue.increment(product.energyKcal_saved!),
-      'proteins': FieldValue.increment(product.protein_saved!),
-      'fats': FieldValue.increment(product.fat_saved!),
-      'carbohydrates': FieldValue.increment(product.carbohydrates_saved!),
+    final mealTypePath = MealModel.getMealTypePath(meal.meal);
+    final mealDoc = dayDoc.collection('meals').doc(mealTypePath);
+
+    final batch = firestore.batch();
+
+    final itemsCollection = mealDoc.collection('items');
+    final newProductRef = itemsCollection.doc();
+    final productModel = ProductForMealModel.fromEntity(product);
+    batch.set(newProductRef, productModel.toMap());
+
+    batch.set(mealDoc, {
+      'meal': meal.meal.name,
+      'iconName': meal.iconName,
+      'calories': FieldValue.increment(product.energyKcal_saved ?? 0),
+      'proteins': FieldValue.increment(product.protein_saved ?? 0),
+      'fats': FieldValue.increment(product.fat_saved ?? 0),
+      'carbohydrates': FieldValue.increment(product.carbohydrates_saved ?? 0),
+      'isTodayOnly': meal.isTodayOnly,
+      'date': meal.date.toIso8601String(),
     }, SetOptions(merge: true));
 
-    // Оновлюємо загальні totals за день
-    final totalsRef = dayDoc.collection('totals').doc('summary');
-    await totalsRef.set({
-      'calories': FieldValue.increment(product.energyKcal_saved!),
-      'proteins': FieldValue.increment(product.protein_saved!),
-      'fats': FieldValue.increment(product.fat_saved!),
-      'carbohydrates': FieldValue.increment(product.carbohydrates_saved!),
+    final daySummaryRef = dayDoc.collection('totals').doc('summary');
+    batch.set(daySummaryRef, {
+      'calories': FieldValue.increment(product.energyKcal_saved ?? 0),
+      'proteins': FieldValue.increment(product.protein_saved ?? 0),
+      'fats': FieldValue.increment(product.fat_saved ?? 0),
+      'carbohydrates': FieldValue.increment(product.carbohydrates_saved ?? 0),
     }, SetOptions(merge: true));
+
+    await batch.commit();
   }
 
+
+  @override
   Future<List<ProductForMealModel>> getProductsForMeal(String mealType, String dateKey) async {
     final currentUser = auth.currentUser;
     if (currentUser == null) return [];
 
-    final snapshot = await firestore
+    final itemsSnapshot = await firestore
         .collection('users')
         .doc(currentUser.uid)
         .collection('days')
@@ -99,8 +111,11 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         .collection('items')
         .get();
 
-    return snapshot.docs.map((doc) => ProductForMealModel.fromMap(doc.data())).toList();
+    return itemsSnapshot.docs
+        .map((doc) => ProductForMealModel.fromMap(doc.data()))
+        .toList();
   }
+
 
   Map<String, double> _emptySummary() => {
     'calories': 0.0,
@@ -109,12 +124,24 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     'carbohydrates': 0.0,
   };
 
+  MealModel _emptyModel(String meal) => MealModel(
+      date: DateTime.now(),
+      meal: MealType.values.firstWhere((e) => e.name ==meal),
+      calories: 0,
+      iconName: MealModel.getIcon(meal),
+      colorBlock: MealModel.getColor(MealModel.getIcon(meal)),
+      isTodayOnly: false,
+      products: [],
+      proteins: 0,
+      fats: 0,
+      carbs: 0);
 
-  Future<Map<String, double>> getMealSummary(String mealType, String dateKey) async {
+  @override
+  Future<MealModel?> getMealSummary(String mealType, String dateKey) async {
     final currentUser = auth.currentUser;
-    if (currentUser == null) return _emptySummary();
+    if (currentUser == null) return null;
 
-    final doc = await firestore
+    final docSnapshot = await firestore
         .collection('users')
         .doc(currentUser.uid)
         .collection('days')
@@ -123,17 +150,18 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         .doc(mealType)
         .get();
 
-    if (!doc.exists) return _emptySummary();
+    final data = docSnapshot.data();
+    if (data == null || !docSnapshot.exists) {
+      return _emptyModel(mealType);
+    }
 
-    final data = doc.data()!;
-
-    return {
-      'calories': data['calories'] as double,
-      'proteins': data['proteins']as double,
-      'fats': data['fats']  as double,
-      'carbohydrates': data['carbohydrates'] as double,
-    };
+    return MealModel.fromMap({
+      ...data,
+      //todo розширення - переглядати продукти
+      // 'products': products.map((e) => e.toMap()).toList(),
+    });
   }
+
 
   Future<Map<String, double>> getTotalDaySummary(String dateKey) async {
     final currentUser = auth.currentUser;
@@ -148,15 +176,16 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
         .doc('summary')
         .get();
 
+
     if (!doc.exists) return _emptySummary();
 
     final data = doc.data()!;
 
     return {
-      'calories': data['calories'] as double,
-      'proteins': data['proteins']as double,
-      'fats': data['fats']  as double,
-      'carbohydrates': data['carbohydrates'] as double,
+      'calories': (data['calories'] as num).toDouble(),
+      'proteins': (data['proteins']as num).toDouble(),
+      'fats': (data['fats']  as num).toDouble(),
+      'carbohydrates': (data['carbohydrates'] as num).toDouble(),
     };
   }
 

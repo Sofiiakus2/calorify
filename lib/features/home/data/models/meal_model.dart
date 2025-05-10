@@ -18,6 +18,9 @@ class MealModel extends Meal{
     required this.colorBlock,
     required super.isTodayOnly,
     required super.products,
+    required super.proteins,
+    required super.fats,
+    required super.carbs,
 });
 
   ///Converter from Entity to Model
@@ -25,8 +28,11 @@ class MealModel extends Meal{
     return MealModel(
       meal: entity.meal,
       calories: entity.calories,
+      proteins: entity.proteins,
+      fats: entity.fats,
+      carbs: entity.carbs,
       iconName: entity.iconName,
-      colorBlock: _getColor(entity.iconName),
+      colorBlock: getColor(entity.iconName),
       isTodayOnly: entity.isTodayOnly,
       products: entity.products.toList(),
       date: DateTime.now(),
@@ -36,14 +42,21 @@ class MealModel extends Meal{
   factory MealModel.fromMap(Map<String, dynamic> map) {
     return MealModel(
       date: DateTime.parse(map['date'] as String),
-      meal: map['meal'] as MealType,
-      calories: map['calories'] as int ?? 0,
-      iconName: map['iconName'] as String ?? 'avocado',
-      colorBlock: _getColor(map['iconName'] as String),
+      meal: MealType.values.firstWhere((e) => e.name == map['meal']),
+      calories: map['calories'] as double ,
+      proteins: map['proteins'] as double,
+      fats: map['fats'] as double,
+      carbs: map['carbohydrates'] as double,
+      iconName: map['iconName'] as String ,
+      colorBlock: getColor(map['iconName'] as String),
       isTodayOnly: map['isTodayOnly'] as bool,
-      products: (map['products'] as List<dynamic>)
+      products: (map['products'] is List)
+          ? (map['products'] as List<dynamic>)
           .map((e) => ProductForMealModel.fromMap(e as Map<String, dynamic>))
-          .toList(),
+          .toList()
+          : [],
+
+
     );
   }
 
@@ -59,7 +72,7 @@ class MealModel extends Meal{
     };
   }
 
-  static Color _getColor(String icon) {
+  static Color getColor(String icon) {
     switch (icon) {
       case 'pancakes':
         return lightPurple;
@@ -74,18 +87,33 @@ class MealModel extends Meal{
     }
   }
 
+  static String getIcon(String name) {
+    switch (name) {
+      case 'breakfast':
+        return 'pancakes';
+      case 'lunch':
+        return 'salad';
+      case 'dinner':
+        return 'soup';
+      case 'snack':
+        return 'pretzel';
+      default:
+        return 'broccoli';
+    }
+  }
+
   static String getMealTypePath(MealType type) {
     switch (type) {
       case MealType.breakfast:
-        return 'Breakfast';
+        return 'breakfast';
       case MealType.lunch:
-        return 'Lunch';
+        return 'lunch';
       case MealType.dinner:
-        return 'Dinner';
+        return 'dinner';
       case MealType.snack:
-        return 'Snack';
+        return 'snack';
       case MealType.custom:
-        return 'Custom';
+        return 'custom';
     }
   }
 }

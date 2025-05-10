@@ -5,13 +5,13 @@ import 'package:calorify/features/home/domain/repositories/meal_repository.dart'
 ///Meal Repository Implementation
 class MealRepositoryImpl extends MealRepository{
   final List<Meal> _meals = [
-    Meal(meal: MealType.breakfast, calories: 0,
+    Meal(meal: MealType.breakfast, calories: 0, proteins: 0, fats: 0, carbs: 0,
         iconName: 'pancakes', isTodayOnly: false, products: [],),
-    Meal(meal: MealType.lunch, calories: 0,
+    Meal(meal: MealType.lunch, calories: 0, proteins: 0, fats: 0, carbs: 0,
         iconName: 'salad', isTodayOnly: false, products: [],),
-    Meal(meal: MealType.dinner, calories: 0,
+    Meal(meal: MealType.dinner, calories: 0, proteins: 0, fats: 0, carbs: 0,
         iconName: 'soup', isTodayOnly: false, products: [],),
-    Meal(meal: MealType.snack, calories: 0,
+    Meal(meal: MealType.snack, calories: 0, proteins: 0, fats: 0, carbs: 0,
         iconName: 'pretzel', isTodayOnly: false, products: [],),
   ];
 

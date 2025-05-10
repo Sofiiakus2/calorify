@@ -15,9 +15,10 @@ abstract class ProductRemoteDataSource {
 
   Future<List<ProductForMealModel>> getProductsForMeal(String mealType, String dateKey) ;
 
-  Future<Map<String, double>> getMealSummary(String mealType, String dateKey) ;
+  Future<MealModel?> getMealSummary(String mealType, String dateKey) ;
 
   Future<Map<String, double>> getTotalDaySummary(String dateKey) ;
 
 
-  }
+
+}

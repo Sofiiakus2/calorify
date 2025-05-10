@@ -63,7 +63,7 @@ class ProductRepositoryImpl extends ProductRepository{
   }
 
   @override
-  Future<Map<String, double>> getMealSummary(String mealType, String dateKey) {
+  Future<MealModel?> getMealSummary(String mealType, String dateKey) {
     return remoteDataSource.getMealSummary(mealType, dateKey);
   }
 

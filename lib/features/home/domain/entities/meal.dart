@@ -3,7 +3,10 @@ enum MealType { breakfast, lunch, dinner, snack, custom }
 ///Meal Entity
 class Meal{
   MealType meal;
-  int calories;
+  double calories;
+  double proteins;
+  double fats;
+  double carbs;
   String iconName;
   bool isTodayOnly;
   List<ProductForMealModel> products;
@@ -15,11 +18,17 @@ class Meal{
     required this.iconName,
     required this.isTodayOnly,
     required this.products,
+    required this.proteins,
+    required this.fats,
+    required this.carbs,
   });
 
   Meal copyWith({
     MealType? meal,
-    int? calories,
+    double? calories,
+    double? proteins,
+    double? fats,
+    double? carbs,
     String? iconName,
     bool? isTodayOnly,
     List<ProductForMealModel>? products,
@@ -30,6 +39,9 @@ class Meal{
       iconName: iconName ?? this.iconName,
       isTodayOnly: isTodayOnly ?? this.isTodayOnly,
       products: products ?? this.products,
+      proteins: proteins ?? this.proteins,
+      fats: fats ?? this.fats,
+      carbs: carbs ?? this.carbs,
     );
   }
 }

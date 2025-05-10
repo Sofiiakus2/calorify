@@ -6,8 +6,6 @@ import 'package:calorify/features/food_page/domain/usecases/product/recount_left
 import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_db.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_history.dart';
 import 'package:calorify/features/food_page/presentation/bloc/calories/calories_bloc.dart';
-import 'package:calorify/features/food_page/presentation/bloc/calories/calories_state.dart';
-import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/calories_editor.dart';
 import 'package:calorify/features/home/data/models/meal_model.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
@@ -90,7 +88,8 @@ class ListElementView extends StatelessWidget {
 
                       final saveProductToHistory = sl<SaveProductToHistory>();
                       await saveProductToHistory.call(product);
-                      context.read<SelectedMealProvider>().clear();
+
+                     context.read<SelectedMealProvider>().clear();
                     },
                     icon: const Icon(Icons.add, size: 22, color: Colors.black,),),
               ],

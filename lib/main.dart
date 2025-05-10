@@ -14,9 +14,9 @@ import 'package:calorify/features/home/domain/usecases/sport/add_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/delete_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/get_sport.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_state.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/meal_summary_cubit.dart';
 import 'package:calorify/features/home/presentation/bloc/sport/sport_state.dart';
 import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
-import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
 import 'package:calorify/features/splash/presentation/pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +47,7 @@ void main() async{
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => SelectedMealProvider()),
         ChangeNotifierProvider(create: (_) => BottomNavProvider()),
+
       ],
       child: const Calorify(),
     ),
@@ -85,6 +86,10 @@ class Calorify extends StatelessWidget {
         BlocProvider<CaloriesBloc>(
           create: (context) => sl<CaloriesBloc>(),
         ),
+        BlocProvider<MealSummaryCubit>(
+          create: (context) => sl<MealSummaryCubit>(),
+        ),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
