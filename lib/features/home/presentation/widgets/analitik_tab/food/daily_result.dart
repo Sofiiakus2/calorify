@@ -27,9 +27,7 @@ class _DailyResultState extends State<DailyResult> {
     return BlocBuilder<TotalSummaryCubit, TotalSummaryState>(
       bloc: _cubit,
       builder: (context, state){
-        if (state is TotalSummaryLoading) {
-          return CircularProgressIndicator();
-        }else if (state is TotalSummaryLoaded){
+        if (state is TotalSummaryLoaded){
           final total = state.total;
 
           return Container(

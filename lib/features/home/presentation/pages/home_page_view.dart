@@ -1,5 +1,7 @@
 
 import 'package:calorify/core/provider/user_provide.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/total_summary_cubit.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/total_summary_state.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/analitik_tab_bar.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/sport/grid_sport.dart';
@@ -8,6 +10,7 @@ import 'package:calorify/features/home/presentation/widgets/calories_chart/calor
 import 'package:calorify/features/home/presentation/widgets/home_app_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 
 ///Home Page
@@ -21,12 +24,13 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
+  final TotalSummaryCubit _cubit = GetIt.instance<TotalSummaryCubit>();
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _cubit.loadTotal();
     _tabController.addListener(() {
       setState(() {});
     });
@@ -39,40 +43,74 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
         children: [
           const HomeAppBarView(),
           const SizedBox(height: 10,),
-          SizedBox(
-              width: double.infinity,
-              height: 200,
-              child: Stack(
-                children: [
-                  const Center(child: CaloriesChart()),
-                  Positioned(
-                      left: 40,
-                      top: 10,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('План',
-                              style: Theme.of(context).textTheme.labelSmall,),
-                          Text('${context.read<UserProvider>().user.calories} ккал',
-                              style: Theme.of(context).textTheme.labelMedium,),
-                        ],
+          BlocBuilder<TotalSummaryCubit, TotalSummaryState>(
+            bloc: _cubit,
+            builder: (context, state){
+              if (state is TotalSummaryLoading) {
+                return const CircularProgressIndicator();
+              }else if (state is TotalSummaryLoaded){
+                final total = state.total;
+                final plannedCalories = context.read<UserProvider>().user.calories ?? 0;
+                final eatenCalories = total['calories'] ?? 0;
+                final remainingCalories = plannedCalories - eatenCalories;
+                final percentageEaten = plannedCalories > 0 ? (eatenCalories / plannedCalories * 100).toStringAsFixed(0) : '0';
+
+
+                return SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Stack(
+                    children: [
+                      Center(child: CaloriesChart(
+                        totalCalories: plannedCalories,
+                        remainingCalories: remainingCalories.toInt(),
+                      )),
+                      Positioned(
+                        left: 40,
+                        top: 10,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('План',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .labelSmall,),
+                            Text('$plannedCalories ккал',
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .labelMedium,),
+                          ],
+                        ),
                       ),
-                  ),
-                  Positioned(
-                      right: 40,
-                      top: 10,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Лишилося',
-                              style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 12)),
-                          Text('${context.read<UserProvider>().user.leftCalories} ккал',
-                              style: Theme.of(context).textTheme.labelMedium?.copyWith(fontSize: 16)),
-                        ],
+                      Positioned(
+                        right: 40,
+                        top: 10,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Лишилося',
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .labelSmall
+                                    ?.copyWith(fontSize: 12)),
+                            Text('${remainingCalories.toStringAsFixed(0)} ккал',
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .labelMedium
+                                    ?.copyWith(fontSize: 16)),
+                          ],
+                        ),
                       ),
+                    ],
                   ),
-                ],
-              ),
+                );
+    }
+              return Text('data');
+            },
           ),
           const SizedBox(height: 35,),
           AnalitikTabBar(tabController: _tabController),

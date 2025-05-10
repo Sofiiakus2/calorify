@@ -6,14 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///calories chart
 class CaloriesChart extends StatelessWidget {
-
+  final int totalCalories;
+  final int remainingCalories;
   ///
-  const CaloriesChart({super.key});
+  const CaloriesChart({required this.totalCalories, super.key, required this.remainingCalories});
 
   @override
   Widget build(BuildContext context) {
-    final totalCalories = _getUserTotalCalories(context);
-    final remainingCalories = _getRemainingCalories(context);
 
     return Transform(
       transform: Matrix4.identity()
