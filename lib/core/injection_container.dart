@@ -14,11 +14,11 @@ import 'package:calorify/features/food_page/data/datasources/remote/product_remo
 import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source.dart';
 import 'package:calorify/features/food_page/data/repositories/product_repository_impl.dart';
 import 'package:calorify/features/food_page/domain/repositories/product_repository.dart';
-import 'package:calorify/features/food_page/domain/usecases/product/get_meal_summary.dart';
+import 'package:calorify/features/home/domain/usecases/meal/get_meal_summary.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_product_by_barcode.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_by_name.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';
-import 'package:calorify/features/food_page/domain/usecases/product/get_total_day_summary.dart';
+import 'package:calorify/features/home/domain/usecases/meal/get_total_day_summary.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/recount_left_calories.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_db.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/save_product_to_history.dart';
@@ -34,6 +34,7 @@ import 'package:calorify/features/home/domain/usecases/sport/add_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/delete_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/get_sport.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_summary_cubit.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/total_summary_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 /// A service locator instance for managing dependency injection using GetIt.
@@ -87,6 +88,6 @@ Future<void> init() async{
 
   sl.registerFactoryParam<CaloriesBloc, MyProduct, void>((product, _) => CaloriesBloc(product));
   sl.registerFactory(() => MealSummaryCubit(getMealSummary: sl()));
-
+  sl.registerFactory(() => TotalSummaryCubit(getTotalDaySummary: sl()));
 
 }

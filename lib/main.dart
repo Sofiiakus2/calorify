@@ -15,6 +15,7 @@ import 'package:calorify/features/home/domain/usecases/sport/delete_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/get_sport.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_state.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_summary_cubit.dart';
+import 'package:calorify/features/home/presentation/bloc/meal/total_summary_cubit.dart';
 import 'package:calorify/features/home/presentation/bloc/sport/sport_state.dart';
 import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
 import 'package:calorify/features/splash/presentation/pages/splash_screen.dart';
@@ -88,6 +89,9 @@ class Calorify extends StatelessWidget {
         ),
         BlocProvider<MealSummaryCubit>(
           create: (context) => sl<MealSummaryCubit>(),
+        ),
+        BlocProvider<TotalSummaryCubit>(
+          create: (context) => sl<TotalSummaryCubit>(),
         ),
 
       ],

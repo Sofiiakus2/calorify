@@ -30,19 +30,6 @@ class _GridFoodState extends State<GridFood> {
   @override
   void initState() {
     super.initState();
-    // final summaryProvider = context.read<MealSummaryProvider>();
-    // final dateKey = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    //
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   for (var meal in context.read<MealCubit>().state.meals) {
-    //     summaryProvider.loadMealsForToday(meal.meal.name, dateKey);
-    //     BlocProvider.of<MealSummaryCubit>(context)
-    //         .loadMeal(meal.meal.name, DateFormat('yyyy-MM-dd').format(DateTime.now()),);
-    //
-    //   }
-    // });
-
-
 
   }
 
