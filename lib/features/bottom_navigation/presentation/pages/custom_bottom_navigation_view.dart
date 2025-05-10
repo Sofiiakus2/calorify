@@ -34,7 +34,6 @@ class _CustomBottomNavigationViewState
   void didChangeDependencies() {
     super.didChangeDependencies();
     final provider = Provider.of<BottomNavProvider>(context);
-    print(provider.currentIndex);
     if (provider.currentIndex != _selectedIndex) {
       setState(() {
         _selectedIndex = provider.currentIndex;

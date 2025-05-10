@@ -1,13 +1,23 @@
+import 'package:hive/hive.dart';
+
 ///Product Entity
-class MyProduct{
+@HiveType(typeId: 0)
+class MyProduct extends HiveObject{
+  @HiveField(0)
   String name;
+  @HiveField(1)
   String barcode;
   String? brand;
+  @HiveField(2)
   double energyKcal_100g;
   double? energyKj_100g;
+  @HiveField(3)
   double? sugar_100g;
+  @HiveField(4)
   double protein_100g;
+  @HiveField(5)
   double fat_100g;
+  @HiveField(6)
   double carbohydrates_100g;
 
   double? energyKcal_saved;

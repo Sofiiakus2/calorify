@@ -1,4 +1,5 @@
 import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/core/entities/my_product_adapter.dart';
 import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/provider/bottom_nav_provider.dart';
 import 'package:calorify/core/provider/selected_meal_provider.dart';
@@ -39,8 +40,8 @@ void main() async{
   );
   await init();
   await Hive.initFlutter();
-  Hive.registerAdapter(ProductModelAdapter());
-  await Hive.openBox<MyProduct>('historyBox');
+  Hive.registerAdapter(MyProductAdapter());
+  await Hive.openBox<MyProduct>('historyBox1');
   OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'calorify');
   runApp(
     MultiProvider(

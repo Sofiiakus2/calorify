@@ -15,8 +15,7 @@ class MealSummaryCubit extends Cubit<MealSummaryState> {
     emit(MealSummaryLoading());
     try {
       final meal = await getMealSummary(mealType, dateKey);
-      print('================');
-      print(meal);
+
       if (meal != null) {
         emit(MealSummaryLoaded({mealType: meal}));
       } else {

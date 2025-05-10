@@ -37,7 +37,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
       final query = widget.controller.text.trim();
-      print(query);
       if (query.isNotEmpty) {
         context.read<FoodBlock>().add(SearchFood(query));
       }

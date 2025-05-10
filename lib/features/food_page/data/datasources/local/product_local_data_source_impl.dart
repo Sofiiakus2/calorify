@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 ///local data source implementation
 class ProductLocalDataSourceImpl implements ProductLocalDataSource {
-  static const String historyBoxName = 'historyBox';
+  static const String historyBoxName = 'historyBox1';
 
   @override
   Future<void> saveProductToHistory(MyProduct product) async {
@@ -33,6 +33,7 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
   @override
   Future<List<MyProduct>> getProductsFromHistory() async {
     final box = Hive.box<MyProduct>(historyBoxName);
+
     return box.values.toList();
   }
 }
