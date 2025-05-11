@@ -189,7 +189,5 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     };
   }
 
-
-
 }
 

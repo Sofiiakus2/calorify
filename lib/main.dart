@@ -14,6 +14,8 @@ import 'package:calorify/features/home/domain/usecases/meal/get_meals.dart';
 import 'package:calorify/features/home/domain/usecases/sport/add_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/delete_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/get_sport.dart';
+import 'package:calorify/features/home/domain/usecases/water/add_water_to_db.dart';
+import 'package:calorify/features/home/domain/usecases/water/remove_water_from_db.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_state.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_summary_cubit.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/total_summary_cubit.dart';
@@ -80,7 +82,10 @@ class Calorify extends StatelessWidget {
             )..loadSport(),
         ),
         BlocProvider<WaterCubit>(
-            create: (context) => WaterCubit(),
+            create: (context) => WaterCubit(
+              addWaterToDb: sl<AddWaterToDb>(),
+              removeWaterFromDb: sl<RemoveWaterFromDb>(),
+            ),
         ),
         BlocProvider<FoodBlock>(
           create: (context) => sl<FoodBlock>()..add(LoadHistory()),

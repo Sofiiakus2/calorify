@@ -1,5 +1,4 @@
 import 'package:calorify/core/entities/my_user.dart';
-import 'package:calorify/features/home/data/models/daily_meal.dart';
 import 'package:calorify/features/home/data/models/meal_model.dart';
 
 ///user model

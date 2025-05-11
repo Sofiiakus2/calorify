@@ -88,18 +88,37 @@ class DonutChartPainter extends CustomPainter {
     final Rect leftOvalRect = Rect.fromCircle(center: leftCenter,
         radius: radius - thickness / 2);
 
-    borderPaint.color = Colors.black;
 
-    fillPaint.color = lightGreen;
-    canvas.drawArc(leftOvalRect, -pi / 2 + usedAngle, leftAngle, false,
+
+
+    if(planCalories> leftCalories){
+      borderPaint.color = Colors.black;
+      fillPaint.color = green;
+      canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, borderPaint);
+      canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, fillPaint);
+
+      fillPaint.color = lightGreen;
+      canvas.drawArc(leftOvalRect, -pi / 2 + usedAngle, leftAngle, false,
         borderPaint,);
-    canvas.drawArc(leftOvalRect, -pi / 2 + usedAngle, leftAngle, false,
+      canvas.drawArc(leftOvalRect, -pi / 2 + usedAngle, leftAngle, false,
+        fillPaint,);
+    }else{
+      borderPaint.color = Colors.black;
+
+      fillPaint.color = lightGreen;
+      canvas.drawArc(leftOvalRect, -pi / 2 + usedAngle, leftAngle, false,
+        borderPaint,);
+      canvas.drawArc(leftOvalRect, -pi / 2 + usedAngle, leftAngle, false,
         fillPaint,);
 
+      fillPaint.color = green;
+      canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, borderPaint);
+      canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, fillPaint);
 
-    fillPaint.color = green;
-    canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, borderPaint);
-    canvas.drawArc(usedOvalRect, -pi / 2, usedAngle, false, fillPaint);
+    }
+
+
+
 
 
   }

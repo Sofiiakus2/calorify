@@ -14,6 +14,8 @@ import 'package:calorify/features/food_page/data/datasources/remote/product_remo
 import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source.dart';
 import 'package:calorify/features/food_page/data/repositories/product_repository_impl.dart';
 import 'package:calorify/features/food_page/domain/repositories/product_repository.dart';
+import 'package:calorify/features/home/data/repository/water_repository_impl.dart';
+import 'package:calorify/features/home/domain/repositories/water_repository.dart';
 import 'package:calorify/features/home/domain/usecases/meal/get_meal_summary.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_product_by_barcode.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_by_name.dart';
@@ -33,6 +35,9 @@ import 'package:calorify/features/home/domain/usecases/meal/get_meals.dart';
 import 'package:calorify/features/home/domain/usecases/sport/add_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/delete_sport.dart';
 import 'package:calorify/features/home/domain/usecases/sport/get_sport.dart';
+import 'package:calorify/features/home/domain/usecases/water/add_water_to_db.dart';
+import 'package:calorify/features/home/domain/usecases/water/get_water_for_day.dart';
+import 'package:calorify/features/home/domain/usecases/water/remove_water_from_db.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_summary_cubit.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/total_summary_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -47,6 +52,7 @@ Future<void> init() async{
   sl.registerLazySingleton<ProductLocalDataSource>(ProductLocalDataSourceImpl.new);
   sl.registerLazySingleton<ProductRemoteDataSource>(ProductRemoteDataSourceImpl.new);
   sl.registerLazySingleton<AuthRemoteDataSource>(AuthRemoteDataSourceImpl.new);
+  sl.registerLazySingleton<WaterRepository>(WaterRepositoryImpl.new);
 
   sl.registerLazySingleton<UserProvider>(UserProvider.new);
 
@@ -78,6 +84,11 @@ Future<void> init() async{
   sl.registerLazySingleton(() => RegisterUser(sl<UserRepository>()));
   sl.registerLazySingleton(() => EnterUser(sl<UserRepository>()));
   sl.registerLazySingleton(() => GetUserById(sl<UserRepository>()));
+
+  sl.registerLazySingleton(() => AddWaterToDb(sl<WaterRepository>()));
+  sl.registerLazySingleton(() => GetWaterForDay(sl<WaterRepository>()));
+  sl.registerLazySingleton(() => RemoveWaterFromDb(sl<WaterRepository>()));
+
 
   sl.registerFactory(() => FoodBlock(
     getProductsByName: sl(),

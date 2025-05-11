@@ -77,8 +77,4 @@ class ProductRepositoryImpl extends ProductRepository{
     return remoteDataSource.getTotalDaySummary(dateKey);
   }
 
-
-
-
-
 }
