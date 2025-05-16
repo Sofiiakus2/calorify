@@ -2,6 +2,8 @@ import 'package:calorify/core/provider/selected_meal_provider.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_event.dart';
 import 'package:calorify/features/food_page/presentation/pages/barcode_scanning_page.dart';
+import 'package:calorify/features/food_page/presentation/widgets/created/create_new_button.dart';
+import 'package:calorify/features/food_page/presentation/widgets/created/created_list.dart';
 import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
 import 'package:calorify/features/food_page/presentation/widgets/food_tab.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/list_food_view.dart';
@@ -97,7 +99,7 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
               controller: _tabController,
               children: const [
                 ListFoodView(),
-                Text('data'),
+                CreatedList()
               ],
             ),
           ),

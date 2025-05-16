@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 ///tooltip with message about correct desalination kcal
 class TooltipIcon extends StatefulWidget {
+  final String text;
+
+  const TooltipIcon({required this.text});
+
   @override
   _TooltipIconState createState() => _TooltipIconState();
 }
@@ -25,7 +29,7 @@ class _TooltipIconState extends State<TooltipIcon> {
       onTap: _showTooltip,
       child: Tooltip(
         key: _toolTipKey,
-        message: 'Для коректного відслідковування рекомендується використовувати смарт годинник',
+        message: widget.text,
         textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
           fontSize: 12,
         ),

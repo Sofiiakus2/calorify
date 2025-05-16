@@ -12,6 +12,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
 
   @override
   Future<String> enterUser(MyUser user) async{
+
     try{
       final UserCredential userCredential =
           await auth.signInWithEmailAndPassword(

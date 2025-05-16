@@ -12,8 +12,12 @@ import 'package:calorify/features/food_page/data/datasources/local/product_local
 import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source_impl.dart';
 import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source_impl.dart';
 import 'package:calorify/features/food_page/data/datasources/remote/product_remote_data_source.dart';
+import 'package:calorify/features/food_page/data/repositories/created_products_repository_impl.dart';
 import 'package:calorify/features/food_page/data/repositories/product_repository_impl.dart';
+import 'package:calorify/features/food_page/domain/repositories/created_products_repository.dart';
 import 'package:calorify/features/food_page/domain/repositories/product_repository.dart';
+import 'package:calorify/features/food_page/domain/usecases/created_products/register_user_to_food_facts.dart';
+import 'package:calorify/features/food_page/domain/usecases/created_products/save_product_to_food_fact.dart';
 import 'package:calorify/features/home/data/repository/water_repository_impl.dart';
 import 'package:calorify/features/home/domain/repositories/water_repository.dart';
 import 'package:calorify/features/home/domain/usecases/meal/get_meal_summary.dart';
@@ -98,7 +102,11 @@ Future<void> init() async{
   ),);
 
   sl.registerFactoryParam<CaloriesBloc, MyProduct, void>((product, _) => CaloriesBloc(product));
-  sl.registerFactory(() => MealSummaryCubit(getMealSummary: sl()));
-  sl.registerFactory(() => TotalSummaryCubit(getTotalDaySummary: sl()));
+  sl.registerLazySingleton(() => MealSummaryCubit(getMealSummary: sl()));
+  sl.registerLazySingleton(() => TotalSummaryCubit(getTotalDaySummary: sl()));
 
+
+  sl.registerLazySingleton<CreatedProductsRepository>(CreatedProductRepositoryImpl.new);
+  sl.registerLazySingleton(() => RegisterUserToFoodFacts(sl<CreatedProductsRepository>()) );
+  sl.registerLazySingleton(() => SaveProductToFoodFact(sl<CreatedProductsRepository>()));
 }

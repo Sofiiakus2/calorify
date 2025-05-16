@@ -24,20 +24,31 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final TotalSummaryCubit _cubit = GetIt.instance<TotalSummaryCubit>();
+  late final TotalSummaryCubit _cubit;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _cubit = GetIt.instance<TotalSummaryCubit>();
     _cubit.loadTotal();
     _tabController.addListener(() {
       setState(() {});
     });
   }
 
+  double eatenCalories = 0.0;
+  Map<String, dynamic> _emptyTotals  = {
+    'calories': 0.0,
+    'proteins': 0.0,
+    'fats': 0.0,
+    'carbohydrates':0.0,
+  };
+
   @override
   Widget build(BuildContext context) {
+    final plannedCalories = context.read<UserProvider>().user.calories ?? 0;
+
     return Scaffold(
       body: Column(
         children: [
@@ -46,17 +57,11 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
           BlocBuilder<TotalSummaryCubit, TotalSummaryState>(
             bloc: _cubit,
             builder: (context, state){
-              if (state is TotalSummaryLoading) {
-                return const CircularProgressIndicator();
-              }else if (state is TotalSummaryLoaded){
-                final total = state.total;
-                final plannedCalories = context.read<UserProvider>().user.calories ?? 0;
-                final eatenCalories = total['calories'] ?? 0;
-                final remainingCalories = plannedCalories - eatenCalories;
-                final percentageEaten = plannedCalories > 0 ? (eatenCalories / plannedCalories * 100).toStringAsFixed(0) : '0';
+              final totals = state is TotalSummaryLoaded ? state.total : _emptyTotals;
+              final double eatenCalories = totals['calories'] as double ?? 0;
+              final remainingCalories = (plannedCalories - eatenCalories).clamp(0, double.infinity);
 
-
-                return SizedBox(
+              return SizedBox(
                   width: double.infinity,
                   height: 200,
                   child: Stack(
@@ -109,8 +114,6 @@ class _HomePageViewState extends State<HomePageView> with SingleTickerProviderSt
                   ),
                 );
     }
-              return Text('data');
-            },
           ),
           const SizedBox(height: 35,),
           AnalitikTabBar(tabController: _tabController),

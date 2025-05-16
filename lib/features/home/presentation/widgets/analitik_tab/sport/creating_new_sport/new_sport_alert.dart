@@ -77,7 +77,7 @@ class _NewSportAlertState extends State<NewSportAlert> {
                       ),
                     ),
                     const SizedBox(width: 5),
-                    TooltipIcon()
+                    TooltipIcon(text: 'Для коректного відслідковування рекомендується використовувати смарт годинник',)
                   ],
                 ),
                 SizedBox(height: 20,),
