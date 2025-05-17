@@ -38,12 +38,11 @@ class CreateNewButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _handleTap(context),
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(30)),
           color: Colors.grey.shade200,
         ),
-        margin: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
         child: const Padding(
           padding: EdgeInsets.all(16.0),
           child: Row(

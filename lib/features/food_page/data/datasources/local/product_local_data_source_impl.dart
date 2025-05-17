@@ -36,4 +36,11 @@ class ProductLocalDataSourceImpl implements ProductLocalDataSource {
 
     return box.values.toList();
   }
+
+  @override
+  Future<List<MyProduct>> getCreatedProductsFromBoxCreated() async {
+    const boxName = 'created_products';
+    final box = await Hive.openBox<MyProduct>(boxName);
+    return box.values.toList();
+  }
 }

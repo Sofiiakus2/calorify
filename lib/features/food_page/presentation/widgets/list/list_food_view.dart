@@ -1,4 +1,5 @@
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
+import 'package:calorify/features/food_page/presentation/bloc/food/food_event.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_state.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/list_element_view.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class _ListFoodViewState extends State<ListFoodView> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<FoodBlock>().add(LoadHistory(created: false));
+
     return BlocBuilder<FoodBlock, FoodSearchState>(
       builder: (context, state) {
         int? selectedIndex;

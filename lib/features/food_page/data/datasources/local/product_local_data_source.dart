@@ -7,4 +7,6 @@ abstract class ProductLocalDataSource {
 
   ///get product list from hive
   Future<List<MyProduct>> getProductsFromHistory();
+
+  Future<List<MyProduct>> getCreatedProductsFromBoxCreated();
 }

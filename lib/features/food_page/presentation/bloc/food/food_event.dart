@@ -33,4 +33,8 @@ class AddProductFromBarcode extends FoodEvent {
 }
 
 ///Load history
-class LoadHistory extends FoodEvent {}
+class LoadHistory extends FoodEvent {
+  final bool created;
+
+  LoadHistory({this.created = false});
+}

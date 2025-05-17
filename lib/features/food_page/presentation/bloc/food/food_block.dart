@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/features/food_page/domain/usecases/created_products/get_created_products_from_hive.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_product_by_barcode.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_by_name.dart';
 import 'package:calorify/features/food_page/domain/usecases/product/get_products_from_history.dart';
@@ -15,7 +16,9 @@ class FoodBlock extends Bloc<FoodEvent, FoodSearchState> {
   final GetProductByBarcode getProductByBarcode;
   final SaveProductToHistory saveProductToHistory;
   final GetProductsFromHistory getProductsFromHistory;
+  final GetCreatedProductsFromHive getCreatedProductsFromHive;
   List<MyProduct> currentProducts = [];
+  List<MyProduct> currentCreatedProducts = [];
 
   ///Constructor
   FoodBlock({
@@ -23,6 +26,7 @@ class FoodBlock extends Bloc<FoodEvent, FoodSearchState> {
     required this.getProductByBarcode,
     required this.saveProductToHistory,
     required this.getProductsFromHistory,
+    required this.getCreatedProductsFromHive,
   }) : super(FoodSearchInitial()) {
     on<SearchFood>(_onSearchFood);
     on<AddProductFromBarcode>(_onAddProductFromBarcode);
@@ -60,15 +64,32 @@ class FoodBlock extends Bloc<FoodEvent, FoodSearchState> {
       emit(FoodSearchFailure("Failed to add product: ${e.toString()}"));
     }
   }
+  //
+  // Future<void> _onLoadHistory(LoadHistory event, Emitter<FoodSearchState> emit) async {
+  //   emit(FoodSearchLoading());
+  //   try {
+  //     currentProducts = await getProductsFromHistory();
+  //     emit(FoodSearchSuccess(List.from(currentProducts)));
+  //   } catch (e) {
+  //     emit(FoodSearchFailure(e.toString()));
+  //   }
+  // }
 
   Future<void> _onLoadHistory(LoadHistory event, Emitter<FoodSearchState> emit) async {
     emit(FoodSearchLoading());
     try {
-      currentProducts = await getProductsFromHistory();
-      emit(FoodSearchSuccess(List.from(currentProducts)));
+      if (event.created) {
+        currentCreatedProducts = await getCreatedProductsFromHive();
+        emit(FoodSearchSuccess(List.from(currentCreatedProducts)));
+      } else {
+        currentProducts = await getProductsFromHistory();
+        emit(FoodSearchSuccess(List.from(currentProducts)));
+      }
     } catch (e) {
       emit(FoodSearchFailure(e.toString()));
     }
   }
+
+
 
 }

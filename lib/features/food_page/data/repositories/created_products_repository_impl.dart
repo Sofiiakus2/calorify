@@ -1,10 +1,18 @@
+import 'package:calorify/core/entities/my_product.dart';
+import 'package:calorify/features/food_page/data/datasources/local/product_local_data_source.dart';
 import 'package:calorify/features/food_page/domain/entity/own_product.dart';
 import 'package:calorify/features/food_page/domain/repositories/created_products_repository.dart';
+import 'package:hive/hive.dart';
 import 'package:openfoodfacts/openfoodfacts.dart' as open;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class CreatedProductRepositoryImpl implements CreatedProductsRepository {
+  static const String createdProductsBoxName = 'created_products';
+  final ProductLocalDataSource _dataSource;
+
+  CreatedProductRepositoryImpl(this._dataSource);
+
   @override
   Future<void> registerUserToFoodFacts(String password) async {
     open.OpenFoodAPIConfiguration.userAgent = open.UserAgent(
@@ -63,10 +71,20 @@ class CreatedProductRepositoryImpl implements CreatedProductsRepository {
 
     if (status.status == 1) {
       print('✅ Продукт успішно додано: ${status.status}');
+      final box = Hive.box<MyProduct>(createdProductsBoxName);
+      final myProduct = MyProduct.mapOpenFoodProductToMyProduct(productInput);
+      await box.add(myProduct);
+      print('object');
+
     } else {
       print('❌ Помилка при додаванні продукту: ${status.error}');
       throw Exception('OpenFoodFacts повернув помилку: ${status.error}');
     }
+  }
+
+  @override
+  Future<List<MyProduct>> getCreatedProductsFromBoxCreated() {
+    return _dataSource.getCreatedProductsFromBoxCreated();
   }
 
 }

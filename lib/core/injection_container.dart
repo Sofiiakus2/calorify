@@ -16,6 +16,7 @@ import 'package:calorify/features/food_page/data/repositories/created_products_r
 import 'package:calorify/features/food_page/data/repositories/product_repository_impl.dart';
 import 'package:calorify/features/food_page/domain/repositories/created_products_repository.dart';
 import 'package:calorify/features/food_page/domain/repositories/product_repository.dart';
+import 'package:calorify/features/food_page/domain/usecases/created_products/get_created_products_from_hive.dart';
 import 'package:calorify/features/food_page/domain/usecases/created_products/register_user_to_food_facts.dart';
 import 'package:calorify/features/food_page/domain/usecases/created_products/save_product_to_food_fact.dart';
 import 'package:calorify/features/home/data/repository/water_repository_impl.dart';
@@ -83,7 +84,7 @@ Future<void> init() async{
   sl.registerLazySingleton(() => RecountLeftCalories(sl<ProductRepository>()));
   sl.registerLazySingleton(() => GetMealSummary(sl<ProductRepository>()));
   sl.registerLazySingleton(() => GetTotalDaySummary(sl<ProductRepository>()));
-
+  sl.registerLazySingleton(() => GetCreatedProductsFromHive(sl<CreatedProductsRepository>()));
 
   sl.registerLazySingleton(() => RegisterUser(sl<UserRepository>()));
   sl.registerLazySingleton(() => EnterUser(sl<UserRepository>()));
@@ -99,6 +100,7 @@ Future<void> init() async{
     getProductByBarcode: sl(),
     saveProductToHistory: sl(),
     getProductsFromHistory: sl(),
+    getCreatedProductsFromHive: sl(),
   ),);
 
   sl.registerFactoryParam<CaloriesBloc, MyProduct, void>((product, _) => CaloriesBloc(product));
@@ -106,7 +108,9 @@ Future<void> init() async{
   sl.registerLazySingleton(() => TotalSummaryCubit(getTotalDaySummary: sl()));
 
 
-  sl.registerLazySingleton<CreatedProductsRepository>(CreatedProductRepositoryImpl.new);
+  sl.registerLazySingleton<CreatedProductsRepository>(()=>CreatedProductRepositoryImpl(
+    sl<ProductLocalDataSource>(),
+  ),);
   sl.registerLazySingleton(() => RegisterUserToFoodFacts(sl<CreatedProductsRepository>()) );
   sl.registerLazySingleton(() => SaveProductToFoodFact(sl<CreatedProductsRepository>()));
 }

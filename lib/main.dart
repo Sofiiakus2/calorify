@@ -44,6 +44,7 @@ void main() async{
   await Hive.initFlutter();
   Hive.registerAdapter(MyProductAdapter());
   await Hive.openBox<MyProduct>('historyBox1');
+  await Hive.openBox<MyProduct>('created_products');
   OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'calorify');
   runApp(
     MultiProvider(
@@ -88,7 +89,7 @@ class Calorify extends StatelessWidget {
             ),
         ),
         BlocProvider<FoodBlock>(
-          create: (context) => sl<FoodBlock>()..add(LoadHistory()),
+          create: (context) => sl<FoodBlock>(),
         ),
         BlocProvider<CaloriesBloc>(
           create: (context) => sl<CaloriesBloc>(),

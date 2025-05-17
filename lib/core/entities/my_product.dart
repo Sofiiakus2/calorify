@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:openfoodfacts/openfoodfacts.dart' as open;
 
 ///Product Entity
 @HiveType(typeId: 0)
@@ -70,4 +71,26 @@ class MyProduct extends HiveObject{
       carbohydrates_100g: carbohydrates_100g ?? this.carbohydrates_100g,
     );
   }
+
+  static MyProduct mapOpenFoodProductToMyProduct(open.Product product) {
+    final nutriments = product.nutriments;
+
+    double getNutrient(open.Nutrient nutrient) {
+      return nutriments?.getValue(nutrient, open.PerSize.oneHundredGrams) ?? 0.0;
+    }
+
+    return MyProduct(
+      name: product.productName ?? 'Unknown',
+      barcode: product.barcode ?? '',
+      brand: product.brands ?? '',
+      energyKcal_100g: getNutrient(open.Nutrient.energyKCal),
+      energyKj_100g: getNutrient(open.Nutrient.energyKJ),
+      sugar_100g: getNutrient(open.Nutrient.sugars),
+      protein_100g: getNutrient(open.Nutrient.proteins),
+      fat_100g: getNutrient(open.Nutrient.fat),
+      carbohydrates_100g: getNutrient(open.Nutrient.carbohydrates),
+    );
+  }
+
+
 }
