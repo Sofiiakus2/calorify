@@ -6,6 +6,7 @@ import 'package:calorify/features/food_page/presentation/widgets/created/created
 import 'package:calorify/features/food_page/presentation/widgets/custom_text_field.dart';
 import 'package:calorify/features/food_page/presentation/widgets/food_tab.dart';
 import 'package:calorify/features/food_page/presentation/widgets/list/list_food_view.dart';
+import 'package:calorify/features/home/data/models/meal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,8 +35,16 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
     setState(() {});
   }
 
+  void getTitle(){
+    if(context.read<SelectedMealProvider>().selectedMeal != null){
+      final meal = context.read<SelectedMealProvider>().selectedMeal!;
+      title = MealModel.getMealNameUkrainian(meal.meal);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getTitle();
 
     return Scaffold(
       appBar: AppBar(

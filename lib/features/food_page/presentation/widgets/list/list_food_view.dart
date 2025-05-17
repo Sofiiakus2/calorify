@@ -17,6 +17,7 @@ class ListFoodView extends StatefulWidget {
 class _ListFoodViewState extends State<ListFoodView> {
   int? _selectedIndex;
 
+
   @override
   Widget build(BuildContext context) {
     context.read<FoodBlock>().add(LoadHistory(created: false));
@@ -24,10 +25,19 @@ class _ListFoodViewState extends State<ListFoodView> {
     return BlocBuilder<FoodBlock, FoodSearchState>(
       builder: (context, state) {
         int? selectedIndex;
+        print(state);
           if (state is FoodSearchLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is FoodSearchSuccess) {
           selectedIndex = state.selectedIndex ?? _selectedIndex;
+
+          if(state.products.isEmpty) {
+            return const Center(
+              child: Text('У вас ще немає історії продуктів.\nВведіть назву для пошуку',
+                textAlign: TextAlign.center,
+              ),
+            );
+          }
 
           return ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -48,7 +58,7 @@ class _ListFoodViewState extends State<ListFoodView> {
           );
         }
 
-        return const Center(child: Text('Введіть назву продукту для пошуку'));
+            return const Center(child: Text('Введіть назву продукту для пошуку'));
       },
     );
   }

@@ -88,7 +88,7 @@ class _MealCardState extends State<MealCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        widget.mealModel.meal.name.toString(),
+                        MealModel.getMealNameUkrainian(widget.mealModel.meal),
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       IconButton(

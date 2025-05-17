@@ -116,4 +116,22 @@ class MealModel extends Meal{
         return 'custom';
     }
   }
+
+  static String getMealNameUkrainian(MealType mealType) {
+    switch (mealType) {
+      case MealType.breakfast:
+        return 'Сніданок';
+      case MealType.lunch:
+        return 'Обід';
+      case MealType.dinner:
+        return 'Вечеря';
+      case MealType.snack:
+        return 'Перекус';
+      case MealType.custom:
+        return 'Інше';
+      default:
+        return 'Невідомо';
+    }
+  }
+
 }

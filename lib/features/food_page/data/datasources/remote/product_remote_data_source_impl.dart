@@ -35,19 +35,30 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   Future<List<MyProduct>> getProductsByName(String name) async {
-    final result = await OpenFoodAPIClient.searchProducts(
-      null,
-      ProductSearchQueryConfiguration(
-        parametersList: [SearchTerms(terms: [name])],
-        language: OpenFoodFactsLanguage.ENGLISH,
-        fields: [ProductField.ALL],
-        version: ProductQueryVersion.v3,
-      ),
-    );
-    if (result.products != null && result.products!.isNotEmpty) {
-      return result.products!.map(ProductMapper.fromApiProduct).toList();
-    } else {
-      throw Exception('Продукти з ім\'ям "$name" не знайдено.');
+    try{
+      final result = await OpenFoodAPIClient.searchProducts(
+        null,
+        ProductSearchQueryConfiguration(
+          parametersList: [
+            SearchTerms(terms: [name]),
+            PageNumber(page: 1),
+            PageSize(size: 5),
+          ],
+          language: OpenFoodFactsLanguage.UKRAINIAN,
+          fields: [
+            ProductField.NAME,
+            ProductField.NUTRIMENTS,
+          ],
+          version: ProductQueryVersion.v3,
+        ),
+      );
+      if (result.products != null && result.products!.isNotEmpty) {
+        return result.products!.map(ProductMapper.fromApiProduct).toList();
+      } else {
+        throw Exception('Продукти з ім\'ям "$name" не знайдено.');
+      }
+    }catch(e){
+      throw Exception(e);
     }
   }
 

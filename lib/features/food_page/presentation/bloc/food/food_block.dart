@@ -92,4 +92,5 @@ class FoodBlock extends Bloc<FoodEvent, FoodSearchState> {
 
 
 
+
 }

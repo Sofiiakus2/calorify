@@ -38,3 +38,11 @@ class LoadHistory extends FoodEvent {
 
   LoadHistory({this.created = false});
 }
+
+class LoadProductsWithPagination extends FoodEvent {
+  final String name;
+  final int page;
+  final int pageSize;
+
+  LoadProductsWithPagination({required this.name, required this.page, this.pageSize = 20});
+}
