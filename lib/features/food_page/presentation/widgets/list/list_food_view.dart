@@ -52,6 +52,7 @@ class _ListFoodViewState extends State<ListFoodView> {
                 child: ListElementView(
                   product: state.products[index],
                   isSelected: selectedIndex == index,
+                  isHistory: true,
                 ),
               );
             },

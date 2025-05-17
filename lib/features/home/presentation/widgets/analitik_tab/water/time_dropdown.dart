@@ -1,4 +1,6 @@
+import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/theme.dart';
+import 'package:calorify/features/home/domain/usecases/water/shcedule_notifications.dart';
 import 'package:flutter/material.dart';
 
 ///Time selector dropdown
@@ -35,6 +37,9 @@ class _TimeDropdownState extends State<TimeDropdown> {
             );
           }).toList(),
           onChanged: (int? newValue) {
+            final scheduler = sl<ScheduleNotifications>();
+            scheduler.call(1);
+
             setState(() {
               selectedInterval = newValue!;
             });

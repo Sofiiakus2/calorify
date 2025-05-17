@@ -1,6 +1,7 @@
 
 import 'package:calorify/core/entities/my_product.dart';
 import 'package:calorify/core/provider/user_provide.dart';
+import 'package:calorify/core/service/noti_service.dart';
 import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source_impl.dart';
 import 'package:calorify/features/auth/data/repositories/user_repository_impl.dart';
@@ -43,6 +44,7 @@ import 'package:calorify/features/home/domain/usecases/sport/get_sport.dart';
 import 'package:calorify/features/home/domain/usecases/water/add_water_to_db.dart';
 import 'package:calorify/features/home/domain/usecases/water/get_water_for_day.dart';
 import 'package:calorify/features/home/domain/usecases/water/remove_water_from_db.dart';
+import 'package:calorify/features/home/domain/usecases/water/shcedule_notifications.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/meal_summary_cubit.dart';
 import 'package:calorify/features/home/presentation/bloc/meal/total_summary_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -113,4 +115,9 @@ Future<void> init() async{
   ),);
   sl.registerLazySingleton(() => RegisterUserToFoodFacts(sl<CreatedProductsRepository>()) );
   sl.registerLazySingleton(() => SaveProductToFoodFact(sl<CreatedProductsRepository>()));
+
+  sl.registerLazySingleton<NotiService>(() => NotiService());
+  sl.registerLazySingleton<ScheduleNotifications>(
+        () => ScheduleNotifications(sl<NotiService>()),
+  );
 }

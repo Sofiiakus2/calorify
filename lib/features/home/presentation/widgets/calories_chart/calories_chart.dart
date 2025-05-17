@@ -27,13 +27,5 @@ class CaloriesChart extends StatelessWidget {
     );
   }
 
-  int _getUserTotalCalories(BuildContext context) {
-    return context.read<UserProvider>().user.calories ?? 0;
-  }
-
-  double _getRemainingCalories(BuildContext context) {
-    return context.read<UserProvider>().user.leftCalories ?? 0;
-  }
-
 }
 

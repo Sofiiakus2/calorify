@@ -45,6 +45,7 @@ class _CreatedListState extends State<CreatedList> {
                   child: ListElementView(
                     product: state.products[index],
                     isSelected: selectedIndex == index,
+                    isHistory: false,
                   ),
                 );
                 //   }

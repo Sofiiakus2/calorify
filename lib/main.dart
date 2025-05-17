@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:calorify/core/entities/my_product.dart';
 import 'package:calorify/core/entities/my_product_adapter.dart';
 import 'package:calorify/core/injection_container.dart';
@@ -40,6 +41,24 @@ void main() async{
           projectId: 'calorify-83bd7',
       ),
   );
+  await AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Основні сповіщення',
+        channelDescription: 'Канал для основних сповіщень',
+        defaultColor: primaryColor,
+        ledColor: Colors.white,
+      ),
+    ],
+    debug: true,
+  );
+  AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    if (!isAllowed) {
+      AwesomeNotifications().requestPermissionToSendNotifications();
+    }
+  });
   await init();
   await Hive.initFlutter();
   Hive.registerAdapter(MyProductAdapter());

@@ -16,12 +16,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ListElementView extends StatelessWidget {
   final MyProduct product;
   final bool isSelected;
+  final bool? isHistory;
 
   ///constructor
   const ListElementView({
     required this.product,
     super.key,
-    this.isSelected = false,});
+    this.isSelected = false,
+    this.isHistory = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +89,12 @@ class ListElementView extends StatelessWidget {
                       final recountLeftCalories = sl<RecountLeftCalories>();
                       await recountLeftCalories.call(product);
 
-                      final saveProductToHistory = sl<SaveProductToHistory>();
-                      await saveProductToHistory.call(product);
+                     if(isHistory == true){
+                        final saveProductToHistory = sl<SaveProductToHistory>();
+                        await saveProductToHistory.call(product);
+                      }
 
-                     context.read<SelectedMealProvider>().clear();
+                      context.read<SelectedMealProvider>().clear();
                     },
                     icon: const Icon(Icons.add, size: 22, color: Colors.black,),),
               ],
