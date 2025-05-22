@@ -1,4 +1,5 @@
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/time_dropdown.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/water/water_view.dart';
@@ -46,7 +47,10 @@ class _WaterTrackerState extends State<WaterTracker> {
             child: Row(
               children: [
                 CustomToggle(
-                  onActiveChange: (value){
+                  onActiveChange: (value) async{
+                    if(value == false){
+                      await AwesomeNotifications().cancelAll();
+                    }
                     setState(() {
                       isRemindToDrink = value;
                     });

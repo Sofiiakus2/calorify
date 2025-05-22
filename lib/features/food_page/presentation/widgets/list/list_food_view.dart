@@ -17,15 +17,19 @@ class ListFoodView extends StatefulWidget {
 class _ListFoodViewState extends State<ListFoodView> {
   int? _selectedIndex;
 
+  @override
+  void initState() {
+    super.initState();
+    context.read<FoodBlock>().add(LoadHistory(created: false));
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    context.read<FoodBlock>().add(LoadHistory(created: false));
 
     return BlocBuilder<FoodBlock, FoodSearchState>(
       builder: (context, state) {
         int? selectedIndex;
-        print(state);
           if (state is FoodSearchLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is FoodSearchSuccess) {

@@ -1,4 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:calorify/features/noti_page/domain/entities/notification_model.dart';
+import 'package:hive/hive.dart';
 
 class NotiService{
   Future<void> scheduleNotification(int minutesDuration) async {
@@ -22,4 +24,20 @@ class NotiService{
     );
   }
 
+  Future<void> cancelAllScheduledNotifications() async {
+    await AwesomeNotifications().cancelAllSchedules();
+  }
+
+  Future<void> catchNoti(ReceivedNotification receivedNotification) async{
+    final box = Hive.box<MyNotificationModel>('notificationsBox');
+
+    final newNotification = MyNotificationModel(
+      title: receivedNotification.title ?? 'Без заголовку',
+      body: receivedNotification.body ?? 'Без тексту',
+      receivedAt: DateTime.now(),
+    );
+
+    await box.add(newNotification);
+print('object');
+  }
 }

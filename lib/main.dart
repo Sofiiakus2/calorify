@@ -5,6 +5,7 @@ import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/provider/bottom_nav_provider.dart';
 import 'package:calorify/core/provider/selected_meal_provider.dart';
 import 'package:calorify/core/provider/user_provide.dart';
+import 'package:calorify/core/service/noti_service.dart';
 import 'package:calorify/core/theme.dart';
 import 'package:calorify/features/food_page/data/model/product_model_adapter.dart';
 import 'package:calorify/features/food_page/presentation/bloc/calories/calories_bloc.dart';
@@ -22,6 +23,7 @@ import 'package:calorify/features/home/presentation/bloc/meal/meal_summary_cubit
 import 'package:calorify/features/home/presentation/bloc/meal/total_summary_cubit.dart';
 import 'package:calorify/features/home/presentation/bloc/sport/sport_state.dart';
 import 'package:calorify/features/home/presentation/bloc/water/water_state.dart';
+import 'package:calorify/features/noti_page/domain/entities/notification_model.dart';
 import 'package:calorify/features/splash/presentation/pages/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +48,9 @@ void main() async{
     [
       NotificationChannel(
         channelKey: 'basic_channel',
-        channelName: 'Основні сповіщення',
-        channelDescription: 'Канал для основних сповіщень',
-        defaultColor: primaryColor,
+        channelName: 'Basic Notifications',
+        channelDescription: 'Description',
+        defaultColor: Colors.teal,
         ledColor: Colors.white,
       ),
     ],
@@ -64,6 +66,17 @@ void main() async{
   Hive.registerAdapter(MyProductAdapter());
   await Hive.openBox<MyProduct>('historyBox1');
   await Hive.openBox<MyProduct>('created_products');
+  Hive.registerAdapter(MyNotificationModelAdapter());
+  await Hive.openBox<MyNotificationModel>('notificationsBox');
+  await AwesomeNotifications().setListeners(
+    onNotificationDisplayedMethod: (ReceivedNotification notification) async {
+      await NotiService().catchNoti(notification);
+    },
+    onActionReceivedMethod: onActionReceivedMethod,
+  );
+
+
+
   OpenFoodAPIConfiguration.userAgent = UserAgent(name: 'calorify');
   runApp(
     MultiProvider(
@@ -77,6 +90,11 @@ void main() async{
     ),
 
   );
+}
+
+@pragma("vm:entry-point")
+Future<void> onActionReceivedMethod(ReceivedAction receivedAction) async {
+  print("User tapped on notification: ${receivedAction.payload}");
 }
 
 ///start point of the app

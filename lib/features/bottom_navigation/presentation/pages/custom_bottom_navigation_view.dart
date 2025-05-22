@@ -1,5 +1,6 @@
 import 'package:calorify/core/provider/bottom_nav_provider.dart';
 import 'package:calorify/features/food_page/presentation/pages/food_page.dart';
+import 'package:calorify/features/noti_page/presentation/pages/notification_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:calorify/features/home/presentation/pages/home_page_view.dart';
@@ -18,9 +19,9 @@ class _CustomBottomNavigationViewState
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    HomePageView(),
-    FoodPage(),
-    NotificationsPage(),
+    const HomePageView(),
+    const FoodPage(),
+    const NotificationsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -103,10 +104,3 @@ class _CustomBottomNavigationViewState
   }
 }
 
-
-class NotificationsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Notifications Page'));
-  }
-}

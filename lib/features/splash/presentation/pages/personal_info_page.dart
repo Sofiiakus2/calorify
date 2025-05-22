@@ -59,49 +59,48 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
-          child: SingleChildScrollView(
-            child: Column(
-              spacing: 15,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text('Ваші дані', style: Theme
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 15,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(height: 30,),
+              Text('Ваші дані', style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleLarge),
+              InputField(label: "Вік", controller: ageController),
+              DropdownField(
+                label: "Стать",
+                items: const ["Жінка", "Чоловік"],
+                selectedValue: selectedGender,
+                onChanged: (value) => setState(() => selectedGender = value),
+              ),
+              InputField(label: "Вага/кг", controller: weightController),
+              InputField(label: "Зріст/см", controller: heightController),
+              DropdownField(
+                label: "Активність",
+                items: const ["Сидячий", "Малоактивний", "Активний", "Дуже активний"],
+                selectedValue: selectedActivity,
+                onChanged: (value) => setState(() => selectedActivity = value),
+              ),
+              SizedBox(height: 20,),
+              Text(
+                'Ми використовуємо цю інформацію для підрахунку ваших денних рекомендацій',
+                style: Theme
                     .of(context)
                     .textTheme
-                    .titleLarge),
-                InputField(label: "Вік", controller: ageController),
-                DropdownField(
-                  label: "Стать",
-                  items: const ["Жінка", "Чоловік"],
-                  selectedValue: selectedGender,
-                  onChanged: (value) => setState(() => selectedGender = value),
-                ),
-                InputField(label: "Вага/кг", controller: weightController),
-                InputField(label: "Зріст/см", controller: heightController),
-                DropdownField(
-                  label: "Активність",
-                  items: const ["Сидячий", "Малоактивний", "Активний", "Дуже активний"],
-                  selectedValue: selectedActivity,
-                  onChanged: (value) => setState(() => selectedActivity = value),
-                ),
-                SizedBox(height: 20,),
-                Text(
-                  'Ми використовуємо цю інформацію для підрахунку ваших денних рекомендацій',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(color: Colors.grey.shade300),
-                  textAlign: TextAlign.center,
-                ),
-                CustomElevatedButton(
-                    text: 'Підрахувати',
-                    onPressed: _validateAndSubmit,
-                ),
-              ],
-            ),
+                    .titleSmall
+                    ?.copyWith(color: Colors.grey.shade300),
+                textAlign: TextAlign.center,
+              ),
+              CustomElevatedButton(
+                text: 'Підрахувати',
+                onPressed: _validateAndSubmit,
+              ),
+            ],
           ),
         ),
       ),

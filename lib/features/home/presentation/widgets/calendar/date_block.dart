@@ -36,7 +36,7 @@ class DateBlock extends StatelessWidget {
               style: Theme.of(context).textTheme.titleSmall,
             ),
             Text(
-              'КВІ',
+              'ТРА',
               style: Theme.of(context).textTheme.titleSmall,
             ),
           ],

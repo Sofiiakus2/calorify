@@ -1,0 +1,2 @@
+C:/Users/SK/Projects/calorify/android/app/.cxx/RelWithDebInfo/2o6l1w1g/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/SK/Projects/calorify/android/app/.cxx/RelWithDebInfo/2o6l1w1g/armeabi-v7a/CMakeFiles/rebuild_cache.dir
