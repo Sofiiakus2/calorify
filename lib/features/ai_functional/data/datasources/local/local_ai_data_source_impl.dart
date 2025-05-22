@@ -8,12 +8,14 @@ class LocalAiDataSourceImpl implements LocalAiDataSource {
   @override
   Future<XFile?> pickImage() async {
     final picker = ImagePicker();
+
     return await picker.pickImage(source: ImageSource.gallery);
   }
 
   @override
   Future<String?> convertToBase64(XFile file) async {
     final bytes = await file.readAsBytes();
+
     return base64Encode(bytes);
   }
 

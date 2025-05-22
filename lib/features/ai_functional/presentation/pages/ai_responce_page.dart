@@ -13,6 +13,7 @@ import 'package:calorify/features/food_page/domain/usecases/product/save_product
 import 'package:calorify/features/home/data/models/meal_model.dart';
 import 'package:calorify/features/home/presentation/widgets/analitik_tab/food/grid_food.dart';
 import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';
+import 'package:calorify/shared/presentation/widgets/loading/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -126,6 +127,10 @@ class _AiResponcePageState extends State<AiResponcePage> {
                   fit: BoxFit.cover,
                 ),
               ),
+            ),
+          if(pickedImage != null && products.isEmpty)
+            Center(
+              child: LoadingWidget(),
             ),
           const SizedBox(height: 10),
           Expanded(

@@ -4,6 +4,7 @@ import 'package:calorify/features/auth/domain/usecases/enter_user.dart';
 import 'package:calorify/features/auth/presentation/pages/register.dart';
 import 'package:calorify/features/bottom_navigation/presentation/pages/custom_bottom_navigation_view.dart';
 import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';
+import 'package:calorify/shared/presentation/widgets/loading/loading_widget.dart';
 import 'package:calorify/shared/presentation/widgets/shared_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,29 +50,53 @@ class _EnterState extends State<Enter> {
                   controller: _passwordController,
                   icon: const Icon(Icons.password),
                   isError: false,
+                  isPassword: true,
                 ),
                 const SizedBox(height: 30,),
                 CustomElevatedButton(
                     text: 'Увійти',
-                    onPressed: () async{
+                    onPressed: () async {
+                      if (_formKey.currentState?.validate() != true) return;
+
                       context.read<UserProvider>().setEnterData(
                         email: _emailController.text,
                         password: _passwordController.text,
                       );
                       final user = context.read<UserProvider>().user;
 
-                      final enterUser = sl<EnterUser>();
-                      final String id = await enterUser.call(user);
-
-                      await context.read<UserProvider>().loadUser(id);
-
-                      await Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CustomBottomNavigationView() ,
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (_) => Center(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: LoadingWidget(),
+                          ),
                         ),
                       );
-                    }),
+
+                      try {
+                        final enterUser = sl<EnterUser>();
+                        final String id = await enterUser.call(user);
+
+                        await context.read<UserProvider>().loadUser(id);
+
+                        Navigator.pop(context);
+
+                        await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CustomBottomNavigationView(),
+                          ),
+                        );
+                      } catch (e) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Помилка входу: $e')),
+                        );
+                      }
+                    }
+                ),
                 const SizedBox(height: 10,),
                 TextButton(
                   child: Text(  'Ще немає акаунту? Зареєструватись',

@@ -4,6 +4,7 @@ import 'package:calorify/core/validators/input_validators.dart';
 import 'package:calorify/features/auth/domain/usecases/register_user.dart';
 import 'package:calorify/features/auth/presentation/pages/enter.dart';
 import 'package:calorify/shared/presentation/widgets/custom_elevated_button.dart';
+import 'package:calorify/shared/presentation/widgets/loading/loading_widget.dart';
 import 'package:calorify/shared/presentation/widgets/shared_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,34 +59,62 @@ class _RegisterState extends State<Register> {
                 controller: _passwordController,
                 icon: const Icon(Icons.password),
                 isError: false,
+                isPassword: true,
                 validator: InputValidators.validatePassword,
               ),
               const SizedBox(height: 30,),
               CustomElevatedButton(
                   text: 'Далі',
-                  onPressed: () async{
+                  onPressed: () async {
                     final currentState = _formKey.currentState;
-                    if (currentState == null ||
-                        !currentState.validate()) {
+                    if (currentState == null || !currentState.validate()) {
                       return;
                     }
 
+                    // Зберігаємо дані
                     context.read<UserProvider>().setRegisterData(
                       name: _nameController.text,
                       email: _emailController.text,
                       password: _passwordController.text,
                     );
                     final user = context.read<UserProvider>().user;
-
                     final registerUser = sl<RegisterUser>();
-                    await registerUser.call(user);
 
-                    await Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Enter() ,
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) => Center(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: LoadingWidget(),
                         ),
+                      ),
                     );
+
+                    try {
+                      await registerUser.call(user);
+                      if (!mounted) return;
+
+                      Navigator.pop(context);
+
+                      await Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const Enter()),
+                      );
+                    } catch (e) {
+                      Navigator.pop(context);
+
+                      await showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (_) => Center(
+                          child: Material(
+                            color: Colors.transparent,
+                            child: LoadingWidget(),
+                          ),
+                        ),
+                      );
+                    }
                   },),
               TextButton(
                 child: Text( 'Вже є акаунт? Увійти',
