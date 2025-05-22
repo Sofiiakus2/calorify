@@ -1,4 +1,8 @@
+
+import 'package:calorify/core/injection_container.dart';
 import 'package:calorify/core/provider/selected_meal_provider.dart';
+import 'package:calorify/features/ai_functional/domain/usecases/get_ai_responce.dart';
+import 'package:calorify/features/ai_functional/presentation/pages/ai_responce_page.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_block.dart';
 import 'package:calorify/features/food_page/presentation/bloc/food/food_event.dart';
 import 'package:calorify/features/food_page/presentation/pages/barcode_scanning_page.dart';
@@ -53,6 +57,21 @@ class _FoodPageState extends State<FoodPage> with SingleTickerProviderStateMixin
           style: Theme.of(context).textTheme.labelMedium,
         ),
         centerTitle: true,
+      ),
+      floatingActionButton: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: IconButton(
+          icon: const Icon(
+            Icons.photo_camera_back_outlined,
+            color: Colors.white,
+          ),
+          onPressed: () async {
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>AiResponcePage()));
+          },
+        ),
       ),
       body: Column(
         children: [

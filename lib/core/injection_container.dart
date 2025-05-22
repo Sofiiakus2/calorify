@@ -2,6 +2,14 @@
 import 'package:calorify/core/entities/my_product.dart';
 import 'package:calorify/core/provider/user_provide.dart';
 import 'package:calorify/core/service/noti_service.dart';
+import 'package:calorify/features/ai_functional/data/datasources/local/local_ai_data_source.dart';
+import 'package:calorify/features/ai_functional/data/datasources/local/local_ai_data_source_impl.dart';
+import 'package:calorify/features/ai_functional/data/datasources/remote/remote_ai_data_source.dart';
+import 'package:calorify/features/ai_functional/data/datasources/remote/remote_ai_data_source_impl.dart';
+import 'package:calorify/features/ai_functional/data/repositories/ai_repository_impl.dart';
+import 'package:calorify/features/ai_functional/domain/repositories/ai_repository.dart';
+import 'package:calorify/features/ai_functional/domain/usecases/get_ai_responce.dart';
+import 'package:calorify/features/ai_functional/domain/usecases/pick_image.dart';
 import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:calorify/features/auth/data/datasources/remote/auth_remote_data_source_impl.dart';
 import 'package:calorify/features/auth/data/repositories/user_repository_impl.dart';
@@ -120,4 +128,12 @@ Future<void> init() async{
   sl.registerLazySingleton<ScheduleNotifications>(
         () => ScheduleNotifications(sl<NotiService>()),
   );
+
+  sl.registerLazySingleton<AiRepository>(() => AiRepositoryImpl(
+    sl<LocalAiDataSource>(), sl<RemoteAiDataSource>()
+  ));
+  sl.registerLazySingleton<LocalAiDataSource>(LocalAiDataSourceImpl.new);
+  sl.registerLazySingleton<RemoteAiDataSource>(RemoteAiDataSourceImpl.new);
+  sl.registerLazySingleton(() => GetAiResponce(sl<AiRepository>()));
+  sl.registerLazySingleton(() => PickImageUseCase(sl<AiRepository>()));
 }

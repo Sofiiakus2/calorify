@@ -32,6 +32,8 @@ dependencies:
   intl: ^0.20.2
   shared_preferences: ^2.5.3
   awesome_notifications: ^0.10.1
+  image_picker: ^1.1.2
+  http: ^1.4.0
 
 dev_dependencies:
   hive_generator: ^2.0.1

@@ -1,3 +1,4 @@
+import 'package:calorify/features/ai_functional/domain/entities/analyzed_meal.dart';
 import 'package:hive/hive.dart';
 import 'package:openfoodfacts/openfoodfacts.dart' as open;
 
@@ -27,6 +28,7 @@ class MyProduct extends HiveObject{
   double? protein_saved;
   double? fat_saved;
   double? carbohydrates_saved;
+  String? weight;
 
   ///Constructor
   MyProduct({
@@ -45,9 +47,11 @@ class MyProduct extends HiveObject{
     this.protein_saved,
     this.fat_saved,
     this.carbohydrates_saved,
+    this.weight,
   });
 
   ///Copy with method
+  // ignore: number_of_parameters
   MyProduct copyWith({
     String? name,
     String? barcode,
@@ -58,6 +62,7 @@ class MyProduct extends HiveObject{
     double? protein_100g,
     double? fat_100g,
     double? carbohydrates_100g,
+    String? weight,
   }) {
     return MyProduct(
       name: name ?? this.name,
@@ -69,8 +74,26 @@ class MyProduct extends HiveObject{
       protein_100g: protein_100g ?? this.protein_100g,
       fat_100g: fat_100g ?? this.fat_100g,
       carbohydrates_100g: carbohydrates_100g ?? this.carbohydrates_100g,
+      weight: weight ?? this.weight,
     );
   }
+
+  static MyProduct fromTotals(Totals totals) {
+    return MyProduct(
+      name: 'own',
+      barcode: '',
+      energyKcal_100g: totals.totalCalories,
+      protein_100g: totals.totalProteins,
+      fat_100g: totals.totalFats,
+      carbohydrates_100g: totals.totalCarbohydrates,
+      energyKcal_saved: totals.totalCalories,
+      protein_saved: totals.totalProteins,
+      fat_saved: totals.totalFats,
+      carbohydrates_saved: totals.totalCarbohydrates,
+      sugar_100g: 0.0,
+    );
+  }
+
 
   static MyProduct mapOpenFoodProductToMyProduct(open.Product product) {
     final nutriments = product.nutriments;
